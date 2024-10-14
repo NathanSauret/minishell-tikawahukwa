@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/04 15:22:40 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/10/14 22:11:03 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	set_values(int argc, char *argv[], char *envp[], t_all *all)
 	// 	pipe_free(all);
 }
 
-int	main(int argc, char *argv[], char *envp[])
+int	pipex_main(int argc, char *argv[], char *envp[])
 {
 	t_all	all;
 

@@ -1,56 +1,49 @@
-NAME 	= pipex
-INCLUDE	= include
+NAME 	= minishell
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra -g3 -I $(INCLUDE)
+CFLAGS	= -Wall -Werror -Wextra -g3
+LIBFT_DIR = libft
+LIBFT = -L $(LIBFT_DIR) -lft
 
-SRC =	Src/Utils/ft_get_next_line/ft_get_next_line.c	\
-		Src/Utils/ft_get_next_line/ft_get_next_line_utils.c	\
-		Src/Utils/ft_printf/ft_printf.c	\
-		Src/Utils/ft_printf/ft_print_char.c	\
-		Src/Utils/ft_printf/ft_print_str.c	\
-		Src/Utils/ft_printf/ft_print_pointer.c	\
-		Src/Utils/ft_printf/ft_print_int.c	\
-		Src/Utils/ft_printf/ft_print_unsigned.c	\
-		Src/Utils/ft_printf/ft_print_hex.c	\
-		Src/Utils/ft_freetabstr.c	\
-		Src/Utils/ft_itoa.c	\
-		Src/Utils/ft_split.c	\
-		Src/Utils/ft_strjoin.c	\
-		Src/Utils/ft_strncmp.c	\
-		Src/Utils/ft_uitoa.c	\
-		Src/check_args.c	\
-		Src/exit_error.c	\
-		Src/free.c	\
-		Src/get_files.c	\
-		Src/get_path.c	\
-		Src/here_doc.c	\
-		Src/main.c	\
-		Src/pipes_utils.c	\
-		Src/pipex.c
+SRC =	Src/Pipex/check_args.c	\
+		Src/Pipex/exit_error.c	\
+		Src/Pipex/free.c	\
+		Src/Pipex/get_files.c	\
+		Src/Pipex/get_path.c	\
+		Src/Pipex/here_doc.c	\
+		Src/Pipex/ft_freetabstr.c \
+		Src/Pipex/main.c	\
+		Src/Pipex/pipes_utils.c	\
+		Src/Pipex/pipex.c	\
+		Src/Main/main.c	\
+		Src/Initialization/init.c	\
+		Src/Terminate/free.c
+
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
+
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(SRC) -o $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR)
+	@$(CC) -o $(NAME) $(CFLAGS) $(OBJ) $(LIBFT) -lreadline
 	@clear
 	@echo "Compilation done!"
 
 clean:
+	@$(MAKE) clean -C $(LIBFT_DIR)
 	@rm -f $(OBJ)
 	@clear
-	@echo "cleaning done!"
+	@echo "Cleaning done!"
 
 fclean:
+	@$(MAKE) fclean -C $(LIBFT_DIR)
 	@rm -f $(OBJ)
 	@rm -f $(NAME)
-	@rm -rf .vscode
+	@rm -rf
 	@clear
-	@echo "full cleaning done!"
+	@echo "Full cleaning done!"
 
-re:
-	make fclean
-	make all
+re: fclean all
 	@clear
 	@echo "Re:Zero - Re:Clean and compile again."
 
-.PHONY: all tester clean fclean re
+.PHONY: all clean fclean re

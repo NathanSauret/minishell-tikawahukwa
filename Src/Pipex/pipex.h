@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:27:23 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/07 16:15:35 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/10/14 22:11:18 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <sys/wait.h>
-# include "Utils/utils.h"
+# include "../../libft/libft.h"
 
 typedef struct s_all
 {
@@ -46,6 +46,7 @@ void	exit_error(int error_case, char *arg);
 void	parent_free(t_all *all);
 void	child_free(t_all *all);
 void	pipe_free(t_all *all);
+void	ft_freetabstr(char **tab);
 
 // get_files.c
 void	get_infile(char *argv[], t_all *all);
@@ -63,5 +64,6 @@ void	close_pipes(t_all *all);
 
 // pipex.c
 void	pipex(t_all *all, char **argv, char **envp);
+int		pipex_main(int argc, char *argv[], char *envp[]);
 
 #endif
