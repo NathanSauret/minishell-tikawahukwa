@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:27:23 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/14 22:11:18 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/15 15:35:01 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_all
 int		check_args(int argc, char *argv[], t_all *all);
 
 // exit_error.c
-void	exit_error(int error_case, char *arg);
+void	exit_error(t_all *all, int error_case, char *arg);
 
 // free.c
 void	parent_free(t_all *all);

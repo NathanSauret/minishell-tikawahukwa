@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:56:46 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/04 15:24:59 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:18:25 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,16 @@ void	child_free(t_all *all)
 	}
 	free(all->cmd_args);
 	free(all->cmd);
+	if (all->infile)
+		close(all->infile);
+	if (all->outfile)
+		close(all->outfile);
 }
 
 void	pipe_free(t_all *all)
 {
-	close(all->infile);
-	close(all->outfile);
 	if (all->here_doc)
 		unlink(".heredoc_tmp");
 	free(all->pipe);
-	exit_error(0, "Environment");
+	exit_error(all, 0, "Environment");
 }

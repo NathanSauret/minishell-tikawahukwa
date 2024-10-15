@@ -31,7 +31,8 @@ typedef struct t_data
 	pid_t pid;
 } t_data;
 
-int				env_init(t_data *data, char **env_array);
-void			free_env(t_env *env);
+int		env_init(t_data *data, char **env_array);
+void	free_env(t_env *env);
+int		main_pipex(int argc, char *argv[], char *envp[]);
 
 #endif

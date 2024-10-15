@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:25:51 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/03 17:44:15 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:34:39 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@
 
 // static void	permission_denied(int error_case, char **args)
 
-void	exit_error(int error_case, char *arg)
+void	exit_error(t_all *all, int error_case, char *arg)
 {
+	if (all && all->infile)
+		close(all->infile);
+	if (all && all->outfile)
+		close(all->outfile);
 	if (error_case == 0)
 	{
 		write(2, arg, ft_strlen(arg));

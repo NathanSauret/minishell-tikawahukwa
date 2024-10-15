@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/10/04 15:56:39 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:37:28 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ static void	error_cmd(t_all *all)
 	ft_freetabstr(all->cmd_paths);
 	free(all->cmd_paths);
 	free(all->pipe);
+	if (all->infile)
+		close(all->infile);
+	if (all->outfile)
+		close(all->outfile);
 	exit(1);
 }
 

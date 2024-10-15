@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:38:42 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/14 22:22:43 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/15 15:50:05 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	get_shell_level()
 }
 
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
-	t_data data;
-	int i;
+	t_data	data;
+	int		i;
 
 	(void)argc;
 	(void)argv;
@@ -36,7 +36,7 @@ int main(int argc, char **argv, char **env)
 	{
 		data.input = readline(">> ");
 		if (data.input == NULL)
-			break;
+			break ;
 		add_history(data.input);
 		data.token = strtok(data.input, " ");
 		i = 0;
@@ -53,7 +53,6 @@ int main(int argc, char **argv, char **env)
 			free(data.input);
 			exit(EXIT_FAILURE);
 		}
-
 		if (data.pid == 0)
 		{
 			execvp(data.args[0], data.args);
@@ -64,6 +63,5 @@ int main(int argc, char **argv, char **env)
 			wait(NULL);
 		free(data.input);
 	}
-
-	return 0;
+	return (0);
 }

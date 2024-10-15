@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:34:03 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/03 17:38:42 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:05:59 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	end_here_doc(int fd, char *buffer, t_all *all)
 	if (all->infile < 0)
 	{
 		unlink(".heredoc");
-		exit_error(1, "here_doc");
+		exit_error(all, 1, "here_doc");
 	}
 }
 
@@ -32,7 +32,7 @@ void	here_doc(char *argv, t_all *all)
 
 	fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0000644);
 	if (fd < 0)
-		exit_error(1, ".here_doc");
+		exit_error(all, 1, ".here_doc");
 	while (1)
 	{
 		write(1, "heredoc> ", 9);
