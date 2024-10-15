@@ -82,7 +82,7 @@ waitpid(-1, &wstatus, 0);
 ```
 </br>
 
-#### waitpid  
+#### pid_t waitpid(pid_t pid, int *wstatus, int options)  
 The waitpid() system call suspends execution of the calling thread until a child specified by pid argument has changed state. By default, waitpid() waits only for terminated children, but this behavior is modifiable via the options argument, as described below.  
 The value of pid can be:  
 - \< -1 meaning wait  for  any  child process whose process group ID is equal to the absolute value of pid.
