@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_space.c                                      :+:      :+:    :+:   */
+/*   free_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 13:23:21 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/17 20:26:35 by j_sk8            ###   ########.fr       */
+/*   Created: 2024/10/17 23:27:39 by j_sk8             #+#    #+#             */
+/*   Updated: 2024/10/17 23:33:20 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../minishell.h"
 
-int	ft_is_space(char c)
+void	free_array(char	**array)
 {
-	if (c && (c == ' ' || c == '\n' || c == '\r' || c == '\f' || c == '\t' \
-	|| c == '\v'))
-		return (1);
-	return (0);
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
+void	free_token(t_data *data)
+{
+	free(data->input);
+	ft_token_lstclear(&(data->token));
+	free_array(data->arg);
 }

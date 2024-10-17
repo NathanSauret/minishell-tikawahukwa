@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 23:58:05 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/10/17 13:23:59 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/17 20:39:21 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		ft_isascii(int c);
 
 int		ft_isprint(int c);
 
-int		is_space(char c);
+int		ft_is_space(char c);
 
 int		ft_toupper(int c);
 
@@ -47,6 +47,8 @@ int		ft_atoi(const char *nptr);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
+
+int		ft_strstr(char *str, char *cmp, int n);
 
 char	*ft_strchr(const char *s, int c);
 

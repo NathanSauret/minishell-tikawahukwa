@@ -14,9 +14,12 @@ SRC =	Src/Pipex/check_args.c	\
 		Src/Pipex/main.c	\
 		Src/Pipex/pipes_utils.c	\
 		Src/Pipex/pipex.c	\
-		Src/Main/main.c	\
+		Src/main.c	\
 		Src/Initialization/init.c	\
-		Src/Terminate/free.c
+		Src/Initialization/token_list.c \
+		Src/Terminate/free.c \
+		Src/Terminate/exit.c \
+		Src/Utils/free_token.c
 
 OBJ = $(SRC:.c=.o)
 
