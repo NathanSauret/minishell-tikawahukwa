@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 23:58:05 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/10/14 21:55:07 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/17 13:23:59 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int		ft_isalnum(int c);
 int		ft_isascii(int c);
 
 int		ft_isprint(int c);
+
+int		is_space(char c);
 
 int		ft_toupper(int c);
 

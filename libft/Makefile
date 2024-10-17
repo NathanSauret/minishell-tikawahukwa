@@ -6,7 +6,7 @@
 #    By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 13:45:19 by jmiccio           #+#    #+#              #
-#    Updated: 2024/10/14 21:58:37 by j_sk8            ###   ########.fr        #
+#    Updated: 2024/10/17 13:25:49 by j_sk8            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC = ft_is/ft_isalnum.c \
       ft_is/ft_isascii.c \
       ft_is/ft_isdigit.c \
       ft_is/ft_isprint.c \
+       ft_is/ft_is_space.c \
       ft_put/ft_putchar_fd.c \
       ft_put/ft_putendl_fd.c \
       ft_put/ft_putnbr_fd.c \
