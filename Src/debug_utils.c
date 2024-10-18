@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_token.c                                       :+:      :+:    :+:   */
+/*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 23:27:39 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/18 15:50:58 by j_sk8            ###   ########.fr       */
+/*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
+/*   Updated: 2024/10/18 23:03:43 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
-void	free_array(char	**array)
+void	print_token(t_token *token)
+{
+	while (token->next)
+	{
+		printf("Type : %d, [%s]\n", token->type, token->str);
+		token = token->next;
+	}
+	printf("Type : %d, [%s]\n", token->type, token->str);
+}
+
+void	print_3d(char **str)
 {
 	int	i;
 
 	i = 0;
-	while (array[i])
+	while (str[i])
 	{
-		free(array[i]);
+		printf("%s\n", str[i]);
 		i++;
 	}
-	free(array);
-}
-
-void	free_token(t_data *data)
-{
-	free(data->input);
-	if (data->token)
-		ft_token_lstclear(&(data->token));
-	if (data->arg)
-		free(data->arg);
-	data->arg = NULL;
 }

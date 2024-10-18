@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 20:44:08 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/17 23:03:03 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/18 23:08:16 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 t_token	*ft_token_lstlast(t_token *lst)
 {
-	t_token	*head;
-
 	if (!lst)
 		return (NULL);
-	head = lst;
-	while (lst->next != head)
+	while (lst->next)
 		lst = lst->next;
 	return (lst);
 }
@@ -35,7 +32,6 @@ t_token	*ft_token_lstnew(char *str, int type)
 	t_newnode->type = type;
 	t_newnode->next = NULL;
 	t_newnode->prev = NULL;
-
 	return (t_newnode);
 }
 
@@ -45,22 +41,13 @@ int	ft_token_lstadd_back(t_token **lst, t_token *new)
 
 	if (!lst || !new)
 		return (0);
-	if (lst)
+	if (*lst == NULL)
+		*lst = new;
+	else
 	{
-		if (*lst == NULL)
-		{
-			*lst = new;
-			new->next = new;
-			new->prev = new;
-		}
-		else
-		{
-			tmp = ft_token_lstlast(*(lst));
-			tmp->next = new;
-			new->prev = tmp;
-			new->next = *lst;
-			(*lst)->prev = new;
-		}
+		tmp = ft_token_lstlast(*(lst));
+		tmp->next = new;
+		new->prev = tmp;
 	}
 	return (1);
 }
@@ -68,12 +55,10 @@ int	ft_token_lstadd_back(t_token **lst, t_token *new)
 void	ft_token_lstclear(t_token **lst)
 {
 	t_token	*tmp;
-	t_token	*head;
 
 	if (!lst || !(*lst))
 		return ;
-	head = *lst;
-	while (*lst != head)
+	while (*lst)
 	{
 		tmp = (*lst)->next;
 		free((*lst)->str);

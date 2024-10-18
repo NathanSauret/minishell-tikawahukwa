@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:19:51 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/17 16:24:39 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/18 16:43:53 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,7 @@ int	exit_error2(t_data *data, char *str)
 {
 	printf("%s", str);
 	free_env(data->env);
+	free_token(data);
+	clear_history();
 	return (1);
 }

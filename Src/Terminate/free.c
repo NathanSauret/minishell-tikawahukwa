@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:41:13 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/14 22:04:31 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/18 15:51:58 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	free_env(t_env *env)
 {
 	t_env	*tmp;
 
-	while (env && env->next)
+	while (env->next)
 	{
 		tmp = env;
 		env = env->next;

@@ -19,7 +19,11 @@ SRC =	Src/Pipex/check_args.c	\
 		Src/Initialization/token_list.c \
 		Src/Terminate/free.c \
 		Src/Terminate/exit.c \
-		Src/Utils/free_token.c
+		Src/Utils/free_token.c \
+		Src/Parsing/parsing.c \
+		Src/Parsing/token.c \
+		Src/Exec/exec.c \
+		Src/debug_utils.c
 
 OBJ = $(SRC:.c=.o)
 

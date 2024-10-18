@@ -1,4 +1,16 @@
-# ifndef MINISHELL_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
+/*   Updated: 2024/10/18 23:11:23 by j_sk8            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
 # include "libft/libft.h"
@@ -12,8 +24,8 @@
 # include <limits.h>
 # include <errno.h>
 # include <signal.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # define INPUT		1	//"<"
 # define HEREDOC	2	//"<<"
@@ -23,18 +35,17 @@
 # define CMD		6	//"|"
 # define ARG		7	//"|"
 
-
 # define ERR_MALLOC	"malloc error\n"
 # define ERR_PIPE	"pipe error\n"
 # define ERR_FORK	"fork error\n"
 
-#define MAX_ARGS 100
+# define MAX_PATH_LENGTH 256
 
 typedef struct t_env
 {
-	char	*value;
+	char			*value;
 	struct t_env	*next;
-} t_env;
+}	t_env;
 
 typedef struct s_token
 {
@@ -42,22 +53,21 @@ typedef struct s_token
 	int				type;
 	struct s_token	*prev;
 	struct s_token	*next;
-} t_token;
+}	t_token;
 
 typedef struct t_data
 {
 	char			*input;
-	char			*tok;
-	char			*args[MAX_ARGS];
 	char			**arg;
-	t_env	*env;
-	t_token	*token;
+	t_env			*env;
+	t_token			*token;
 	pid_t			pid;
-} t_data;
+}	t_data;
 
 /*initialization*/
 int		env_init(t_data *data, char **env_array);
 char	*get_ex_path(char *cmd, t_data *data);
+void	data_init(t_data *data);
 
 /*utils*/
 int		exit_error2(t_data *data, char *str);
@@ -67,7 +77,19 @@ t_token	*ft_token_lstnew(char *str, int type);
 void	ft_token_lstclear(t_token **lst);
 void	free_token(t_data *data);
 
+/*parsing*/
+int		parsing(t_data *data);
+int		get_arg(t_data *data, char **str);
+char	**tokens_to_args(t_token *token_list);
+int		line_is_empty(char *str);
+
 /*pipex*/
 int		main_pipex(int argc, char *argv[], char *envp[]);
 
+/*debug*/
+void	print_token(t_token *token);
+void	print_3d(char **str);
+
+/*exec*/
+void	exec(t_data *data, char **env);
 #endif
