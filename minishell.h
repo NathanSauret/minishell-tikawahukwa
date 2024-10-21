@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/18 23:11:23 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/21 23:30:07 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define TRUNC		3	//">"
 # define APPEND		4	//">>"
 # define PIPE		5	//"|"
-# define CMD		6	//"|"
-# define ARG		7	//"|"
+# define CMD		6	//"commands"
+# define ARG		7	//"argument"
 
 # define ERR_MALLOC	"malloc error\n"
 # define ERR_PIPE	"pipe error\n"
@@ -76,11 +76,17 @@ int		ft_token_lstadd_back(t_token **lst, t_token *new);
 t_token	*ft_token_lstnew(char *str, int type);
 void	ft_token_lstclear(t_token **lst);
 void	free_token(t_data *data);
+int		is_error(char *str, t_data *data);
 
 /*parsing*/
 int		parsing(t_data *data);
 int		get_arg(t_data *data, char **str);
 char	**tokens_to_args(t_token *token_list);
+int		line_is_empty(char *str);
+
+/*parsing utils*/
+int		check_quote(char *str);
+int		is_quote(char c);
 int		line_is_empty(char *str);
 
 /*pipex*/

@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:38:42 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/18 23:04:31 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/21 15:07:27 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ int	main(int argc, char **argv, char **env)
 		free_token(&data);
 	}
 	free_env(data.env);
+	clear_history();
 	return (0);
 }
