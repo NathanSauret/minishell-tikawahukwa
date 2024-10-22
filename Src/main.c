@@ -6,62 +6,37 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:38:42 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/17 13:52:41 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/21 15:07:27 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
-
-int	get_shell_level()
-{
-	char *shlvl = getenv("SHLVL");
-	if (shlvl)
-	{
-		return atoi(shlvl);
-	}
-	return 0;
-}
-
+#include "../minishell.h"
 
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
-	int		i;
 
 	(void)argc;
 	(void)argv;
+	data_init(&data);
 	env_init(&data, env);
-	free_env(data.env);
 	while (1)
 	{
 		data.input = readline("minishell> ");
 		if (data.input == NULL)
-			break ;
+			return (exit_error2(&data, "exit\n"));
 		add_history(data.input);
-		data.token = strtok(data.input, " ");
-		i = 0;
-		while (data.token != NULL && i < MAX_ARGS - 1)
+		if (line_is_empty(data.input))
 		{
-			data.args[i++] = data.token;
-			data.token = strtok(NULL, " ");
-		}
-		data.args[i] = NULL;
-		data.pid = fork();
-		if (data.pid < 0)
-		{
-			perror("fork");
 			free(data.input);
-			exit(EXIT_FAILURE);
+			continue ;
 		}
-		if (data.pid == 0)
-		{
-			execvp(data.args[0], data.args);
-			perror("execvp");
-			exit(EXIT_FAILURE);
-		}
-		else
-			wait(NULL);
-		free(data.input);
+		if (!parsing(&data))
+			continue ;
+		exec(&data, env);
+		free_token(&data);
 	}
+	free_env(data.env);
+	clear_history();
 	return (0);
 }

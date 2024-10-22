@@ -6,7 +6,7 @@
 #    By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 13:45:19 by jmiccio           #+#    #+#              #
-#    Updated: 2024/10/17 13:25:49 by j_sk8            ###   ########.fr        #
+#    Updated: 2024/10/17 20:39:41 by j_sk8            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC = ft_is/ft_isalnum.c \
       ft_str/ft_strlen.c \
       ft_str/ft_strmapi.c \
       ft_str/ft_strncmp.c \
+      ft_str/ft_strstr.c \
       ft_str/ft_strnstr.c \
       ft_str/ft_strrchr.c \
       ft_str/ft_strtrim.c \

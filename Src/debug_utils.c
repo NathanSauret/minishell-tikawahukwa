@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 21:41:13 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/18 15:51:58 by j_sk8            ###   ########.fr       */
+/*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
+/*   Updated: 2024/10/21 15:07:10 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
-void	free_env(t_env *env)
+void	print_token(t_token *token)
 {
-	t_env	*tmp;
-
-	while (env->next)
+	while (token->next)
 	{
-		tmp = env;
-		env = env->next;
-		free(tmp->value);
-		tmp->value = NULL;
-		free(tmp);
-		tmp = NULL;
+		printf("Type : %d, [%s]\n", token->type, token->str);
+		token = token->next;
 	}
-	free(env->value);
-	env->value = NULL;
-	free(env);
-	env = NULL;
+	printf("Type : %d, [%s]\n", token->type, token->str);
+}
+
+void	print_3d(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		printf("%s\n", str[i]);
+		i++;
+	}
 }

@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 21:41:13 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/18 15:51:58 by j_sk8            ###   ########.fr       */
+/*   Created: 2024/10/17 16:19:51 by j_sk8             #+#    #+#             */
+/*   Updated: 2024/10/18 16:43:53 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	free_env(t_env *env)
+int	exit_error2(t_data *data, char *str)
 {
-	t_env	*tmp;
-
-	while (env->next)
-	{
-		tmp = env;
-		env = env->next;
-		free(tmp->value);
-		tmp->value = NULL;
-		free(tmp);
-		tmp = NULL;
-	}
-	free(env->value);
-	env->value = NULL;
-	free(env);
-	env = NULL;
+	printf("%s", str);
+	free_env(data->env);
+	free_token(data);
+	clear_history();
+	return (1);
 }

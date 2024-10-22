@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 21:41:13 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/18 15:51:58 by j_sk8            ###   ########.fr       */
+/*   Created: 2024/10/17 20:32:05 by j_sk8             #+#    #+#             */
+/*   Updated: 2024/10/21 16:27:31 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../libft.h"
 
-void	free_env(t_env *env)
+int	ft_strstr(char *str, char *cmp, int n)
 {
-	t_env	*tmp;
+	int	i;
 
-	while (env->next)
-	{
-		tmp = env;
-		env = env->next;
-		free(tmp->value);
-		tmp->value = NULL;
-		free(tmp);
-		tmp = NULL;
-	}
-	free(env->value);
-	env->value = NULL;
-	free(env);
-	env = NULL;
+	i = 0;
+	while (str[i] == cmp[i] && i < n)
+		i++;
+	if ((ft_is_space(str[i]) || !str[i]) && i == n)
+		return (1);
+	else
+		return (0);
 }
