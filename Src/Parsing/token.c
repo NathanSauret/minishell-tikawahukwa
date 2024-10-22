@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/22 00:05:24 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/22 12:59:36 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,21 @@ int	add_cmd(t_data *data, char *str, int type)
 	return (1);
 }
 
-int	get_type(char *str, int *type, int len)
+int	is_cmd(t_token *token)
 {
-	if (ft_strnstr((str), "echo", 4)
-		|| ft_strnstr((str), "grep", 4))
-		return (*type = CMD, 4);
-	if (ft_strnstr((str), "cat", 3))
-		return (*type = CMD, 3);
-	if (ft_strnstr((str), "ls", 2) || ft_strstr((str), "cd", 2))
-		return (*type = CMD, 2);
-	else if (ft_strnstr((str), "<<", 2))
+	t_token	*tmp;
+
+	if (!token)
+		return (1);
+	tmp = ft_token_lstlast(token);
+	if (tmp->type == PIPE)
+		return (1);
+	return (0);
+}
+
+int	get_type(t_token *token, char *str, int *type, int len)
+{
+	if (ft_strnstr((str), "<<", 2))
 		return (*type = HEREDOC, 2);
 	else if (ft_strnstr((str), "<", 1))
 		return (*type = INPUT, 1);
@@ -66,6 +71,8 @@ int	get_type(char *str, int *type, int len)
 		return (*type = TRUNC, 1);
 	else if (ft_strnstr((str), "|", 1))
 		return (*type = PIPE, 1);
+	else if (is_cmd(token))
+		return (*type = CMD, len);
 	return (*type = ARG, len);
 }
 
@@ -79,7 +86,7 @@ int	get_arg(t_data *data, char **str)
 	if (!len)
 		return ((*str) += 2, 1);
 	if (type != ARG)
-		len = get_type(*str, &type, len);
+		len = get_type(data->token, *str, &type, len);
 	if (!(add_cmd(data, ft_substr(*str, start, len), type)))
 		return (0);
 	if (is_quote(*(*str)))

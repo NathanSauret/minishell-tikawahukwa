@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/21 23:30:07 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/22 12:58:07 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define TRUNC		3	//">"
 # define APPEND		4	//">>"
 # define PIPE		5	//"|"
-# define CMD		6	//"commands"
+# define CMD		6	//"command"
 # define ARG		7	//"argument"
 
 # define ERR_MALLOC	"malloc error\n"
@@ -58,7 +58,7 @@ typedef struct s_token
 typedef struct t_data
 {
 	char			*input;
-	char			**arg;
+	char			**args;
 	t_env			*env;
 	t_token			*token;
 	pid_t			pid;
@@ -74,6 +74,7 @@ int		exit_error2(t_data *data, char *str);
 void	free_env(t_env *env);
 int		ft_token_lstadd_back(t_token **lst, t_token *new);
 t_token	*ft_token_lstnew(char *str, int type);
+t_token	*ft_token_lstlast(t_token *lst);
 void	ft_token_lstclear(t_token **lst);
 void	free_token(t_data *data);
 int		is_error(char *str, t_data *data);
