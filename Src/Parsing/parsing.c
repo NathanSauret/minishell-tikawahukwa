@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/22 14:49:13 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/22 15:40:49 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,6 @@ int	add_token(t_data *data)
 	return (1);
 }
 
-int	check_next(t_token *token)
-{
-	t_token	*tmp;
-
-	tmp = token->next;
-	if (!tmp)
-		return (0);
-	while (tmp)
-	{
-		if (tmp->type == PIPE)
-			return (1);
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
 int	token_parsing(t_data *data)
 {
 	t_token	*current;
@@ -80,12 +64,8 @@ int	token_parsing(t_data *data)
 	while (current)
 	{
 		if ((current->type == PIPE && !current->prev)
-			|| (current->type == PIPE && !current->prev))
+			|| (current->type == PIPE && !current->next))
 			return (is_error("error near unexpected token '|'\n", data));
-		else if (current->type == PIPE && current->next->type != CMD)
-			if (!(check_next(current)))
-				return (printf("%s ", current->next->str),
-					is_error("command invalid\n", data), 0);
 		current = current->next;
 	}
 	return (1);
