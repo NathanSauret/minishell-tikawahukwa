@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 23:27:38 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/22 14:20:16 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/23 16:10:48 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_path_from_env(t_data *data)
 	while (current)
 	{
 		if (ft_strncmp(current->value, "PATH=", 5) == 0)
-			return (current->value + 5);
+			return (ft_strdup(current->value + 5));
 		current = current->next;
 	}
 	return (NULL);
@@ -77,6 +77,7 @@ char	*get_ex_path(char *cmd, t_data *data)
 	char	*start;
 	char	*end;
 
+	full_path[MAX_PATH_LENGTH] = '\0';
 	path_var = get_path_from_env(data);
 	start = path_var;
 	while (start && *start)
@@ -84,15 +85,11 @@ char	*get_ex_path(char *cmd, t_data *data)
 		end = ft_strchr(start, ':');
 		if (end)
 			*end = '\0';
-		strcpy(full_path, start);
-		strcat(full_path, "/");
-		strcat(full_path, cmd);
+		ft_strlcpy(full_path, start, MAX_PATH_LENGTH);
+		ft_strlcat(full_path, "/", MAX_PATH_LENGTH);
+		ft_strlcat(full_path, cmd, MAX_PATH_LENGTH);
 		if (access(full_path, X_OK) == 0)
-		{
-			if (end)
-				*end = ':';
-			return (strdup(full_path));
-		}
+			return (free(path_var), ft_strdup(full_path));
 		if (end)
 			start = end + 1;
 		else
