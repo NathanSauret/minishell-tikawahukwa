@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/22 12:58:07 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/23 16:29:03 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct t_env
 typedef struct s_token
 {
 	char			*str;
+	char			*path;
 	int				type;
 	struct s_token	*prev;
 	struct s_token	*next;
@@ -81,6 +82,7 @@ int		is_error(char *str, t_data *data);
 
 /*parsing*/
 int		parsing(t_data *data);
+int		add_token(t_data *data);
 int		get_arg(t_data *data, char **str);
 char	**tokens_to_args(t_token *token_list);
 int		line_is_empty(char *str);
@@ -89,6 +91,9 @@ int		line_is_empty(char *str);
 int		check_quote(char *str);
 int		is_quote(char c);
 int		line_is_empty(char *str);
+int		is_cmd(t_token *token);
+void	token_len(char *str, int *len, int *start);
+int		get_type(t_token *token, char *str, int *type, int len);
 
 /*pipex*/
 int		main_pipex(int argc, char *argv[], char *envp[]);

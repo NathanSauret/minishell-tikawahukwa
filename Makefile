@@ -23,6 +23,7 @@ SRC =	Src/Pipex/check_args.c	\
 		Src/Parsing/parsing.c \
 		Src/Parsing/token.c \
 		Src/Parsing/parsing_utils.c \
+		Src/Parsing/token_utils.c \
 		Src/Exec/exec.c \
 		Src/debug_utils.c
 

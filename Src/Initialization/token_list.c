@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 20:44:08 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/18 23:08:16 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/23 14:33:46 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_token	*ft_token_lstnew(char *str, int type)
 	if (!t_newnode)
 		return (NULL);
 	t_newnode->str = str;
+	t_newnode->path = NULL;
 	t_newnode->type = type;
 	t_newnode->next = NULL;
 	t_newnode->prev = NULL;
@@ -62,6 +63,8 @@ void	ft_token_lstclear(t_token **lst)
 	{
 		tmp = (*lst)->next;
 		free((*lst)->str);
+		if ((*lst)->path)
+			free((*lst)->path);
 		free(*lst);
 		*lst = tmp;
 	}
