@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 20:44:08 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/23 14:33:46 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/24 16:42:25 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_token	*ft_token_lstnew(char *str, int type)
 	t_newnode->str = str;
 	t_newnode->path = NULL;
 	t_newnode->type = type;
+	t_newnode->is_builtin = 0;
 	t_newnode->next = NULL;
 	t_newnode->prev = NULL;
 	return (t_newnode);

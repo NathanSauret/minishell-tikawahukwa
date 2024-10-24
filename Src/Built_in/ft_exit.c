@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 16:19:51 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/24 16:19:40 by j_sk8            ###   ########.fr       */
+/*   Created: 2024/10/24 17:39:22 by j_sk8             #+#    #+#             */
+/*   Updated: 2024/10/24 18:08:33 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	exit_error2(t_data *data, char *str)
+int	ft_exit(t_data *data)
 {
-	printf("%s", str);
-	free_env(data->env);
 	free_token(data);
-	clear_history();
+	printf("exit\n");
 	return (0);
 }

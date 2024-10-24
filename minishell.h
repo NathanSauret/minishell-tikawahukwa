@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/23 16:29:03 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/24 18:12:15 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_token
 	char			*str;
 	char			*path;
 	int				type;
+	int				is_builtin;
 	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
@@ -92,8 +93,9 @@ int		check_quote(char *str);
 int		is_quote(char c);
 int		line_is_empty(char *str);
 int		is_cmd(t_token *token);
-void	token_len(char *str, int *len, int *start);
+void	token_len(char *str, int *len, int *start, int *space);
 int		get_type(t_token *token, char *str, int *type, int len);
+int		is_operator(char *str);
 
 /*pipex*/
 int		main_pipex(int argc, char *argv[], char *envp[]);
@@ -103,5 +105,8 @@ void	print_token(t_token *token);
 void	print_3d(char **str);
 
 /*exec*/
-void	exec(t_data *data, char **env);
+int		exec(t_data *data, char **env);
+
+/*builtins*/
+int		ft_exit(t_data *data);
 #endif
