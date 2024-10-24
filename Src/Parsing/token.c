@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/23 18:44:26 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/24 15:19:44 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,21 @@ int	get_arg(t_data *data, char **str)
 	int	len;
 	int	start;
 	int	type;
+	int	space;
 
+	space = 1;
 	start = 0;
 	len = 0;
-	token_len(*str, &len, &start);
+	token_len(*str, &len, &start, &space);
 	if (!len)
 		return ((*str) += 1, 1);
 	len = get_type(data->token, *str, &type, len);
-	if (!(add_cmd(data, ft_substr(*str, start, len), type)))
-		return (0);
+	if (!space && !is_operator(ft_token_lstlast(data->token)->str))
+		ft_token_lstlast(data->token)->str = ft_strjoin(
+			ft_token_lstlast(data->token)->str, ft_substr(*str, start, len));
+	else
+		if (!(add_cmd(data, ft_substr(*str, start, len), type)))
+			return (0);
 	if (is_quote(*(*str)))
 		(*str) += len + 2;
 	else

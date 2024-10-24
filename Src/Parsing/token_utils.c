@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/23 18:26:19 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/24 17:07:02 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_operator(char *str)
 	return (0);
 }
 
-void	token_len(char *str, int *len, int *start)
+void	token_len(char *str, int *len, int *start, int *space)
 {
 	int		i;
 	char	quote;
@@ -35,21 +35,21 @@ void	token_len(char *str, int *len, int *start)
 	i = 0;
 	if (is_quote(str[i]))
 	{
+		if (str[i - 1] && !ft_is_space(str[i - 1]))
+			*space = 0;
 		*start = 1;
-		quote = str[i];
-		i++;
-		while (str[i] && (str[i] != quote))
+		quote = str[i++];
+		while (str[i] && str[i] != quote)
 			i++;
 		*len = i - 1;
 	}
 	else
 	{
-		while (str[i] && (!(ft_is_space(str[i]))))
-		{
-			if ((is_operator(&str[i])))
-				break ;
+		if (str[i - 1] && !ft_is_space(str[i - 1]))
+			*space = 0;
+		while (str[i] && !ft_is_space(str[i]) && !is_quote(str[i])
+			&& !is_operator(&str[i]))
 			i++;
-		}
 		if (is_operator(&str[i]) && i == 0)
 			i++;
 		*len = i;

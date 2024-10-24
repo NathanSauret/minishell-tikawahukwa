@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/23 18:44:28 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/24 17:52:53 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,25 @@ int	token_parsing(t_data *data)
 	return (1);
 }
 
+int	is_builtin(char *str)
+{
+	if (ft_strnstr((str), "exit", 4))
+		return (1);
+	/*else if (ft_strnstr((str), "echo", 4))
+		return (1);
+	else if (ft_strnstr((str), "cd", 2))
+		return (1);
+	if (ft_strnstr((str), "env", 3))
+		return (1);
+	else if (ft_strnstr((str), "export", 6))
+		return (1);
+	else if (ft_strnstr((str), "unset", 4))
+		return (1);
+	else if (ft_strnstr((str), "pwd", 3))
+		return (1);*/
+	return (0);
+}
+
 int	check_valid_cmd(t_data *data)
 {
 	t_token	*tmp;
@@ -67,10 +86,15 @@ int	check_valid_cmd(t_data *data)
 	{
 		if (tmp->type == CMD)
 		{
-			path = get_ex_path(tmp->str, data);
-			if (!path)
-				return (printf("%s: command not found\n", tmp->str), 0);
-			tmp->path = path;
+			if (is_builtin(tmp->str))
+				tmp->is_builtin = 1;
+			else
+			{
+				path = get_ex_path(tmp->str, data);
+				if (!path)
+					return (printf("%s: command not found\n", tmp->str), 0);
+				tmp->path = path;
+			}
 		}
 		tmp = tmp->next;
 	}
@@ -86,11 +110,11 @@ int	parsing(t_data *data)
 	data->args = tokens_to_args(data->token);
 	if (!data->args)
 		return (is_error(ERR_MALLOC, data));
-	print_token(data->token);
 	if (!(token_parsing(data)))
 		return (0);
 	if (!(check_valid_cmd(data)))
 		return (is_error("", data));
+	print_token(data->token);
 	if (!data->args)
 		return (is_error(ERR_MALLOC, data));
 	return (1);
