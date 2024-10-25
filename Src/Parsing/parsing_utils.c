@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 23:27:38 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/24 18:11:15 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/25 15:04:11 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*get_ex_path(char *cmd, t_data *data)
 	char	*start;
 	char	*end;
 
-	full_path[MAX_PATH_LENGTH] = '\0';
+	full_path[MAX_PATH_LENGTH - 1] = '\0';
 	path_var = get_path_from_env(data);
 	start = path_var;
 	while (start && *start)

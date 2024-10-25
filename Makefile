@@ -56,4 +56,7 @@ re: fclean all
 	@clear
 	@echo "Re:Zero - Re:Clean and compile again."
 
+run:
+	valgrind --suppressions=supp.supp ./minishell
+
 .PHONY: all clean fclean re

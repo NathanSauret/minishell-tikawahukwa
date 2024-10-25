@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/24 15:19:44 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/25 15:20:17 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ int	add_cmd(t_data *data, char *str, int type)
 
 int	get_arg(t_data *data, char **str)
 {
-	int	len;
-	int	start;
-	int	type;
-	int	space;
+	int		len;
+	int		start;
+	int		type;
+	int		space;
+	t_token	*tmp;
 
+	tmp = ft_token_lstlast(data->token);
 	space = 1;
 	start = 0;
 	len = 0;
@@ -35,9 +37,8 @@ int	get_arg(t_data *data, char **str)
 	if (!len)
 		return ((*str) += 1, 1);
 	len = get_type(data->token, *str, &type, len);
-	if (!space && !is_operator(ft_token_lstlast(data->token)->str))
-		ft_token_lstlast(data->token)->str = ft_strjoin(
-			ft_token_lstlast(data->token)->str, ft_substr(*str, start, len));
+	if (!space && tmp && !is_operator(tmp->str))
+		tmp->str = ft_strjoin(tmp->str, ft_substr(*str, start, len));
 	else
 		if (!(add_cmd(data, ft_substr(*str, start, len), type)))
 			return (0);
