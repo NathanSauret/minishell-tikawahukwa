@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 23:27:39 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/22 12:59:16 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/25 16:05:18 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	free_token(t_data *data)
 
 int	is_error(char *str, t_data *data)
 {
-	printf("%s", str);
+	if (str)
+		printf("%s", str);
 	free_token(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 23:27:38 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/25 15:04:11 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/25 16:06:44 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,5 @@ char	*get_ex_path(char *cmd, t_data *data)
 		else
 			break ;
 	}
-	return (NULL);
+	return (free(path_var), NULL);
 }

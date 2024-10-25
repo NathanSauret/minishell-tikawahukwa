@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/25 15:14:07 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/25 15:43:05 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ int	is_operator(char *str)
 	return (0);
 }
 
-void	token_len(char *str, int *len, int *start, int *space)
+void	token_len(char *str, int *len, int *start, int *space, t_token *token)
 {
 	int		i;
 	char	quote;
 
 	i = 0;
-	if (is_quote(str[i]))
+	if (str[i] && is_quote(str[i]))
 	{
-		if (str[i - 1] && !ft_is_space(str[i - 1]))
+		if (token && str[i - 1] && !ft_is_space(str[i - 1]))
 			*space = 0;
 		*start = 1;
 		quote = str[i++];
@@ -45,7 +45,7 @@ void	token_len(char *str, int *len, int *start, int *space)
 	}
 	else
 	{
-		if (str[i - 1] && !is_operator(&str[i]) && !ft_is_space(str[i - 1]))
+		if (token && str[i - 1] && !is_operator(&str[i]) && !ft_is_space(str[i - 1]))
 			*space = 0;
 		while (str[i] && !ft_is_space(str[i]) && !is_quote(str[i])
 			&& !is_operator(&str[i]))

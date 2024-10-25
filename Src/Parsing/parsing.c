@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/25 15:12:17 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/25 16:05:23 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	parsing(t_data *data)
 	if (!(token_parsing(data)))
 		return (0);
 	if (!(check_valid_cmd(data)))
-		return (is_error("", data));
+		return (is_error(NULL, data));
 	if (!data->args)
 		return (is_error(ERR_MALLOC, data));
 	return (1);
