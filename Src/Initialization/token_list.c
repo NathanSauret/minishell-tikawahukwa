@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 20:44:08 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/25 16:01:44 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/27 23:19:44 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_token	*ft_token_lstnew(char *str, int type)
 		return (NULL);
 	t_newnode->str = str;
 	t_newnode->path = NULL;
+	t_newnode->command_line = NULL;
 	t_newnode->type = type;
 	t_newnode->is_builtin = 0;
 	t_newnode->next = NULL;

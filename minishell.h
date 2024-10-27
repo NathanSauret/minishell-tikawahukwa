@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/27 19:49:19 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/27 23:21:09 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct t_env
 typedef struct s_token
 {
 	char			*str;
+	char			**command_line;
 	char			*path;
 	int				type;
 	int				is_builtin;
@@ -61,6 +62,7 @@ typedef struct t_data
 {
 	char			*input;
 	char			**args;
+	int				num_of_pipe;
 	t_env			*env;
 	t_token			*token;
 	pid_t			pid;
@@ -101,7 +103,7 @@ int		is_operator(char *str);
 int		main_pipex(int argc, char *argv[], char *envp[]);
 
 /*debug*/
-void	print_token(t_token *token);
+void	print_token(t_token *token, int show_args);
 void	print_3d(char **str);
 
 /*exec*/

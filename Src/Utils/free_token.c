@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 23:27:39 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/25 16:05:18 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/27 23:05:01 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,27 @@ void	free_array(char	**array)
 	free(array);
 }
 
+void	free_command_line(t_token *token)
+{
+	while (token)
+	{
+		if (token->command_line)
+			free(token->command_line);
+		token = token->next;
+	}
+}
+
 void	free_token(t_data *data)
 {
 	free(data->input);
+	if (data->token->command_line)
+		free_command_line(data->token);
 	if (data->token)
 		ft_token_lstclear(&(data->token));
 	if (data->args)
 		free(data->args);
 	data->args = NULL;
+	data->num_of_pipe = 0;
 }
 
 int	is_error(char *str, t_data *data)

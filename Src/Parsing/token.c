@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/27 19:54:31 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/27 22:25:33 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	add_token(t_data *data)
 			cmd++;
 		if (*cmd && !(get_arg(data, &cmd)))
 			return (0);
+		if (ft_token_lstlast(data->token)->type == PIPE)
+			data->num_of_pipe += 1;
 	}
 	return (1);
 }
