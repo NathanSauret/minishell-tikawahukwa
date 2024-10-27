@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/27 19:06:04 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/27 19:49:19 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		check_quote(char *str);
 int		is_quote(char c);
 int		line_is_empty(char *str);
 int		is_cmd(t_token *token);
-void	token_len(char *str, int *len, int *start, int *space, t_token *token);
+int		token_len(char *str, int *start, int *space, t_token *token);
 int		get_type(t_token *token, char *str, int *type, int len);
 int		is_operator(char *str);
 

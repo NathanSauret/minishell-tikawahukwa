@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/25 15:43:05 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/27 19:54:19 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_operator(char *str)
 	return (0);
 }
 
-void	token_len(char *str, int *len, int *start, int *space, t_token *token)
+int	token_len(char *str, int *start, int *space, t_token *token)
 {
 	int		i;
 	char	quote;
@@ -41,19 +41,17 @@ void	token_len(char *str, int *len, int *start, int *space, t_token *token)
 		quote = str[i++];
 		while (str[i] && str[i] != quote)
 			i++;
-		*len = i - 1;
+		return (i - 1);
 	}
-	else
-	{
-		if (token && str[i - 1] && !is_operator(&str[i]) && !ft_is_space(str[i - 1]))
-			*space = 0;
-		while (str[i] && !ft_is_space(str[i]) && !is_quote(str[i])
-			&& !is_operator(&str[i]))
-			i++;
-		if (is_operator(&str[i]) && i == 0)
-			i++;
-		*len = i;
-	}
+	if (token && str[i - 1] && !is_operator(&str[i])
+		&& !ft_is_space(str[i - 1]))
+		*space = 0;
+	while (str[i] && !ft_is_space(str[i]) && !is_quote(str[i])
+		&& !is_operator(&str[i]))
+		i++;
+	if (is_operator(&str[i]) && i == 0)
+		i++;
+	return (i);
 }
 
 int	is_cmd(t_token *token)

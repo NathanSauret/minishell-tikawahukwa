@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/25 15:43:44 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/27 19:54:31 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	get_arg(t_data *data, char **str)
 	tmp = ft_token_lstlast(data->token);
 	space = 1;
 	start = 0;
-	len = 0;
-	token_len(*str, &len, &start, &space, tmp);
+	len = token_len(*str, &start, &space, tmp);
 	if (!len)
 		return ((*str) += 1, 1);
 	len = get_type(data->token, *str, &type, len);
