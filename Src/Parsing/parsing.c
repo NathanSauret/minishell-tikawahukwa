@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/27 23:22:55 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/28 16:32:52 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	is_builtin(char *str)
 {
 	if (ft_strnstr((str), "exit", 4))
 		return (1);
-	/*else if (ft_strnstr((str), "echo", 4))
+	else if (ft_strnstr((str), "echo", 4))
 		return (1);
 	else if (ft_strnstr((str), "cd", 2))
 		return (1);
@@ -71,7 +71,7 @@ int	is_builtin(char *str)
 	else if (ft_strnstr((str), "unset", 4))
 		return (1);
 	else if (ft_strnstr((str), "pwd", 3))
-		return (1);*/
+		return (1);
 	return (0);
 }
 
@@ -147,7 +147,7 @@ int	parsing(t_data *data)
 		return (is_error(ERR_MALLOC, data));
 	if (!(get_sorted_arg(data)))
 		return (is_error(ERR_MALLOC, data));
-	print_token(data->token, 0);
+	// print_token(data->token, 0);
 	if (!(token_parsing(data)))
 		return (0);
 	if (!(check_valid_cmd(data)))

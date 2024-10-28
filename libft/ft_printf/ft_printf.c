@@ -6,11 +6,11 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:57:50 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/04 15:48:20 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/10/28 15:28:05 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static int	ft_choose_print(const char *text, va_list ptr)
 {

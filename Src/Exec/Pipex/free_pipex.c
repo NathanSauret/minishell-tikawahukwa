@@ -1,57 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_pipex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:56:46 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/15 15:18:25 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/10/28 18:08:53 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../../minishell.h"
 
-void	parent_free(t_all *all)
+void	parent_free(t_pipex *pipex)
 {
 	int	i;
 
 	i = 0;
-	close(all->infile);
-	close(all->outfile);
-	if (all->here_doc)
+	// if (pipex->infile)
+	// 	close(pipex->infile);
+	// if (pipex->outfile)
+	// 	close(pipex->outfile);
+	if (pipex->here_doc)
 		unlink(".heredoc_tmp");
-	while (all->cmd_paths && all->cmd_paths[i])
-	{
-		free(all->cmd_paths[i]);
-		i++;
-	}
-	free(all->cmd_paths);
-	free(all->pipe);
+	free(pipex->pipe);
 }
 
-void	child_free(t_all *all)
+void	child_free(t_pipex *pipex)
 {
 	int	i;
 
 	i = 0;
-	while (all->cmd_args[i])
+	while (pipex->cmd_args[i])
 	{
-		free(all->cmd_args[i]);
+		free(pipex->cmd_args[i]);
 		i++;
 	}
-	free(all->cmd_args);
-	free(all->cmd);
-	if (all->infile)
-		close(all->infile);
-	if (all->outfile)
-		close(all->outfile);
+	free(pipex->cmd_args);
+	free(pipex->cmd);
+	// if (pipex->infile)
+	// 	close(pipex->infile);
+	// if (pipex->outfile)
+	// 	close(pipex->outfile);
 }
 
-void	pipe_free(t_all *all)
+int	pipe_free(t_pipex *pipex)
 {
-	if (all->here_doc)
+	if (pipex->here_doc)
 		unlink(".heredoc_tmp");
-	free(all->pipe);
-	exit_error(all, 0, "Environment");
+	free(pipex->pipe);
+	return (exit_error_pipex(pipex, 0, "Environment"));
 }

@@ -4,17 +4,7 @@ CFLAGS	= -Wall -Werror -Wextra -g3
 LIBFT_DIR = libft
 LIBFT = -L $(LIBFT_DIR) -lft
 
-SRC =	Src/Pipex/check_args.c	\
-		Src/Pipex/exit_error.c	\
-		Src/Pipex/free.c	\
-		Src/Pipex/get_files.c	\
-		Src/Pipex/get_path.c	\
-		Src/Pipex/here_doc.c	\
-		Src/Pipex/ft_freetabstr.c \
-		Src/Pipex/main.c	\
-		Src/Pipex/pipes_utils.c	\
-		Src/Pipex/pipex.c	\
-		Src/main.c	\
+SRC =	Src/main.c	\
 		Src/Initialization/init.c	\
 		Src/Initialization/token_list.c \
 		Src/Terminate/free.c \
@@ -24,6 +14,11 @@ SRC =	Src/Pipex/check_args.c	\
 		Src/Parsing/token.c \
 		Src/Parsing/parsing_utils.c \
 		Src/Parsing/token_utils.c \
+		Src/Exec/Pipex/exec_pipex.c	\
+		Src/Exec/Pipex/exit_error_pipex.c	\
+		Src/Exec/Pipex/free_pipex.c	\
+		Src/Exec/Pipex/pipes_pipex.c	\
+		Src/Exec/Pipex/pipex.c	\
 		Src/Exec/exec.c \
 		Src/debug_utils.c \
 		Src/Built_in/ft_exit.c

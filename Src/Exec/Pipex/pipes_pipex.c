@@ -1,22 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   pipes_pipex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/09 10:56:59 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/04 15:18:43 by nsauret          ###   ########.fr       */
+/*   Created: 2024/10/03 14:55:14 by nsauret           #+#    #+#             */
+/*   Updated: 2024/10/28 17:52:04 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../../minishell.h"
 
-char	*get_path(char **envp)
+void	create_pipes(t_pipex *pipex, t_data *data)
 {
-	while (ft_strncmp("PATH", *envp, 4))
-		envp++;
-	if (!*envp)
-		return (NULL);
-	return (*envp + 5);
+	int	i;
+
+	i = 0;
+	while (i < data->num_of_pipe)
+	{
+		if (pipe(pipex->pipe + 2 * i) < 0)
+			parent_free(pipex);
+		i++;
+	}
+}
+
+void	close_pipes(t_pipex *pipex, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < (data->num_of_pipe))
+	{
+		close(pipex->pipe[i++]);
+	}
 }

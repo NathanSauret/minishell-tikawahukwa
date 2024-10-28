@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/27 23:21:09 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/28 18:09:07 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@
 # define ERR_FORK	"fork error\n"
 
 # define MAX_PATH_LENGTH 256
+
+typedef struct s_pipex
+{
+	int		here_doc;
+	int		input;
+	int		output;
+	int		cmd_nb;
+	int		*pipe;
+	int		idx;
+	pid_t	pid;
+	char	**cmd_args;
+	char	*cmd;
+}	t_pipex;
 
 typedef struct t_env
 {
@@ -99,14 +112,20 @@ int		token_len(char *str, int *start, int *space, t_token *token);
 int		get_type(t_token *token, char *str, int *type, int len);
 int		is_operator(char *str);
 
-/*pipex*/
-int		main_pipex(int argc, char *argv[], char *envp[]);
-
 /*debug*/
 void	print_token(t_token *token, int show_args);
 void	print_3d(char **str);
 
 /*exec*/
+void	exec_pipex(t_data *data, char **env);
+int		exit_error_pipex(t_pipex *pipex, int error_case, char *arg);
+void	parent_free(t_pipex *pipex);
+void	child_free(t_pipex *pipex);
+int		pipe_free(t_pipex *pipex);
+int		pipex(t_data *data, char **env);
+void	create_pipes(t_pipex *pipex, t_data *data);
+void	close_pipes(t_pipex *pipex, t_data *data);
+
 int		exec(t_data *data, char **env);
 
 /*builtins*/
