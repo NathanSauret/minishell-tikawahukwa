@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/27 23:21:09 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/28 16:03:59 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int		is_cmd(t_token *token);
 int		token_len(char *str, int *start, int *space, t_token *token);
 int		get_type(t_token *token, char *str, int *type, int len);
 int		is_operator(char *str);
+int		get_sorted_arg(t_data *data);
+int		token_parsing(t_data *data);
 
 /*pipex*/
 int		main_pipex(int argc, char *argv[], char *envp[]);
