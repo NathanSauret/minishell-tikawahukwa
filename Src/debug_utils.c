@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/28 16:04:13 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/28 19:11:15 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	print_token(t_token *token, int show_args)
 	t_token	*tmp;
 
 	tmp = token;
+	test_func();
 	while (token->next)
 	{
 		printf("Type : %d, [%s]\n", token->type, token->str);

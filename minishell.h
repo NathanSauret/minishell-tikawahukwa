@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/28 16:03:59 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/28 18:04:12 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,5 @@ int		exec(t_data *data, char **env);
 
 /*builtins*/
 int		ft_exit(t_data *data);
+int		ft_cd(char **args);
 #endif

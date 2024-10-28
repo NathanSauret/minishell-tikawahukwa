@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 22:49:41 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/24 18:07:28 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/28 18:08:17 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	exec_builtin(t_data *data)
 {
 	if (ft_strnstr((data->token->str), "exit", 4))
 		return (ft_exit(data));
+	if (ft_strnstr((data->token->str), "cd", 2))
+		return (ft_cd(data->args));
 	return (1);
 }
 
