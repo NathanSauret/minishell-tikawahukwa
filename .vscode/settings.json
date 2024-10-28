@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"libft.h": "c",
+		"testing_buildin_nsauret.h": "c",
+		"unistd.h": "c",
+		"readline.h": "c",
+		"history.h": "c",
+		"get_next_line.h": "c"
+	}
+}
