@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/29 14:48:39 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/29 15:45:38 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,5 @@ int		exec(t_data *data, char **env);
 /*builtins*/
 int		ft_exit(t_data *data);
 int		ft_cd(char **args);
+int		ft_echo(char **arg);
 #endif

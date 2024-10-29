@@ -27,7 +27,8 @@ SRC =	Src/Pipex/check_args.c	\
 		Src/Exec/exec.c \
 		Src/debug_utils.c \
 		Src/Built_in/ft_exit.c \
-		Src/Built_in/ft_cd.c
+		Src/Built_in/ft_cd.c \
+		Src/Built_in/ft_echo.c
 
 OBJ = $(SRC:.c=.o)
 
