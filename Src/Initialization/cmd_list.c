@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_list.c                                       :+:      :+:    :+:   */
+/*   cmd_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 20:44:08 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/30 20:30:02 by j_sk8            ###   ########.fr       */
+/*   Created: 2024/10/30 17:59:26 by j_sk8             #+#    #+#             */
+/*   Updated: 2024/10/30 22:54:53 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-t_token	*ft_token_lstlast(t_token *lst)
+t_cmd	*ft_cmd_lstlast(t_cmd *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -21,26 +21,25 @@ t_token	*ft_token_lstlast(t_token *lst)
 	return (lst);
 }
 
-t_token	*ft_token_lstnew(char *str, int type)
+t_cmd	*ft_cmd_lstnew(char **cmd, int infile, int outfile)
 {
-	t_token	*t_newnode;
+	t_cmd	*t_newnode;
 
-	t_newnode = malloc(sizeof(t_token));
+	t_newnode = malloc(sizeof(t_cmd));
 	if (!t_newnode)
 		return (NULL);
-	t_newnode->str = str;
+	t_newnode->cmd = cmd;
 	t_newnode->path = NULL;
-	t_newnode->command_line = NULL;
-	t_newnode->type = type;
-	t_newnode->is_builtin = 0;
+	t_newnode->infile = infile;
+	t_newnode->outfile = outfile;
 	t_newnode->next = NULL;
 	t_newnode->prev = NULL;
 	return (t_newnode);
 }
 
-int	ft_token_lstadd_back(t_token **lst, t_token *new)
+int	ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new)
 {
-	t_token	*tmp;
+	t_cmd	*tmp;
 
 	if (!lst || !new)
 		return (0);
@@ -48,25 +47,28 @@ int	ft_token_lstadd_back(t_token **lst, t_token *new)
 		*lst = new;
 	else
 	{
-		tmp = ft_token_lstlast(*(lst));
+		tmp = ft_cmd_lstlast(*(lst));
 		tmp->next = new;
 		new->prev = tmp;
 	}
 	return (1);
 }
 
-void	ft_token_lstclear(t_token **lst)
+void	ft_cmd_lstclear(t_cmd **lst)
 {
-	t_token	*tmp;
+	t_cmd	*tmp;
 
 	if (!lst || !(*lst))
 		return ;
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		free((*lst)->str);
-		if ((*lst)->path)
-			free((*lst)->path);
+		if ((*lst)->infile > 0)
+			close((*lst)->infile);
+		if ((*lst)->outfile > 0)
+			close((*lst)->outfile);
+		free((*lst)->path);
+		free((*lst)->cmd);
 		free(*lst);
 		*lst = tmp;
 	}

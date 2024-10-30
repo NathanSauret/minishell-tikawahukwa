@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 22:49:41 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/29 16:00:32 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/30 23:21:40 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ void	exec_cmd(t_data *data, char **env)
 	{
 		if (data->token->path)
 		{
-			execve(data->token->path, data->args, env);
+			execve(data->cmd->path, data->cmd->cmd, env);
 			perror("execve");
 		}
 		else
 			printf("Command not found: %s\n", data->args[0]);
+		free_token(data);
 		exit(EXIT_FAILURE);
 	}
 	else

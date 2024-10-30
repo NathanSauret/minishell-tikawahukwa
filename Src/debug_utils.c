@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/29 14:46:33 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/30 22:55:56 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,45 @@ void	show_command_line(t_token *token)
 		}
 		token = token->next;
 	}
+}
+
+void	print_tab(char **tab)
+{
+	int	i;
+
+	if (!(tab))
+	{
+		printf("NULL");
+		return ;
+	}
+	i = 0;
+	printf("[");
+	while (tab[i])
+	{
+		printf("%s", tab[i]);
+		if (tab[i + 1])
+			printf(", ");
+		i++;
+	}
+	printf("]");
+}
+
+void	print_cmd(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+
+	tmp = cmd;
+	while (tmp->next)
+	{
+		printf(" infile: %d, outfile: %d, cmd : ", tmp->infile, tmp->outfile);
+		print_tab(tmp->cmd);
+		printf("\n");
+		tmp = tmp->next;
+	}
+	printf(" infile: %d, outfile: %d, cmd : ",
+		tmp->infile, tmp->outfile);
+	print_tab(tmp->cmd);
+	printf("\n");
 }
 
 void	print_token(t_token *token, int show_args)

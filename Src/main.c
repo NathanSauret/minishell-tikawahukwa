@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:38:42 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/25 16:04:16 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/10/30 23:23:44 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	handle_sigint(int sig)
 
 int	loop(t_data *data, char **env)
 {
+	(void)env;
 	while (1)
 	{
 		data->input = readline("minishell> ");
