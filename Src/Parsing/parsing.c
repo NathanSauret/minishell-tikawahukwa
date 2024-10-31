@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/31 14:53:54 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/31 21:00:04 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static int	fill_command_line(t_token *head, int size)
 	if (!head->command_line)
 		return (0);
 	i = 0;
+	head->cmd_line_size = size;
 	while (tmp && tmp->type != PIPE)
 	{
 		head->command_line[i++] = tmp->str;
@@ -119,8 +120,8 @@ int	parsing(t_data *data)
 		return (is_error(NULL, data));
 	if (!data->args)
 		return (is_error(ERR_MALLOC, data));
-	if (!(fill_cmd_struct(data)))
-		return (is_error(ERR_MALLOC, data));
+	/*if (!(fill_cmd_struct(data)))
+		return (is_error(ERR_MALLOC, data));*/
 	print_token(data->token, 0);
 	//print_cmd(data->cmd);
 	return (1);

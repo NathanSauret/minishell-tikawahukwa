@@ -6,11 +6,25 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/31 14:05:51 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/31 21:17:52 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	is_redirect(char *str)
+{
+	if (ft_strnstr((str), "<<", 2))
+		return (1);
+	else if (ft_strnstr((str), ">>", 2))
+		return (1);
+	if (ft_strnstr((str), "<", 1))
+		return (1);
+	else if (ft_strnstr((str), ">", 1))
+		return (1);
+	return (0);
+}
+
 
 int	token_parsing(t_data *data)
 {
@@ -22,6 +36,8 @@ int	token_parsing(t_data *data)
 		if ((current->type == PIPE && !current->prev)
 			|| (current->type == PIPE && !current->next))
 			return (is_error("error near unexpected token '|'\n", data));
+		else if (is_redirect(current->str) && (!current->next))
+			return (is_error("error near unexpected token 'new line'\n", data));
 		current = current->next;
 	}
 	return (1);
@@ -76,7 +92,7 @@ int	is_cmd(t_token *token)
 	if (!token)
 		return (1);
 	tmp = ft_token_lstlast(token);
-	if (tmp->type == PIPE || (tmp->prev  && tmp->prev->type == INPUT))
+	if (tmp->type == PIPE || (tmp->prev  && is_redirect(tmp->prev->str)))
 		return (1);
 	return (0);
 }

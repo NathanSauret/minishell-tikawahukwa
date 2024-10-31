@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/31 14:38:16 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:20:56 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	print_cmd(t_cmd *cmd)
 	t_cmd	*tmp;
 
 	tmp = cmd;
+	if (!cmd)
+		return ;
 	while (tmp->next)
 	{
 		printf(" infile: %d, outfile: %d, cmd : ", tmp->infile, tmp->outfile);

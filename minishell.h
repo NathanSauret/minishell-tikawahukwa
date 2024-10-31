@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/31 13:56:09 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:46:30 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_token
 	char			*str;
 	char			**command_line;
 	char			*path;
+	int				cmd_line_size;
 	int				type;
 	int				is_builtin;
 	struct s_token	*prev;
