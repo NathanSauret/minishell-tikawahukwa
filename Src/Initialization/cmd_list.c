@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:59:26 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/30 22:54:53 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/31 13:56:46 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_cmd	*ft_cmd_lstnew(char **cmd, int infile, int outfile)
 	if (!t_newnode)
 		return (NULL);
 	t_newnode->cmd = cmd;
+	t_newnode->is_builtin = 0;
 	t_newnode->path = NULL;
 	t_newnode->infile = infile;
 	t_newnode->outfile = outfile;

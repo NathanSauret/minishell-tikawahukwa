@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:16:46 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/30 23:23:01 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:57:08 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,14 @@ int	get_file(t_cmd *cmd, t_token *token)
 		cmd->cmd = malloc(sizeof(char *) * 2);
 		if (!(cmd->cmd))
 			return (0);
-		cmd->path = token->path;
 		cmd->cmd[0] = token->command_line[2];
 		cmd->cmd[1] = NULL;
+		while (token->type != CMD)
+			token = token->next;
+		if (token->is_builtin != 1)
+			cmd->path = ft_strdup(token->path);
+		else
+			cmd->is_builtin = 1;
 	}
 	return (1);
 }
@@ -51,6 +56,8 @@ int	fill_cmd(t_cmd *cmd, t_token *token, int size)
 	}
 	if (!token->is_builtin)
 		cmd->path = ft_strdup(token->path);
+	else
+		cmd->is_builtin = 1;
 	cmd->cmd[i] = NULL;
 	return (1);
 }

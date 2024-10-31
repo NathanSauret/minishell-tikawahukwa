@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/28 15:59:03 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:05:51 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	is_cmd(t_token *token)
 	if (!token)
 		return (1);
 	tmp = ft_token_lstlast(token);
-	if (tmp->type == PIPE)
+	if (tmp->type == PIPE || (tmp->prev  && tmp->prev->type == INPUT))
 		return (1);
 	return (0);
 }

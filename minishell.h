@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/30 23:22:00 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/31 13:56:09 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct t_cmd
 {
 	int				infile;
 	int				outfile;
+	int				is_builtin;
 	char			**cmd;
 	char			*path;
 	struct t_cmd	*next;
