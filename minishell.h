@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/31 15:46:30 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/01 12:16:53 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int		main_pipex(int argc, char *argv[], char *envp[]);
 void	print_token(t_token *token, int show_args);
 void	print_3d(char **str);
 void	print_cmd(t_cmd *cmd);
+int		exec_test(char *str, t_data *data, char **env);
 
 /*exec*/
 int		exec(t_data *data, char **env);

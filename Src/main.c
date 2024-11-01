@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:38:42 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/01 11:58:17 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/01 12:17:08 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	handle_sigint(int sig)
 
 int	loop(t_data *data, char **env)
 {
-	(void)env;
 	while (1)
 	{
 		data->input = readline("minishell> ");
@@ -53,13 +52,24 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 
-	(void)argc;
-	(void)argv;
-	signal(SIGINT, handle_sigint);
-	data_init(&data);
-	env_init(&data, env);
-	loop(&data, env);
-	free_env(data.env);
-	clear_history();
+	if (argc > 1)
+	{
+		signal(SIGINT, handle_sigint);
+		data_init(&data);
+		env_init(&data, env);
+		exec_test(argv[1], &data, env);
+		free_env(data.env);
+	}
+	else
+	{
+		(void)argc;
+		(void)argv;
+		signal(SIGINT, handle_sigint);
+		data_init(&data);
+		env_init(&data, env);
+		loop(&data, env);
+		free_env(data.env);
+		clear_history();
+	}
 	return (0);
 }
