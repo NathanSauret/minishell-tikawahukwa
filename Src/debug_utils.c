@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/31 15:20:56 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/01 11:43:15 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ void	print_token(t_token *token, int show_args)
 	tmp = token;
 	while (token->next)
 	{
-		printf("path: %s Type : %d, [%s]\n", token->path, token->type, token->str);
+		printf("Type : %d, [%s]\n", token->type, token->str);
 		token = token->next;
 	}
-	printf("path: %s Type : %d, [%s]\n", token->path, token->type, token->str);
+	printf("Type : %d, [%s]\n", token->type, token->str);
 	if (show_args)
 		show_command_line(tmp);
 }
