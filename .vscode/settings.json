@@ -6,6 +6,7 @@
 		"readline.h": "c",
 		"history.h": "c",
 		"get_next_line.h": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"type_traits": "c"
 	}
 }

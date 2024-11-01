@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:57:50 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/28 15:28:05 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/10/29 16:04:13 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static int	ft_choose_print(const char *text, va_list ptr)
 		func_res_len = ft_print_char(va_arg(ptr, int));
 	else if (*text == 's')
 		func_res_len = ft_print_str(va_arg(ptr, char *));
+	else if (*text == 'S')
+		func_res_len = ft_print_strstr(va_arg(ptr, char **));
 	else if (*text == 'p')
 		func_res_len = ft_print_pointer(va_arg(ptr, unsigned long));
 	else if (*text == 'd' || *text == 'i')

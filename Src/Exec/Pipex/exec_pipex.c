@@ -6,103 +6,47 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/10/28 18:09:34 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/01 15:57:43 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
 
-// static char	*get_cmd(t_all *all, char **paths, char *cmd)
-// {
-// 	char	*tmp;
-// 	char	*command;
-
-// 	if (!cmd)
-// 		return (NULL);
-// 	if (!all->cmd_paths || ft_strchr(cmd, '/'))
-// 	{
-// 		if (access(cmd, 0) == 0)
-// 			return (cmd);
-// 		else
-// 			return (NULL);
-// 	}
-// 	while (*paths)
-// 	{
-// 		tmp = ft_strjoin(*paths, "/");
-// 		command = ft_strjoin(tmp, cmd);
-// 		free(tmp);
-// 		if (access(command, 0) == 0)
-// 			return (command);
-// 		free(command);
-// 		paths++;
-// 	}
-// 	return (NULL);
-// }
-
-// static void	my_dup(int first, int second)
-// {
-// 	dup2(first, 0);
-// 	dup2(second, 1);
-// }
-
-// static void	error_cmd(t_all *all)
-// {
-// 	write(2, " : command not found\n", 21);
-// 	ft_freetabstr(all->cmd_paths);
-// 	free(all->cmd_paths);
-// 	free(all->pipe);
-// 	if (all->infile)
-// 		close(all->infile);
-// 	if (all->outfile)
-// 		close(all->outfile);
-// 	exit(1);
-// }
-
-// static int	child(t_all *all, char **argv, char **envp)
-// {
-// 	all->pid = fork();
-// 	if (!all->pid)
-// 	{
-// 		if (all->idx == 0)
-// 			my_dup(all->infile, all->pipe[1]);
-// 		else if (all->idx == all->cmd_nb - 1)
-// 			my_dup(all->pipe[2 * all->idx - 2], all->outfile);
-// 		else
-// 			my_dup(all->pipe[2 * all->idx - 2], all->pipe[2 * all->idx + 1]);
-// 		close_pipes(all);
-// 		all->cmd_args = ft_split(argv[2 + all->here_doc + all->idx], ' ');
-// 		if (!all->cmd_args)
-// 			error_cmd(all);
-// 		all->cmd = get_cmd(all, all->cmd_paths, all->cmd_args[0]);
-// 		if (!all->cmd)
-// 		{
-// 			write(2, all->cmd_args[0], ft_strlen(all->cmd_args[0]));
-// 			write(2, ": command not found\n", 21);
-// 			child_free(all);
-// 			ft_freetabstr(all->cmd_paths);
-// 			return (free(all->cmd_paths), free(all->pipe), exit(1), 0);
-// 		}
-// 		execve(all->cmd, all->cmd_args, envp);
-// 	}
-// 	return (1);
-// }
-
-void	exec_pipex(t_data *data, char **env)
+static void	redirection(t_pipex *px, t_data *data)
 {
-	// all->idx = -1;
-	// while (++(all->idx) < all->cmd_nb)
-	// {
-	// 	if (ft_strncmp(argv[2 + all->here_doc + all->idx], "sleep", 5))
-	// 	{
-	// 		if (all->infile >= 0)
-	// 			child(all, argv, envp);
-	// 		else if (all->idx > 0)
-	// 			child(all, argv, envp);
-	// 	}
-	// }
+	if (px->infiles[px->idx] >= 0)
+		dup2(px->infiles[px->idx], 0);
+	else if (data->num_of_pipe > 0 && px->idx > 0)
+		dup2(px->pipe[2 * px->idx - 2], 0);
+
+	if (px->outfiles[px->idx] >= 0)
+		dup2(px->outfiles[px->idx], 1);
+	else if (data->num_of_pipe > 0 && px->idx < px->cmd_nb - 1)
+		dup2(px->pipe[2 * px->idx + 1], 1);
+}
+
+static int	child(t_data *data, t_pipex *px, char **env)
+{
+	px->pid = fork();
+	if (!px->pid)
+	{
+		redirection(px, data);
+		close_pipes(px, data);
+		execve(px->paths[px->idx], px->commands[px->idx], env);
+	}
+	return (1);
+}
+
+void	exec_pipex(t_pipex *pipex, t_data *data, char **env)
+{
+	pipex->idx = -1;
+	while (++pipex->idx < pipex->cmd_nb)
+	{
+		if (ft_strncmp(pipex->commands[0][0], "sleep", 5))
+		{
+			child(data, pipex, env);
+		}
+	}
 	// sleep_case(all, argv, envp);
-	
-	write(1, &data->args[0], 0);
-	write(1, &env[0], 0);
 	return ;
 }

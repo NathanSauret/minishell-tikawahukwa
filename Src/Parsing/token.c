@@ -6,11 +6,40 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/27 22:25:33 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/10/28 15:59:27 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char	**tokens_to_args(t_token *token_list)
+{
+	int		count;
+	char	**args;
+	t_token	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = token_list;
+	count = 0;
+	while (tmp)
+	{
+		count++;
+		tmp = tmp->next;
+	}
+	args = malloc((count + 1) * sizeof(char *));
+	if (!args)
+		return (NULL);
+	tmp = token_list;
+	while (i < count)
+	{
+		args[i] = tmp->str;
+		tmp = tmp->next;
+		i++;
+	}
+	args[count] = NULL;
+	return (args);
+}
 
 int	add_cmd(t_data *data, char *str, int type)
 {

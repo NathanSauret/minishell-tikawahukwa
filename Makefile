@@ -21,7 +21,11 @@ SRC =	Src/main.c	\
 		Src/Exec/Pipex/pipex.c	\
 		Src/Exec/exec.c \
 		Src/debug_utils.c \
-		Src/Built_in/ft_exit.c
+		Src/Built_in/ft_exit.c \
+		Src/Built_in/ft_cd.c \
+		Src/Built_in/ft_echo.c \
+		Src/Initialization/cmd_list.c \
+		Src/Parsing/cmd_struct_fill.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -52,6 +56,7 @@ re: fclean all
 	@echo "Re:Zero - Re:Clean and compile again."
 
 run:
+	make
 	valgrind --suppressions=supp.supp ./minishell
 
 .PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:15:41 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/28 18:04:03 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/01 15:17:29 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ static int	exec_builtin(t_data *data)
 {
 	if (ft_strnstr((data->token->str), "exit", 4))
 		return (ft_exit(data));
-	/*if (ft_strnstr((data->token->str), "cd", 2))
-		return (ft_cd(data));
-	if (ft_strnstr((data->token->str), "echo", 4))
-		return (ft_echo(data));
-	if (ft_strnstr((data->token->str), "env", 3))
-		return (ft_env(data));
-	if (ft_strnstr((data->token->str), "env", 3))
-		return (ft_env(data));
-	if (ft_strnstr((data->token->str), "export", 6))
-		return (ft_export(data));
-	if (ft_strnstr((data->token->str), "pwd", 3))
-		return (ft_pwd(data));
-	if (ft_strnstr((data->token->str), "unset", 5))
-		return (ft_unset(data));*/
+	if (ft_strnstr((data->token->str), "cd", 2))
+		return (ft_cd(data->token->command_line));
+	// if (ft_strnstr((data->token->str), "echo", 4))
+	// 	return (ft_echo(data));
+	// if (ft_strnstr((data->token->str), "env", 3))
+	// 	return (ft_env(data));
+	// if (ft_strnstr((data->token->str), "env", 3))
+	// 	return (ft_env(data));
+	// if (ft_strnstr((data->token->str), "export", 6))
+	// 	return (ft_export(data));
+	// if (ft_strnstr((data->token->str), "pwd", 3))
+	// 	return (ft_pwd(data));
+	// if (ft_strnstr((data->token->str), "unset", 5))
+	// 	return (ft_unset(data));
 	ft_printf("YOU FORGOT A F*CKING BUILTIN FUNCTION, YOU DUMBA**!\n");
 	return (0);
 }
