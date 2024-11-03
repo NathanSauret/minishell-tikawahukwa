@@ -17,6 +17,7 @@ SRC =	Src/main.c	\
 		Src/Exec/Pipex/exec_pipex.c	\
 		Src/Exec/Pipex/exit_error_pipex.c	\
 		Src/Exec/Pipex/free_pipex.c	\
+		Src/Exec/Pipex/get_infiles_and_outfiles.c	\
 		Src/Exec/Pipex/pipes_pipex.c	\
 		Src/Exec/Pipex/pipex.c	\
 		Src/Exec/exec.c \

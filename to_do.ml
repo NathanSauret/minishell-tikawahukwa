@@ -1,0 +1,1 @@
+[X] - Replace my struct by the data variables for less memory leaks potential.

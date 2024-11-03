@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/01 15:55:53 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/03 17:30:00 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,10 @@
 typedef struct s_pipex
 {
 	int		*here_doc;
-	int		*infiles;
-	int		*outfiles;
 	int		cmd_nb;
 	int		*pipe;
 	int		idx;
 	pid_t	pid;
-	char	***commands;
-	char	**paths;
 }	t_pipex;
 
 typedef struct t_cmd
@@ -147,6 +143,7 @@ void	parent_free(t_pipex *pipex, t_data *data);
 void	child_free(t_pipex *pipex);
 int		pipe_free(t_pipex *pipex);
 int		pipex(t_data *data, char **env);
+int		get_infiles_and_outfiles(t_data *data);
 void	create_pipes(t_pipex *pipex, t_data *data);
 void	close_pipes(t_pipex *pipex, t_data *data);
 int		exec(t_data *data, char **env);

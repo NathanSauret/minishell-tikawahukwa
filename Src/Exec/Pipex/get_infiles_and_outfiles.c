@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_pipex.c                                       :+:      :+:    :+:   */
+/*   get_infiles_and_outfiles.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 14:56:46 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/03 17:19:38 by nsauret          ###   ########.fr       */
+/*   Created: 2024/11/03 17:23:37 by nsauret           #+#    #+#             */
+/*   Updated: 2024/11/03 17:33:28 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
 
-void	parent_free(t_pipex *pipex, t_data *data)
+int	get_infiles_and_outfiles(t_data *data)
 {
-	int	i;
+	t_token	*token;
 
-	i = 0;
-	if (pipex->here_doc)
-		unlink(".heredoc_tmp");
-	if (data->num_of_pipe > 0)
-		free(pipex->pipe);
-}
-
-int	pipe_free(t_pipex *pipex)
-{
-	if (pipex->here_doc >= 0)
-		unlink(".heredoc_tmp");
-	free(pipex->pipe);
-	return (exit_error_pipex(pipex, 0, "Environment"));
+	token = data->token;
+	while (token)
+	{
+		if (token->type == INPUT)
+			ft_printf("input: %s\n", token->str);
+		if (token->type == TRUNC)
+			ft_printf("trunc: %s\n", token->str);
+		if (token->type == APPEND)
+			ft_printf("append: %s\n", token->str);
+		if (token->type == APPEND)
+			ft_printf("append: %s\n", token->str);
+		token = token->next;
+	}
+	return (1);
 }
