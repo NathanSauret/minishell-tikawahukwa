@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/01 12:16:53 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/05 15:45:28 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,6 @@
 
 # define MAX_PATH_LENGTH 256
 
-typedef struct t_cmd
-{
-	int				infile;
-	int				outfile;
-	int				is_builtin;
-	char			**cmd;
-	char			*path;
-	struct t_cmd	*next;
-	struct t_cmd	*prev;
-
-}	t_cmd;
-
-typedef struct t_env
-{
-	char			*value;
-	struct t_env	*next;
-}	t_env;
-
 typedef struct s_token
 {
 	char			*str;
@@ -70,6 +52,23 @@ typedef struct s_token
 	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct t_cmd
+{
+	int				is_builtin;
+	char			**cmd;
+	char			*path;
+	t_token			*tokens;
+	struct t_cmd	*next;
+	struct t_cmd	*prev;
+
+}	t_cmd;
+
+typedef struct t_env
+{
+	char			*value;
+	struct t_env	*next;
+}	t_env;
 
 typedef struct t_data
 {
@@ -95,7 +94,7 @@ int		is_error(char *str, t_data *data);
 
 /*init*/
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);
-t_cmd	*ft_cmd_lstnew(char **cmd, int infile, int outfile);
+t_cmd	*ft_cmd_lstnew(char **cmd);
 void	ft_cmd_lstclear(t_cmd **lst);
 int		ft_token_lstadd_back(t_token **lst, t_token *new);
 void	ft_token_lstclear(t_token **lst);
