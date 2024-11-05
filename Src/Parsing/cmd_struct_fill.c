@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:16:46 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/05 16:20:34 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:37:52 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,13 @@ int	fill_cmd(t_cmd *cmd, t_token *token)
 			i += 2;
 			continue ;
 		}
-		else if (is_operator(tmp->str) && (i + 2) == token->cmd_line_size)
+		else if (is_operator(tmp->str) && (i + 2) >= token->cmd_line_size)
 			break ;
 		cmd->cmd[y] = token->command_line[i];
 		y++;
 		i++;
 		tmp = tmp->next;
 	}
-	while (token && token->type != CMD)
-		token = token->next;
-	if (!token->is_builtin)
-		cmd->path = ft_strdup(token->path);
-	else
-		cmd->is_builtin = 1;
 	cmd->cmd[y] = NULL;
 	return (1);
 }
@@ -75,6 +69,12 @@ int	parse_cmd(t_data *data, t_token *token)
 	if (!new_cmd->cmd)
 		return (0);
 	fill_cmd(new_cmd, token);
+	while (token && token->type != CMD)
+		token = token->next;
+	if (!token->is_builtin)
+		new_cmd->path = ft_strdup(token->path);
+	else
+		new_cmd->is_builtin = 1;
 	return (ft_cmd_lstadd_back(&(data->cmd), new_cmd));
 }
 

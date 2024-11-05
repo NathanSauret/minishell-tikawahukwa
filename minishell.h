@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/05 15:45:28 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:37:01 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int		ft_token_lstadd_back(t_token **lst, t_token *new);
 void	ft_token_lstclear(t_token **lst);
 t_token	*ft_token_lstnew(char *str, int type);
 t_token	*ft_token_lstlast(t_token *lst);
+t_cmd	*ft_cmd_lstlast(t_cmd *lst);
 
 /*parsing*/
 int		parsing(t_data *data);
