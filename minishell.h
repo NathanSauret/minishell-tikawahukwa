@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/03 17:30:00 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/05 17:42:10 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@
 
 # define MAX_PATH_LENGTH 256
 
+typedef struct s_exec
+{
+	int				in;
+	int				out;
+	int				is_builtin;
+	char			**cmd;
+	char			*path;
+	struct s_exec	*next;
+}	t_exec;
+
 typedef struct s_pipex
 {
 	int		*here_doc;
@@ -48,25 +58,8 @@ typedef struct s_pipex
 	int		*pipe;
 	int		idx;
 	pid_t	pid;
+	t_exec	*exec;
 }	t_pipex;
-
-typedef struct t_cmd
-{
-	int				infile;
-	int				outfile;
-	int				is_builtin;
-	char			**cmd;
-	char			*path;
-	struct t_cmd	*next;
-	struct t_cmd	*prev;
-
-}	t_cmd;
-
-typedef struct t_env
-{
-	char			*value;
-	struct t_env	*next;
-}	t_env;
 
 typedef struct s_token
 {
@@ -79,6 +72,23 @@ typedef struct s_token
 	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct t_cmd
+{
+	int				is_builtin;
+	char			**cmd;
+	char			*path;
+	t_token			*tokens;
+	struct t_cmd	*next;
+	struct t_cmd	*prev;
+
+}	t_cmd;
+
+typedef struct t_env
+{
+	char			*value;
+	struct t_env	*next;
+}	t_env;
 
 typedef struct t_data
 {
@@ -104,12 +114,13 @@ int		is_error(char *str, t_data *data);
 
 /*init*/
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);
-t_cmd	*ft_cmd_lstnew(char **cmd, int infile, int outfile);
+t_cmd	*ft_cmd_lstnew(char **cmd);
 void	ft_cmd_lstclear(t_cmd **lst);
 int		ft_token_lstadd_back(t_token **lst, t_token *new);
 void	ft_token_lstclear(t_token **lst);
 t_token	*ft_token_lstnew(char *str, int type);
 t_token	*ft_token_lstlast(t_token *lst);
+t_cmd	*ft_cmd_lstlast(t_cmd *lst);
 
 /*parsing*/
 int		parsing(t_data *data);
@@ -136,16 +147,28 @@ void	print_3d(char **str);
 void	print_cmd(t_cmd *cmd);
 int		exec_test(char *str, t_data *data, char **env);
 
-/*exec*/
-void	exec_pipex(t_pipex *pipex, t_data *data, char **env);
+/*     exec     */
+// exec_pipex.c
+void	exec_pipex(t_pipex *pipex, char **env);
+// exec_struct_utils.c
+t_exec	*execnew(t_cmd *cmd, int in, int out);
+void	execadd_back(t_exec **exec, t_exec *new);
+// exit_error_pipex.c
 int		exit_error_pipex(t_pipex *pipex, int error_case, char *arg);
+// free-pipex.c
 void	parent_free(t_pipex *pipex, t_data *data);
 void	child_free(t_pipex *pipex);
+// pipes_pipex.c
+int		create_pipes(t_pipex *pipex, t_data *data);
 int		pipe_free(t_pipex *pipex);
-int		pipex(t_data *data, char **env);
-int		get_infiles_and_outfiles(t_data *data);
-void	create_pipes(t_pipex *pipex, t_data *data);
 void	close_pipes(t_pipex *pipex, t_data *data);
+// pipex.c
+int		pipex(t_data *data, char **env);
+// prepare_for_exec.c
+void	prepare_for_exec(t_data *data, t_pipex *pipex);
+// redirections.c
+int		redirection_infile(t_cmd *cmd);
+// exec.c
 int		exec(t_data *data, char **env);
 
 /*builtins*/

@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/01 12:15:52 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:17:00 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ void	print_cmd(t_cmd *cmd)
 		return ;
 	while (tmp->next)
 	{
-		printf(" infile: %d, outfile: %d, cmd : ", tmp->infile, tmp->outfile);
+		printf("token head [%s], cmd :", tmp->tokens->str);
 		print_tab(tmp->cmd);
 		printf("\n");
 		tmp = tmp->next;
 	}
-	printf(" infile: %d, outfile: %d, cmd : ",
-		tmp->infile, tmp->outfile);
+	printf(" ");
+	printf("token head [%s], cmd :", tmp->tokens->str);
 	print_tab(tmp->cmd);
 	printf("\n");
 }
@@ -91,33 +91,21 @@ void	print_token(t_token *token, int show_args)
 		show_command_line(tmp);
 }
 
-void	print_3d(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		printf("%s\n", str[i]);
-		i++;
-	}
-}
-
 int	exec_test(char *str, t_data *data, char **env)
 {
-		data->input = ft_strdup(str);
-		if (data->input == NULL)
-			return (printf("exit..\n"), 1);
-		add_history(data->input);
-		if (line_is_empty(data->input))
-		{
-			free(data->input);
-			return (0);
-		}
-		if (!parsing(data))
-			return (0);
-		if (!(exec(data, env)))
-			return (0);
-		free_token(data);
+	data->input = ft_strdup(str);
+	if (data->input == NULL)
+		return (printf("exit..\n"), 1);
+	add_history(data->input);
+	if (line_is_empty(data->input))
+	{
+		free(data->input);
+		return (0);
+	}
+	if (!parsing(data))
+		return (0);
+	if (!(exec(data, env)))
+		return (0);
+	free_token(data);
 	return (1);
 }

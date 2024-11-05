@@ -3,92 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_struct_fill.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:16:46 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/01 12:16:39 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:37:52 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_open(t_cmd *cmd, char *arg)
+int	is_operator(char *str)
 {
-	cmd->infile = open(arg, O_RDONLY, 0644);
-	if (cmd->infile < 0)
-		return (0);
-	return (1);
+	if (ft_strnstr((str), "<<", 2))
+		return (1);
+	else if (ft_strnstr((str), ">>", 2))
+		return (1);
+	if (ft_strnstr((str), "<", 1))
+		return (1);
+	else if (ft_strnstr((str), ">", 1))
+		return (1);
+	else if (ft_strnstr((str), "|", 1))
+		return (1);
+	return (0);
 }
 
-int	get_file(t_cmd *cmd, t_token *token)
-{
-	if (token->type == INPUT)
-	{
-		if (!token->next || !ft_open(cmd, token->next->str))
-			return (0);
-		cmd->cmd = malloc(sizeof(char *) * 2);
-		if (!(cmd->cmd))
-			return (0);
-		cmd->cmd[0] = token->command_line[2];
-		cmd->cmd[1] = NULL;
-		while (token->type != CMD)
-			token = token->next;
-		if (token->is_builtin != 1)
-			cmd->path = ft_strdup(token->path);
-		else
-			cmd->is_builtin = 1;
-	}
-	return (1);
-}
-
-int	fill_cmd(t_cmd *cmd, t_token *token, int size)
-{
-	int	i;
-
-	i = 0;
-	cmd->cmd = malloc(sizeof(char *) * (size + 1));
-	if (!(cmd->cmd))
-		return (0);
-	while (i < size)
-	{
-		cmd->cmd[i] = token->command_line[i];
-		i++;
-	}
-	if (!token->is_builtin)
-		cmd->path = ft_strdup(token->path);
-	else
-		cmd->is_builtin = 1;
-	cmd->cmd[i] = NULL;
-	return (1);
-}
-
-int	parse_cmd(t_data *data, t_token *token)
-{
-	t_cmd	*new_cmd;
-	t_token	*tmp;
-	int		i;
-
-	tmp = token;
-	new_cmd = ft_cmd_lstnew(NULL, -2, -2);
-	if (!tmp)
-		return (0);
-	i = 0;
-	while (tmp && tmp->type != PIPE)
-	{
-		if ((!tmp->prev || tmp->prev->type == PIPE) && is_operator(tmp->str))
-		{
-			if (!get_file(new_cmd, tmp))
-				return (0);
-			return (ft_cmd_lstadd_back(&(data->cmd), new_cmd));
-		}
-		i++;
-		tmp = tmp->next;
-	}
-	fill_cmd(new_cmd, token, i);
-	return (ft_cmd_lstadd_back(&(data->cmd), new_cmd));
-}
-
-int	fill_cmd2(t_cmd *cmd, t_token *token)
+int	fill_cmd(t_cmd *cmd, t_token *token)
 {
 	int		i;
 	int		y;
@@ -97,41 +36,45 @@ int	fill_cmd2(t_cmd *cmd, t_token *token)
 	tmp = token;
 	i = 0;
 	y = 0;
+	cmd->tokens = token;
 	while (i < token->cmd_line_size)
 	{
-		if ((!tmp->prev || tmp->prev->type == PIPE) && is_operator(tmp->str))
+		if (is_operator(tmp->str) && (i + 2) != token->cmd_line_size)
 		{
-			cmd->infile = ft_open(cmd, tmp->next->str);
+			tmp = tmp->next->next;
 			i += 2;
+			continue ;
 		}
+		else if (is_operator(tmp->str) && (i + 2) >= token->cmd_line_size)
+			break ;
 		cmd->cmd[y] = token->command_line[i];
 		y++;
 		i++;
+		tmp = tmp->next;
 	}
-	while (token && token->type != CMD)
-		token = token->next;
-	if (!token->is_builtin)
-		cmd->path = ft_strdup(token->path);
-	else
-		cmd->is_builtin = 1;
 	cmd->cmd[y] = NULL;
 	return (1);
 }
 
-int	parse_cmd2(t_data *data, t_token *token)
+int	parse_cmd(t_data *data, t_token *token)
 {
 	t_cmd	*new_cmd;
 	t_token	*tmp;
 
 	tmp = token;
-	new_cmd = ft_cmd_lstnew(NULL, -2, -2);
+	new_cmd = ft_cmd_lstnew(NULL);
 	if (!tmp)
 		return (0);
-	// printf("size %d\n", token->cmd_line_size);
 	new_cmd->cmd = malloc(sizeof(char *) * (token->cmd_line_size + 1));
 	if (!new_cmd->cmd)
 		return (0);
-	fill_cmd2(new_cmd, token);
+	fill_cmd(new_cmd, token);
+	while (token && token->type != CMD)
+		token = token->next;
+	if (!token->is_builtin)
+		new_cmd->path = ft_strdup(token->path);
+	else
+		new_cmd->is_builtin = 1;
 	return (ft_cmd_lstadd_back(&(data->cmd), new_cmd));
 }
 
@@ -146,7 +89,7 @@ int	fill_cmd_struct(t_data *data)
 	{
 		while (i < data->num_of_pipe)
 		{
-			if (!parse_cmd2(data, tmp))
+			if (!parse_cmd(data, tmp))
 				return (0);
 			while (tmp && tmp->type != PIPE)
 				tmp = tmp->next;
@@ -154,7 +97,7 @@ int	fill_cmd_struct(t_data *data)
 			i++;
 		}
 	}
-	if (!parse_cmd2(data, tmp))
+	if (!parse_cmd(data, tmp))
 		return (0);
 	return (1);
 }

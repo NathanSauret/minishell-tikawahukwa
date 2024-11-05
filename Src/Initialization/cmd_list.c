@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:59:26 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/31 13:56:46 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/05 15:45:06 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_cmd	*ft_cmd_lstlast(t_cmd *lst)
 	return (lst);
 }
 
-t_cmd	*ft_cmd_lstnew(char **cmd, int infile, int outfile)
+t_cmd	*ft_cmd_lstnew(char **cmd)
 {
 	t_cmd	*t_newnode;
 
@@ -31,10 +31,9 @@ t_cmd	*ft_cmd_lstnew(char **cmd, int infile, int outfile)
 	t_newnode->cmd = cmd;
 	t_newnode->is_builtin = 0;
 	t_newnode->path = NULL;
-	t_newnode->infile = infile;
-	t_newnode->outfile = outfile;
 	t_newnode->next = NULL;
 	t_newnode->prev = NULL;
+	t_newnode->tokens = NULL;
 	return (t_newnode);
 }
 
@@ -64,10 +63,7 @@ void	ft_cmd_lstclear(t_cmd **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		if ((*lst)->infile > 0)
-			close((*lst)->infile);
-		if ((*lst)->outfile > 0)
-			close((*lst)->outfile);
+		(*lst)->tokens = NULL;
 		free((*lst)->path);
 		free((*lst)->cmd);
 		free(*lst);

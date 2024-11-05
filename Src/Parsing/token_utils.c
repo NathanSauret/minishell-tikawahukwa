@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/03 17:33:21 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:19:08 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	is_redirect(char *str)
 	return (0);
 }
 
-
 int	token_parsing(t_data *data)
 {
 	t_token	*current;
@@ -41,21 +40,6 @@ int	token_parsing(t_data *data)
 		current = current->next;
 	}
 	return (1);
-}
-
-int	is_operator(char *str)
-{
-	if (ft_strnstr((str), "<<", 2))
-		return (1);
-	else if (ft_strnstr((str), ">>", 2))
-		return (1);
-	if (ft_strnstr((str), "<", 1))
-		return (1);
-	else if (ft_strnstr((str), ">", 1))
-		return (1);
-	else if (ft_strnstr((str), "|", 1))
-		return (1);
-	return (0);
 }
 
 int	token_len(char *str, int *start, int *space, t_token *token)
@@ -92,7 +76,7 @@ int	is_cmd(t_token *token)
 	if (!token)
 		return (1);
 	tmp = ft_token_lstlast(token);
-	if (tmp->type == PIPE || (tmp->prev  && is_redirect(tmp->prev->str)))
+	if (tmp->type == PIPE || (tmp->prev && is_redirect(tmp->prev->str)))
 		return (1);
 	return (0);
 }

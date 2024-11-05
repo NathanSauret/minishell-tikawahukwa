@@ -15,11 +15,13 @@ SRC =	Src/main.c	\
 		Src/Parsing/parsing_utils.c \
 		Src/Parsing/token_utils.c \
 		Src/Exec/Pipex/exec_pipex.c	\
+		Src/Exec/Pipex/exec_struct_utils.c	\
 		Src/Exec/Pipex/exit_error_pipex.c	\
 		Src/Exec/Pipex/free_pipex.c	\
-		Src/Exec/Pipex/get_infiles_and_outfiles.c	\
 		Src/Exec/Pipex/pipes_pipex.c	\
 		Src/Exec/Pipex/pipex.c	\
+		Src/Exec/Pipex/prepare_for_exec.c	\
+		Src/Exec/Pipex/redirections.c	\
 		Src/Exec/exec.c \
 		Src/debug_utils.c \
 		Src/Built_in/ft_exit.c \
