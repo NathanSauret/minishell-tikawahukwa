@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/05 17:42:10 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/07 13:46:54 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int		exec_test(char *str, t_data *data, char **env);
 
 /*     exec     */
 // exec_pipex.c
-void	exec_pipex(t_pipex *pipex, char **env);
+void	exec_pipex(t_data *data, t_pipex *pipex, char **env);
 // exec_struct_utils.c
 t_exec	*execnew(t_cmd *cmd, int in, int out);
 void	execadd_back(t_exec **exec, t_exec *new);
@@ -167,7 +167,8 @@ int		pipex(t_data *data, char **env);
 // prepare_for_exec.c
 void	prepare_for_exec(t_data *data, t_pipex *pipex);
 // redirections.c
-int		redirection_infile(t_cmd *cmd);
+int		redirection_input(t_cmd *cmd);
+int		redirection_trunc(t_pipex *pipex, t_cmd *cmd);
 // exec.c
 int		exec(t_data *data, char **env);
 

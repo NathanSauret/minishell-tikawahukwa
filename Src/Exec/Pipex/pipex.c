@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/05 17:42:22 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/07 13:54:39 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	set_values(t_pipex *pipex, t_data *data)
 			return (exit_error_pipex(pipex, 1, "Error: pipe"));
 		}
 	}
+	pipex->here_doc = 0;
 	return (1);
 }
 
@@ -35,8 +36,7 @@ int	pipex(t_data *data, char **env)
 		return (0);
 	create_pipes(&pipex, data);
 	prepare_for_exec(data, &pipex);
-	ft_printf("in pipex: %d\n", pipex.exec->is_builtin);
-	exec_pipex(&pipex, env);
+	exec_pipex(data, &pipex, env);
 	close_pipes(&pipex, data);
 	waitpid(-1, NULL, 0);
 	parent_free(&pipex, data);
