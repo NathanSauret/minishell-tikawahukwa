@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/07 15:12:03 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/07 15:45:37 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ static int	child(t_data *data, t_pipex *pipex, char **env)
 void	exec_pipex(t_data *data, t_pipex *pipex, char **env)
 {
 	t_exec	*exec;
+	t_exec	*exec_head;
 
 	exec = pipex->exec;
+	exec_head = exec;
 	(void)env;
 	pipex->idx = -1;
 	while (++pipex->idx < pipex->cmd_nb)
@@ -42,5 +44,6 @@ void	exec_pipex(t_data *data, t_pipex *pipex, char **env)
 		pipex->exec = pipex->exec->next;
 	}
 	// sleep_case(all, argv, envp);
+	pipex->exec = exec_head;
 	return ;
 }
