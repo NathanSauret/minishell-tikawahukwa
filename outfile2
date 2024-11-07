@@ -1,15 +1,9 @@
-functions.md
-libft
-Makefile
-minishell
-minishell.h
-outfile1
-outfile2
-outfile3
-readme.md
-Src
-supp.supp
-to_do.ml
+NAME 	= minishell
+CC		= cc
+CFLAGS	= -Wall -Werror -Wextra -g3
+LIBFT_DIR = libft
+LIBFT = -L $(LIBFT_DIR) -lft
+
 SRC =	Src/main.c	\
 		Src/Initialization/init.c	\
 		Src/Initialization/token_list.c \
