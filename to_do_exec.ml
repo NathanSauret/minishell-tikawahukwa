@@ -5,4 +5,4 @@
 [ ] - >> redirection.
 [ ] - Use builtins when possible.
 [ ] - Add sleep function.
-[ ] - When there is a problem with a file, make cmd==NULL to skip the command.
+[ ] - When there is a problem with a file, make exec->in==-1 and exec->out==-1 to skip the command.
