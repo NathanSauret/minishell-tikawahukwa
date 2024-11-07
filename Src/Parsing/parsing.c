@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/01 11:45:48 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/07 17:54:19 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	parsing(t_data *data)
 {
 	if (!(check_quote(data->input)))
 		return (is_error("quote error\n", data));
-	if (!(add_token(data)))
+	if (!(add_token(data)) || !(handle_dolar(data)))
 		return (is_error(ERR_MALLOC, data));
 	data->args = tokens_to_args(data->token);
 	if (!data->args)

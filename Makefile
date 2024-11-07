@@ -30,7 +30,9 @@ SRC =	Src/Pipex/check_args.c	\
 		Src/Built_in/ft_cd.c \
 		Src/Built_in/ft_echo.c \
 		Src/Initialization/cmd_list.c \
-		Src/Parsing/cmd_struct_fill.c
+		Src/Parsing/cmd_struct_fill.c \
+		Src/Parsing/dolar.c \
+		Src/Parsing/dolar_utils.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -61,6 +63,6 @@ re: fclean all
 	@echo "Re:Zero - Re:Clean and compile again."
 
 run:
-	valgrind --track-fds=yes --suppressions=supp.supp ./minishell
+	valgrind --leak-check=full --track-fds=yes --suppressions=supp.supp ./minishell
 
 .PHONY: all clean fclean re

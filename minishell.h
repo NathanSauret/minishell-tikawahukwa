@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/05 16:37:01 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/07 17:51:59 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,12 @@ int		get_type(t_token *token, char *str, int *type, int len);
 int		is_operator(char *str);
 int		get_sorted_arg(t_data *data);
 int		token_parsing(t_data *data);
+int		handle_dolar(t_data *data);
+char	**free_var(char **str, int len);
+char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100]);
+int		full_len(t_token *token, char **var);
+int		copy_str(char **res, char **str, int *i, int len);
+int		copy_var(char **res, char *var, int *i, int len);
 
 /*pipex*/
 int		main_pipex(int argc, char *argv[], char *envp[]);
