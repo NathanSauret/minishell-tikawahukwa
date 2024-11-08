@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/28 15:59:27 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/08 12:35:01 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,11 @@ int	get_arg(t_data *data, char **str)
 		return ((*str) += 1, 1);
 	len = get_type(data->token, *str, &type, len);
 	if (!space && tmp && !is_operator(tmp->str))
+	{
 		tmp->str = ft_strjoin(tmp->str, ft_substr(*str, start, len));
+		if (!tmp->str)
+			return (0);
+	}
 	else
 		if (!(add_cmd(data, ft_substr(*str, start, len), type)))
 			return (0);

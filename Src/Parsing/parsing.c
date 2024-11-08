@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/07 17:54:19 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/08 10:50:58 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,6 @@ int	parsing(t_data *data)
 		return (0);
 	if (!(check_valid_cmd(data)))
 		return (is_error(NULL, data));
-	if (!data->args)
-		return (is_error(ERR_MALLOC, data));
 	if (!(fill_cmd_struct(data)))
 		return (is_error(ERR_MALLOC, data));
 	print_token(data->token, 0);
