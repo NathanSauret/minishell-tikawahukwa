@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/05 16:19:08 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/08 12:47:02 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	token_parsing(t_data *data)
 			return (is_error("error near unexpected token '|'\n", data));
 		else if (is_redirect(current->str) && (!current->next))
 			return (is_error("error near unexpected token 'new line'\n", data));
+		else if (is_redirect(current->str) && is_redirect(current->next->str))
+			return (is_error("error near unexpected token 'redirect'\n", data));
 		current = current->next;
 	}
 	return (1);

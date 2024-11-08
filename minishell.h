@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/07 13:46:54 by nsauret          ###   ########.fr       */
+/*   Created: Invalid Date        by              +#+  #+#    #+#             */
+/*   Updated: 2024/11/08 14:18:23 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -96,8 +97,8 @@ typedef struct t_data
 	char			**args;
 	int				num_of_pipe;
 	t_env			*env;
-	t_token			*token;
 	t_cmd			*cmd;
+	t_token			*token;
 	pid_t			pid;
 }	t_data;
 
@@ -111,6 +112,7 @@ int		exit_error2(t_data *data, char *str);
 void	free_env(t_env *env);
 void	free_token(t_data *data);
 int		is_error(char *str, t_data *data);
+void	free_command_line(t_token *token);
 
 /*init*/
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);
@@ -118,8 +120,10 @@ t_cmd	*ft_cmd_lstnew(char **cmd);
 void	ft_cmd_lstclear(t_cmd **lst);
 int		ft_token_lstadd_back(t_token **lst, t_token *new);
 void	ft_token_lstclear(t_token **lst);
+void	ft_token_lstclear(t_token **lst);
 t_token	*ft_token_lstnew(char *str, int type);
 t_token	*ft_token_lstlast(t_token *lst);
+t_cmd	*ft_cmd_lstlast(t_cmd *lst);
 t_cmd	*ft_cmd_lstlast(t_cmd *lst);
 
 /*parsing*/
@@ -128,6 +132,7 @@ int		add_token(t_data *data);
 int		get_arg(t_data *data, char **str);
 char	**tokens_to_args(t_token *token_list);
 int		line_is_empty(char *str);
+int		fill_cmd_struct(t_data *data);
 int		fill_cmd_struct(t_data *data);
 
 /*parsing utils*/
@@ -140,10 +145,18 @@ int		get_type(t_token *token, char *str, int *type, int len);
 int		is_operator(char *str);
 int		get_sorted_arg(t_data *data);
 int		token_parsing(t_data *data);
+int		handle_dolar(t_data *data);
+int		copy_str(char **res, char **str, int *i, int len);
+int		copy_var(char **res, char *var, int *i, int len);
+char	**free_var(char **str, int len);
+char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100]);
+int		full_len(t_token *token, char **var);
 
 /*debug*/
 void	print_token(t_token *token, int show_args);
 void	print_3d(char **str);
+void	print_cmd(t_cmd *cmd);
+int		exec_test(char *str, t_data *data, char **env);
 void	print_cmd(t_cmd *cmd);
 int		exec_test(char *str, t_data *data, char **env);
 
@@ -171,9 +184,12 @@ int		redirection_input(t_cmd *cmd);
 int		redirection_trunc(t_pipex *pipex, t_cmd *cmd);
 // exec.c
 int		exec(t_data *data, char **env);
+int		exec2(t_data *data, char **env);
 
 /*builtins*/
 int		ft_exit(t_data *data);
+int		ft_cd(char **args);
+int		ft_echo(char **arg);
 int		ft_cd(char **args);
 int		ft_echo(char **arg);
 #endif

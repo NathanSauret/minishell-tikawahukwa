@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_jeremy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 22:49:41 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/28 15:21:26 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/08 14:18:05 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	exec_cmd(t_data *data, char **env)
 		wait(NULL);
 }
 
-int	exec(t_data *data, char **env)
+int	exec2(t_data *data, char **env)
 {
 	if (data->token->is_builtin)
 		return (exec_builtin(data));

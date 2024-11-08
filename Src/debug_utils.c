@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/07 15:50:47 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/08 12:46:15 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,6 @@ int	exec_test(char *str, t_data *data, char **env)
 	data->input = ft_strdup(str);
 	if (data->input == NULL)
 		return (printf("exit..\n"), 1);
-	add_history(data->input);
-	if (line_is_empty(data->input))
-	{
-		free(data->input);
-		return (0);
-	}
 	if (!parsing(data))
 		return (0);
 	if (!(exec(data, env)))
