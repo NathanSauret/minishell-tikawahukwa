@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+         #
+#    By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 13:45:19 by jmiccio           #+#    #+#              #
-#    Updated: 2024/10/17 20:39:41 by j_sk8            ###   ########.fr        #
+#    Updated: 2024/10/28 15:27:44 by nsauret          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRC = ft_is/ft_isalnum.c \
       ft_printf/ft_print_char.c \
       ft_printf/ft_print_hex.c \
       ft_printf/ft_print_int.c \
+      ft_printf/ft_printf.c   \
       ft_printf/ft_print_pointer.c \
       ft_printf/ft_print_str.c \
       ft_printf/ft_print_unsigned.c \

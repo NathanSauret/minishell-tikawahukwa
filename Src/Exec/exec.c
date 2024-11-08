@@ -3,45 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 22:49:41 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/24 18:07:28 by j_sk8            ###   ########.fr       */
+/*   Created: 2024/10/28 15:15:41 by nsauret           #+#    #+#             */
+/*   Updated: 2024/11/01 15:17:29 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	exec_builtin(t_data *data)
+static int	exec_builtin(t_data *data)
 {
 	if (ft_strnstr((data->token->str), "exit", 4))
 		return (ft_exit(data));
-	return (1);
-}
-
-void	exec_cmd(t_data *data, char **env)
-{
-	data->pid = fork();
-	if (data->pid < 0)
-	{
-		perror("fork");
-		free(data->input);
-		free_env(data->env);
-		exit(EXIT_FAILURE);
-	}
-	if (data->pid == 0)
-	{
-		if (data->token->path)
-		{
-			execve(data->token->path, data->args, env);
-			perror("execve");
-		}
-		else
-			printf("Command not found: %s\n", data->args[0]);
-		exit(EXIT_FAILURE);
-	}
-	else
-		wait(NULL);
+	if (ft_strnstr((data->token->str), "cd", 2))
+		return (ft_cd(data->token->command_line));
+	// if (ft_strnstr((data->token->str), "echo", 4))
+	// 	return (ft_echo(data));
+	// if (ft_strnstr((data->token->str), "env", 3))
+	// 	return (ft_env(data));
+	// if (ft_strnstr((data->token->str), "env", 3))
+	// 	return (ft_env(data));
+	// if (ft_strnstr((data->token->str), "export", 6))
+	// 	return (ft_export(data));
+	// if (ft_strnstr((data->token->str), "pwd", 3))
+	// 	return (ft_pwd(data));
+	// if (ft_strnstr((data->token->str), "unset", 5))
+	// 	return (ft_unset(data));
+	ft_printf("YOU FORGOT A F*CKING BUILTIN FUNCTION, YOU DUMBA**!\n");
+	return (0);
 }
 
 int	exec(t_data *data, char **env)
@@ -49,6 +39,6 @@ int	exec(t_data *data, char **env)
 	if (data->token->is_builtin)
 		return (exec_builtin(data));
 	else
-		exec_cmd(data, env);
+		pipex(data, env);
 	return (1);
 }

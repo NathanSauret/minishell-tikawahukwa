@@ -4,17 +4,7 @@ CFLAGS	= -Wall -Werror -Wextra -g3
 LIBFT_DIR = libft
 LIBFT = -L $(LIBFT_DIR) -lft
 
-SRC =	Src/Pipex/check_args.c	\
-		Src/Pipex/exit_error.c	\
-		Src/Pipex/free.c	\
-		Src/Pipex/get_files.c	\
-		Src/Pipex/get_path.c	\
-		Src/Pipex/here_doc.c	\
-		Src/Pipex/ft_freetabstr.c \
-		Src/Pipex/main.c	\
-		Src/Pipex/pipes_utils.c	\
-		Src/Pipex/pipex.c	\
-		Src/main.c	\
+SRC =	Src/main.c	\
 		Src/Initialization/init.c	\
 		Src/Initialization/token_list.c \
 		Src/Terminate/free.c \
@@ -24,9 +14,21 @@ SRC =	Src/Pipex/check_args.c	\
 		Src/Parsing/token.c \
 		Src/Parsing/parsing_utils.c \
 		Src/Parsing/token_utils.c \
+		Src/Exec/Pipex/exec_pipex.c	\
+		Src/Exec/Pipex/exec_struct_utils.c	\
+		Src/Exec/Pipex/exit_error_pipex.c	\
+		Src/Exec/Pipex/free_pipex.c	\
+		Src/Exec/Pipex/pipes_pipex.c	\
+		Src/Exec/Pipex/pipex.c	\
+		Src/Exec/Pipex/prepare_for_exec.c	\
+		Src/Exec/Pipex/redirections.c	\
 		Src/Exec/exec.c \
 		Src/debug_utils.c \
-		Src/Built_in/ft_exit.c
+		Src/Built_in/ft_exit.c \
+		Src/Built_in/ft_cd.c \
+		Src/Built_in/ft_echo.c \
+		Src/Initialization/cmd_list.c \
+		Src/Parsing/cmd_struct_fill.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -57,6 +59,7 @@ re: fclean all
 	@echo "Re:Zero - Re:Clean and compile again."
 
 run:
+	make
 	valgrind --suppressions=supp.supp ./minishell
 
 .PHONY: all clean fclean re

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 23:27:39 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/27 23:05:01 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/07 15:30:46 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	free_token(t_data *data)
 		free_command_line(data->token);
 	if (data->token)
 		ft_token_lstclear(&(data->token));
+	if (data->cmd)
+		ft_cmd_lstclear(&(data->cmd));
 	if (data->args)
 		free(data->args);
 	data->args = NULL;

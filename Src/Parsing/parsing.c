@@ -3,55 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/27 23:22:55 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/05 17:18:53 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	**tokens_to_args(t_token *token_list)
+static int	fill_command_line(t_token *head, int size)
 {
-	int		count;
-	char	**args;
-	t_token	*tmp;
 	int		i;
+	t_token	*tmp;
 
+	tmp = head;
+	head->command_line = malloc(sizeof(char *) * (size + 1));
+	if (!head->command_line)
+		return (0);
 	i = 0;
-	tmp = token_list;
-	count = 0;
-	while (tmp)
+	head->cmd_line_size = size;
+	while (tmp && tmp->type != PIPE)
 	{
-		count++;
+		head->command_line[i++] = tmp->str;
 		tmp = tmp->next;
 	}
-	args = malloc((count + 1) * sizeof(char *));
-	if (!args)
-		return (NULL);
-	tmp = token_list;
-	while (i < count)
-	{
-		args[i] = tmp->str;
-		tmp = tmp->next;
-		i++;
-	}
-	args[count] = NULL;
-	return (args);
+	head->command_line[i] = NULL;
+	return (1);
 }
 
-int	token_parsing(t_data *data)
+int	get_sorted_arg(t_data *data)
 {
-	t_token	*current;
+	t_token	*tmp;
+	t_token	*head;
+	int		i;
+	int		pipe;
 
-	current = data->token;
-	while (current)
+	tmp = data->token;
+	pipe = 0;
+	while (pipe < data->num_of_pipe + 1)
 	{
-		if ((current->type == PIPE && !current->prev)
-			|| (current->type == PIPE && !current->next))
-			return (is_error("error near unexpected token '|'\n", data));
-		current = current->next;
+		i = 0;
+		head = tmp;
+		while (tmp && tmp->type != PIPE)
+		{
+			i++;
+			tmp = tmp->next;
+		}
+		fill_command_line(head, i);
+		if (tmp && tmp->type == PIPE)
+			tmp = tmp->next;
+		pipe++;
 	}
 	return (1);
 }
@@ -60,9 +62,9 @@ int	is_builtin(char *str)
 {
 	if (ft_strnstr((str), "exit", 4))
 		return (1);
-	/*else if (ft_strnstr((str), "echo", 4))
-		return (1);
 	else if (ft_strnstr((str), "cd", 2))
+		return (1);
+	/*else if (ft_strnstr((str), "echo", 4))
 		return (1);
 	if (ft_strnstr((str), "env", 3))
 		return (1);
@@ -101,41 +103,6 @@ int	check_valid_cmd(t_data *data)
 	return (1);
 }
 
-int	get_sorted_arg(t_data *data)
-{
-	t_token	*tmp;
-	t_token	*head;
-	int		i;
-	int		pipe;
-
-	tmp = data->token;
-	pipe = 0;
-	while (pipe < data->num_of_pipe + 1)
-	{
-		i = 0;
-		head = tmp;
-		while (tmp && tmp->type != PIPE)
-		{
-			i++;
-			tmp = tmp->next;
-		}
-		head->command_line = malloc(sizeof(char *) * (i + 1));
-		if (!head->command_line)
-			return (0);
-		i = 0;
-		tmp = head;
-		while (tmp && tmp->type != PIPE)
-		{
-			head->command_line[i++] = tmp->str;
-			tmp = tmp->next;
-		}
-		if (tmp && tmp->type == PIPE)
-			tmp = tmp->next;
-		pipe++;
-	}
-	return (1);
-}
-
 int	parsing(t_data *data)
 {
 	if (!(check_quote(data->input)))
@@ -147,12 +114,15 @@ int	parsing(t_data *data)
 		return (is_error(ERR_MALLOC, data));
 	if (!(get_sorted_arg(data)))
 		return (is_error(ERR_MALLOC, data));
-	print_token(data->token, 0);
 	if (!(token_parsing(data)))
 		return (0);
 	if (!(check_valid_cmd(data)))
 		return (is_error(NULL, data));
 	if (!data->args)
 		return (is_error(ERR_MALLOC, data));
+	if (!(fill_cmd_struct(data)))
+		return (is_error(ERR_MALLOC, data));
+	// print_token(data->token, 0);
+	// print_cmd(data->cmd);
 	return (1);
 }
