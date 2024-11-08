@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:50:29 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/07 16:18:01 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/08 15:10:56 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	create_exec_struct(t_cmd *cmd, t_pipex *pipex)
 {
+
 	pipex->exec = execnew(cmd, -2, -2);
 	cmd = cmd->next;
 	while (cmd)
@@ -53,7 +54,9 @@ static void	redirect_with_pipes(t_pipex *pipex)
 void	prepare_for_exec(t_data *data, t_pipex *pipex)
 {
 	t_exec	*exec_head;
+	t_cmd	*cmd_head;
 
+	cmd_head = data->cmd;
 	create_exec_struct(data->cmd, pipex);
 	exec_head = pipex->exec;
 	pipex->idx = 0;
@@ -73,4 +76,5 @@ void	prepare_for_exec(t_data *data, t_pipex *pipex)
 		pipex->idx++;
 	}
 	pipex->exec = exec_head;
+	data->cmd = cmd_head;
 }

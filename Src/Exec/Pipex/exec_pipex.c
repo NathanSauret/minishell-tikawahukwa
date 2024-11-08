@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/07 16:22:54 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/08 15:15:21 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,4 @@ void	exec_pipex(t_data *data, t_pipex *pipex, char **env)
 	}
 	pipex->exec = exec_head;
 	// sleep_case(all, argv, envp);
-	return ;
 }

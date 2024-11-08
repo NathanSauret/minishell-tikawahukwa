@@ -7,3 +7,4 @@
 [ ] - Use builtins when possible.
 [ ] - Add sleep function.
 [ ] - "< Makefile cat | grep A > outfile1 > outfile2 > outfile3 | ls -l" sould work properly.
+[ ] - Close fds.

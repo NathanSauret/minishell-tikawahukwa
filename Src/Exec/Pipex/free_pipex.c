@@ -6,22 +6,11 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:56:46 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/07 15:57:20 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/08 15:11:39 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
-
-
-// static void	free_array(char	**array)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (array[i])
-// 		free(array[i++]);
-// 	free(array);
-// }
 
 static void	exec_free(t_pipex *pipex)
 {
@@ -31,12 +20,6 @@ static void	exec_free(t_pipex *pipex)
 	exec = pipex->exec;
 	while (exec)
 	{
-		if (exec->cmd)
-			free(exec->cmd);
-		if (exec->path)
-			free(exec->path);
-		close(exec->in);
-		close(exec->out);
 		prev_exec = exec;
 		exec = exec->next;
 		free(prev_exec);
