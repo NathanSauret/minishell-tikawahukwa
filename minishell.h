@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 23:10:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/07 17:51:59 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/08 10:25:42 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int		exit_error2(t_data *data, char *str);
 void	free_env(t_env *env);
 void	free_token(t_data *data);
 int		is_error(char *str, t_data *data);
+void	free_command_line(t_token *token);
 
 /*init*/
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);

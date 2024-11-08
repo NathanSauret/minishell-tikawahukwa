@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 23:27:39 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/30 20:15:23 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/08 10:24:47 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	free_command_line(t_token *token)
 void	free_token(t_data *data)
 {
 	free(data->input);
-	if (data->token->command_line)
-		free_command_line(data->token);
 	if (data->token)
 		ft_token_lstclear(&(data->token));
 	if (data->cmd)
