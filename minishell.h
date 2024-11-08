@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid Date        by              +#+  #+#    #+#             */
-/*   Updated: 2024/11/08 14:18:23 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/08 15:36:20 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int		check_quote(char *str);
 int		is_quote(char c);
 int		line_is_empty(char *str);
 int		is_cmd(t_token *token);
-int		token_len(char *str, int *start, int *space, t_token *token);
+int		token_len(char *str, int *space, t_token *token);
 int		get_type(t_token *token, char *str, int *type, int len);
 int		is_operator(char *str);
 int		get_sorted_arg(t_data *data);
