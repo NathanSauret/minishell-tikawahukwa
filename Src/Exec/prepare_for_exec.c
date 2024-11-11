@@ -6,11 +6,11 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:50:29 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/08 15:10:56 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/11 16:52:03 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../minishell.h"
+#include "../../minishell.h"
 
 void	create_exec_struct(t_cmd *cmd, t_pipex *pipex)
 {
@@ -30,11 +30,19 @@ static void	check_redirections(t_cmd *cmd, t_pipex *pipex)
 	{
 		cmd->tokens = cmd->tokens->next;
 		pipex->exec->in = redirection_input(cmd);
+		pipex->exec->is_infile = 1;
 	}
 	else if (cmd->tokens->type == TRUNC)
 	{
 		cmd->tokens = cmd->tokens->next;
 		pipex->exec->out = redirection_trunc(pipex, cmd);
+		pipex->exec->is_outfile = 1;
+	}
+	else if (cmd->tokens->type == APPEND)
+	{
+		cmd->tokens = cmd->tokens->next;
+		pipex->exec->out = redirection_append(pipex, cmd);
+		pipex->exec->is_outfile = 1;
 	}
 }
 
@@ -62,13 +70,10 @@ void	prepare_for_exec(t_data *data, t_pipex *pipex)
 	pipex->idx = 0;
 	while (pipex->exec)
 	{
-		if (!pipex->exec->is_builtin)
+		while (data->cmd->tokens && data->cmd->tokens->type != PIPE)
 		{
-			while (data->cmd->tokens)
-			{
-				check_redirections(data->cmd, pipex);
-				data->cmd->tokens = data->cmd->tokens->next;
-			}
+			check_redirections(data->cmd, pipex);
+			data->cmd->tokens = data->cmd->tokens->next;
 		}
 		redirect_with_pipes(pipex);
 		data->cmd = data->cmd->next;

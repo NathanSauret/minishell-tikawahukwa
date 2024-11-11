@@ -3,42 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 15:15:41 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/08 12:46:26 by jmiccio          ###   ########.fr       */
+/*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
+/*   Updated: 2024/11/11 17:03:13 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int	exec_builtin(t_data *data)
+static int	set_values(t_pipex *pipex, t_data *data)
 {
-	if (ft_strnstr((data->token->str), "exit", 4))
-		return (ft_exit(data));
-	if (ft_strnstr((data->token->str), "cd", 2))
-		return (ft_cd(data->token->command_line));
-	// if (ft_strnstr((data->token->str), "echo", 4))
-	// 	return (ft_echo(data));
-	// if (ft_strnstr((data->token->str), "env", 3))
-	// 	return (ft_env(data));
-	// if (ft_strnstr((data->token->str), "env", 3))
-	// 	return (ft_env(data));
-	// if (ft_strnstr((data->token->str), "export", 6))
-	// 	return (ft_export(data));
-	// if (ft_strnstr((data->token->str), "pwd", 3))
-	// 	return (ft_pwd(data));
-	// if (ft_strnstr((data->token->str), "unset", 5))
-	// 	return (ft_unset(data));
-	ft_printf("YOU FORGOT A F*CKING BUILTIN FUNCTION, YOU DUMBA**!\n");
-	return (0);
+	pipex->cmd_nb = data->num_of_pipe + 1;
+	if (data->num_of_pipe > 0)
+	{
+		pipex->pipe = (int *)malloc(sizeof(int) * (data->num_of_pipe * 2));
+		if (!pipex->pipe)
+		{
+			pipe_free(pipex);
+			return (exit_error_exec(pipex, 1, "Error: pipe"));
+		}
+	}
+	pipex->here_doc = 0;
+	return (1);
 }
 
 int	exec(t_data *data, char **env)
 {
-	if (data->token->is_builtin)
-		return (exec_builtin(data));
-	else
-		pipex(data, env);
-	return (1);
+	t_pipex	pipex;
+	int		res_execute_command;
+
+	if (!set_values(&pipex, data))
+		return (0);
+	create_pipes(&pipex, data);
+	prepare_for_exec(data, &pipex);
+	res_execute_command = execute_commands(data, &pipex, env);
+	close_pipes(&pipex, data);
+	parent_free(&pipex, data);
+	// ft_printf("%d\n", res_execute_command);
+	waitpid(-1, NULL, 0);
+	return (res_execute_command);
 }

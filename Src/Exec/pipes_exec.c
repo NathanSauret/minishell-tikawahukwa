@@ -6,11 +6,11 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:55:14 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/08 15:13:30 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/11 16:33:40 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../minishell.h"
+#include "../../minishell.h"
 
 int	create_pipes(t_pipex *pipex, t_data *data)
 {
@@ -31,7 +31,6 @@ void	close_pipes(t_pipex *pipex, t_data *data)
 	int	i;
 
 	i = 0;
-	(void)pipex;
 	while (i < (data->num_of_pipe))
 		close(pipex->pipe[i++]);
 }

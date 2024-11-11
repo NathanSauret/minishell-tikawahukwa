@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_error_pipex.c                                 :+:      :+:    :+:   */
+/*   exit_error_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:25:51 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/28 18:05:51 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/11 16:46:13 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../minishell.h"
+#include "../../minishell.h"
 
 // case_-1 = problem without msg
 // case_0 = with message
@@ -19,13 +19,9 @@
 
 // static void	permission_denied(int error_case, char **args)
 
-int	exit_error_pipex(t_pipex *pipex, int error_case, char *arg)
+int	exit_error_exec(t_pipex *pipex, int error_case, char *arg)
 {
 	(void)pipex;
-	// if (pipex && pipex->infile)
-	// 	close(pipex->infile);
-	// if (pipex && pipex->outfile)
-	// 	close(pipex->outfile);
 	if (error_case == 0)
 	{
 		write(2, arg, ft_strlen(arg));

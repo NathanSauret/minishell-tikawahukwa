@@ -6,11 +6,11 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:29:11 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/07 13:01:23 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/11 16:33:31 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../minishell.h"
+#include "../../minishell.h"
 
 t_exec	*execnew(t_cmd *cmd, int in, int out)
 {
@@ -24,6 +24,8 @@ t_exec	*execnew(t_cmd *cmd, int in, int out)
 	t_newnode->is_builtin = cmd->is_builtin;
 	t_newnode->in = in;
 	t_newnode->out = out;
+	t_newnode->is_infile = 0;
+	t_newnode->is_outfile = 0;
 	t_newnode->next = NULL;
 	return (t_newnode);
 }
