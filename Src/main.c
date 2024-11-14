@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:38:42 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/08 14:48:29 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/14 17:16:21 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	loop(t_data *data, char **env)
 		}
 		if (!parsing(data))
 			continue ;
-		if (!(exec(data, env)))
+		if ((exec(data, env)) == -1)
 			break ;
 		free_token(data);
 	}

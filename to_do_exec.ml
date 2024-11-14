@@ -5,6 +5,7 @@
 [X] - "< Makefile cat | cat | cat | cat | cat > outfile1 > outfile2 > outfile3 | ls > outfile2" should work properly.
 [X] - "< Makefile cat | grep A > outfile1 > outfile2 > outfile3 | ls -l" sould work properly.
 [X] - Use builtins when possible.
+[X] - Get the result of execve when exiting child function.
 [ ] - Fix leaks when exit cmd.
 [ ] - Fix "cat Makefile | ls > /dev/stdin".
 [ ] - << redirection.
