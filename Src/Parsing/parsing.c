@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/08 14:31:32 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/14 16:43:58 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ int	is_builtin(char *str)
 		return (1);
 	else if (ft_strnstr((str), "cd", 2))
 		return (1);
-	/*else if (ft_strnstr((str), "echo", 4))
+	else if (ft_strnstr((str), "echo", 4))
 		return (1);
-	if (ft_strnstr((str), "env", 3))
+	/*if (ft_strnstr((str), "env", 3))
 		return (1);
 	else if (ft_strnstr((str), "export", 6))
 		return (1);
