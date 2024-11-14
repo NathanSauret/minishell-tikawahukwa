@@ -3,28 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:38:42 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/08 14:48:29 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/13 18:03:28 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	clear_rl_line(void)
-{
-	rl_replace_line("", 0);
-	rl_on_new_line();
-}
-
-void	handle_sigint(int sig)
-{
-	(void)sig;
-	printf("\n");
-	clear_rl_line();
-	rl_redisplay();
-}
+pid_t	g_signal_pid;
 
 int	loop(t_data *data, char **env)
 {
@@ -41,7 +29,7 @@ int	loop(t_data *data, char **env)
 		}
 		if (!parsing(data))
 			continue ;
-		if (!(exec(data, env)))
+		if (!(exec2(data, env)))
 			break ;
 		free_token(data);
 	}
@@ -54,7 +42,6 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc > 1)
 	{
-		signal(SIGINT, handle_sigint);
 		data_init(&data);
 		env_init(&data, env);
 		exec_test(argv[1], &data, env);
@@ -64,7 +51,6 @@ int	main(int argc, char **argv, char **env)
 	{
 		(void)argc;
 		(void)argv;
-		signal(SIGINT, handle_sigint);
 		data_init(&data);
 		env_init(&data, env);
 		loop(&data, env);

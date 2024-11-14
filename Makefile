@@ -10,12 +10,14 @@ SRC =	Src/main.c	\
 		Src/Terminate/free.c \
 		Src/Terminate/exit.c \
 		Src/Utils/free_token.c \
+		Src/Utils/signals.c \
 		Src/Parsing/parsing.c \
 		Src/Parsing/token.c \
 		Src/Parsing/parsing_utils.c \
 		Src/Parsing/token_utils.c \
 		Src/Parsing/dolar.c \
 		Src/Parsing/dolar_utils.c \
+		Src/Parsing/cmd_struct_fill.c \
 		Src/Exec/Pipex/exec_pipex.c	\
 		Src/Exec/Pipex/exec_struct_utils.c	\
 		Src/Exec/Pipex/exit_error_pipex.c	\
@@ -31,7 +33,6 @@ SRC =	Src/main.c	\
 		Src/Built_in/ft_cd.c \
 		Src/Built_in/ft_echo.c \
 		Src/Initialization/cmd_list.c \
-		Src/Parsing/cmd_struct_fill.c
 
 OBJ = $(SRC:.c=.o)
 

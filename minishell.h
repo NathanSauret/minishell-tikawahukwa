@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid Date        by              +#+  #+#    #+#             */
-/*   Updated: 2024/11/08 15:36:20 by jmiccio          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/11/13 17:50:00 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define ERR_FORK	"fork error\n"
 
 # define MAX_PATH_LENGTH 256
+
+extern pid_t	g_signal_pid;
 
 typedef struct s_exec
 {
@@ -96,6 +98,7 @@ typedef struct t_data
 	char			*input;
 	char			**args;
 	int				num_of_pipe;
+	int				exit_code;
 	t_env			*env;
 	t_cmd			*cmd;
 	t_token			*token;
@@ -113,6 +116,7 @@ void	free_env(t_env *env);
 void	free_token(t_data *data);
 int		is_error(char *str, t_data *data);
 void	free_command_line(t_token *token);
+void	signals(void);
 
 /*init*/
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);
