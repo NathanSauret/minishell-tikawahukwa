@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/14 17:16:29 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/15 18:43:11 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,16 @@ int	exec(t_data *data, char **env)
 	int		res_execute_commands;
 
 	if (!data->num_of_pipe && !ft_strncmp(data->args[0], "exit", 4))
-		return (-1);
+		return (ft_exit(data), -1);
 	if (!set_values(&pipex, data))
 		return (0);
 	if (!create_pipes(&pipex, data))
 		return (0);
 	prepare_for_exec(data, &pipex);
-	res_execute_commands = execute_commands(data, &pipex, env);
+	if (!data->num_of_pipe && pipex.exec->is_builtin)
+		res_execute_commands = execute_lonely_command(data, &pipex, env);
+	else
+		res_execute_commands = execute_commands(data, &pipex, env);
 	close_pipes(&pipex, data);
 	parent_free(&pipex, data);
 	waitpid(-1, NULL, 0);

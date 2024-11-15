@@ -6,7 +6,9 @@
 [X] - "< Makefile cat | grep A > outfile1 > outfile2 > outfile3 | ls -l" sould work properly.
 [X] - Use builtins when possible.
 [X] - Get the result of execve when exiting child function.
-[ ] - Fix leaks when exit cmd.
+[X] - Fix leaks when exit cmd.
+[ ] - Fix leaks when builtin in pipe.
+[ ] = Fix builtins redirections.
 [ ] - Fix "cat Makefile | ls > /dev/stdin".
 [ ] - << redirection.
 [ ] - Add sleep function.

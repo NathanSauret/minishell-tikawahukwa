@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/11/11 16:52:00 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/15 18:48:59 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int		exec_test(char *str, t_data *data, char **env);
 
 /*     exec     */
 // execute_commands.c
+int		execute_lonely_command(t_data *data, t_pipex *pipex, char **env);
 int		execute_commands(t_data *data, t_pipex *pipex, char **env);
 // exec_struct_utils.c
 t_exec	*execnew(t_cmd *cmd, int in, int out);
@@ -174,7 +175,7 @@ int		exec(t_data *data, char **env);
 int		exit_error_exec(t_pipex *pipex, int error_case, char *arg);
 // free_exec.c
 void	parent_free(t_pipex *pipex, t_data *data);
-void	child_free(t_pipex *pipex);
+int		pipe_free(t_pipex *pipex);
 // pipes_exec.c
 int		create_pipes(t_pipex *pipex, t_data *data);
 int		pipe_free(t_pipex *pipex);

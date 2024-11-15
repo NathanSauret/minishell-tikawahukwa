@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/14 17:15:47 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/15 19:06:54 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	exec_builtin(t_data *data, t_pipex *pipex)
 {
-	if (ft_strnstr((pipex->exec->cmd[0]), "exit", 4))
-		return (ft_exit(data));
 	if (ft_strnstr((pipex->exec->cmd[0]), "cd", 2))
 		return (ft_cd(data->args));
 	if (ft_strnstr((pipex->exec->cmd[0]), "echo", 4))
@@ -31,6 +29,27 @@ static int	exec_builtin(t_data *data, t_pipex *pipex)
 	return (-1);
 }
 
+int	execute_lonely_command(t_data *data, t_pipex *pipex, char **env)
+{
+	t_exec	*exec;
+	int		res;
+
+	res = -1;
+	exec = pipex->exec;
+	// dup2(exec->in, 0);
+	// dup2(exec->out, 1);
+	close_pipes(pipex, data);
+	if (exec->is_builtin)
+		res = exec_builtin(data, pipex);
+	else
+		res = execve(exec->path, exec->cmd, env);
+	if (exec->is_infile)
+		close(exec->in);
+	if (exec->is_outfile)
+		close(exec->out);
+	return (res);
+}
+
 static int	child(t_data *data, t_pipex *pipex, char **env)
 {
 	t_exec	*exec;
@@ -39,7 +58,7 @@ static int	child(t_data *data, t_pipex *pipex, char **env)
 
 	exec = pipex->exec;
 	pipex->pid = fork();
-	res = 1;
+	res = -1;
 	if (!pipex->pid)
 	{
 		dup2(exec->in, 0);
@@ -53,6 +72,12 @@ static int	child(t_data *data, t_pipex *pipex, char **env)
 			close(exec->in);
 		if (exec->is_outfile)
 			close(exec->out);
+		if (exec->is_builtin)
+		{
+			parent_free(pipex, data);
+			free_token(data);
+			free_env(data->env);
+		}
 		exit (res);
 	}
 	waitpid(pipex->pid, &status, 0);
