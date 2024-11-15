@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/11/13 17:50:00 by j_sk8            ###   ########.fr       */
+/*   Created: Invalid Date        by                   #+#    #+#             */
+/*   Updated: 2024/11/15 14:20:03 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_exec
 {
 	int				in;
 	int				out;
+	int				is_infile;
+	int				is_outfile;
 	int				is_builtin;
 	char			**cmd;
 	char			*path;
@@ -165,30 +167,29 @@ void	print_cmd(t_cmd *cmd);
 int		exec_test(char *str, t_data *data, char **env);
 
 /*     exec     */
-// exec_pipex.c
-void	exec_pipex(t_data *data, t_pipex *pipex, char **env);
+// execute_commands.c
+int		execute_commands(t_data *data, t_pipex *pipex, char **env);
 // exec_struct_utils.c
 t_exec	*execnew(t_cmd *cmd, int in, int out);
 void	execadd_back(t_exec **exec, t_exec *new);
-// exit_error_pipex.c
-int		exit_error_pipex(t_pipex *pipex, int error_case, char *arg);
-// free-pipex.c
+// exec.c
+int		exec(t_data *data, char **env);
+// exit_error_exec.c
+int		exit_error_exec(t_pipex *pipex, int error_case, char *arg);
+// free_exec.c
 void	parent_free(t_pipex *pipex, t_data *data);
 void	child_free(t_pipex *pipex);
-// pipes_pipex.c
+// pipes_exec.c
 int		create_pipes(t_pipex *pipex, t_data *data);
 int		pipe_free(t_pipex *pipex);
 void	close_pipes(t_pipex *pipex, t_data *data);
-// pipex.c
-int		pipex(t_data *data, char **env);
 // prepare_for_exec.c
 void	prepare_for_exec(t_data *data, t_pipex *pipex);
 // redirections.c
 int		redirection_input(t_cmd *cmd);
 int		redirection_trunc(t_pipex *pipex, t_cmd *cmd);
-// exec.c
-int		exec(t_data *data, char **env);
-int		exec2(t_data *data, char **env);
+int		redirection_append(t_pipex *pipex, t_cmd *cmd);
+
 
 /*builtins*/
 int		ft_exit(t_data *data);
