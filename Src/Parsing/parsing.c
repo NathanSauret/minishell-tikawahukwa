@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/14 16:43:58 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/15 18:22:31 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ int	is_builtin(char *str)
 		return (1);
 	else if (ft_strnstr((str), "echo", 4))
 		return (1);
-	/*if (ft_strnstr((str), "env", 3))
+	if (ft_strnstr((str), "env", 3))
 		return (1);
-	else if (ft_strnstr((str), "export", 6))
+	/*else if (ft_strnstr((str), "export", 6))
 		return (1);
 	else if (ft_strnstr((str), "unset", 4))
-		return (1);
-	else if (ft_strnstr((str), "pwd", 3))
 		return (1);*/
+	else if (ft_strnstr((str), "pwd", 3))
+		return (1);
 	return (0);
 }
 

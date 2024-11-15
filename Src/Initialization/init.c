@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:40:17 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/30 18:07:47 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/15 15:40:48 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	data_init(t_data *data)
 	data->env = NULL;
 	data->cmd = NULL;
 	data->num_of_pipe = 0;
+	signals();
 }
 
 int	env_init(t_data *data, char **env_array)

@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 18:09:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/11/15 18:13:58 by jmiccio          ###   ########.fr       */
+/*   Created: 2024/11/15 15:36:26 by jmiccio           #+#    #+#             */
+/*   Updated: 2024/11/15 15:38:53 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_pwd(void)
+static void	clear_rl_line(void)
 {
-	char	cwd[MAX_PATH_LENGTH];
+	rl_replace_line("", 0);
+	rl_on_new_line();
+}
 
-	if (getcwd(cwd, MAX_PATH_LENGTH))
-	{
-		ft_printf("%s\n", cwd);
-		return (0);
-	}
-	else
-	{
-		perror("pwd");
-		return (1);
-	}
+static void	handle_sigint(int sig)
+{
+	(void)sig;
+	printf("\n");
+	clear_rl_line();
+	rl_redisplay();
+}
+
+void	signals(void)
+{
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
 }

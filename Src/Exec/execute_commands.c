@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/14 17:15:47 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/15 19:16:13 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static int	exec_builtin(t_data *data, t_pipex *pipex)
 		return (ft_cd(data->args));
 	if (ft_strnstr((pipex->exec->cmd[0]), "echo", 4))
 		return (ft_echo(pipex->exec->cmd));
-	// if (ft_strnstr((data->token->str), "env", 3))
-	// 	return (ft_env(data));
+	if (ft_strnstr((data->token->str), "env", 3))
+			return (ft_env(data->env));
 	// if (ft_strnstr((data->token->str), "export", 6))
 	// 	return (ft_export(data));
-	// if (ft_strnstr((data->token->str), "pwd", 3))
-	// 	return (ft_pwd(data));
+	if (ft_strnstr((data->token->str), "pwd", 3))
+		return (ft_pwd());
 	// if (ft_strnstr((data->token->str), "unset", 5))
 	// 	return (ft_unset(data));
 	return (-1);
@@ -53,6 +53,8 @@ static int	child(t_data *data, t_pipex *pipex, char **env)
 			close(exec->in);
 		if (exec->is_outfile)
 			close(exec->out);
+		free_token(data);
+		free_env(data->env);
 		exit (res);
 	}
 	waitpid(pipex->pid, &status, 0);

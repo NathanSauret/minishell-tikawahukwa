@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:37:27 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/11/14 16:42:47 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/15 17:25:15 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_echo(char **arg)
 	int	new_line;
 	int	i;
 
-	ft_printf("sdfkaisdgfasdgfakdf\n");
 	i = 1;
 	new_line = 1;
 	if (ft_strnstr(arg[i], "-n", 2))
@@ -27,10 +26,10 @@ int	ft_echo(char **arg)
 	}
 	while (arg[i])
 	{
-		printf("%s ", arg[i]);
+		ft_printf("%s ", arg[i]);
 		i++;
 	}
 	if (new_line)
-		printf("\n");
+		ft_printf("\n");
 	return (1);
 }
