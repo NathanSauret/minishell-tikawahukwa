@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid Date        by                   #+#    #+#             */
-/*   Updated: 2024/11/15 18:22:18 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/16 17:37:06 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct t_data
 	char			*input;
 	char			**args;
 	int				num_of_pipe;
+	int				env_len;
 	t_env			*env;
 	t_cmd			*cmd;
 	t_token			*token;
@@ -116,6 +117,11 @@ void	free_token(t_data *data);
 int		is_error(char *str, t_data *data);
 void	free_command_line(t_token *token);
 void	signals(void);
+void	sort_array(char **arr, int len);
+char	**lst_to_arr(t_env *env, int len);
+int		print_error(char *str);
+void	free_array(char **arr);
+void	print_array(char **tab);
 
 /*init*/
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);
@@ -157,7 +163,7 @@ int		full_len(t_token *token, char **var);
 
 /*debug*/
 void	print_token(t_token *token, int show_args);
-void	print_3d(char **str);
+void	print_tab(char **tab);
 void	print_cmd(t_cmd *cmd);
 int		exec_test(char *str, t_data *data, char **env);
 void	print_cmd(t_cmd *cmd);
@@ -195,4 +201,5 @@ int		ft_echo(char **arg);
 int		ft_pwd(void);
 int		ft_echo(char **arg);
 int		ft_env(t_env *env);
+int		ft_export(char **str, t_data *data);
 #endif

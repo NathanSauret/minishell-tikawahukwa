@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/08 12:46:15 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/16 17:36:56 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,23 @@ void	show_command_line(t_token *token)
 			arg_num++;
 		}
 		token = token->next;
+	}
+}
+
+void	print_array(char **tab)
+{
+	int	i;
+
+	if (!(tab))
+	{
+		printf("NULL");
+		return ;
+	}
+	i = 0;
+	while (tab[i])
+	{
+		printf("%s\n", tab[i]);
+		i++;
 	}
 }
 

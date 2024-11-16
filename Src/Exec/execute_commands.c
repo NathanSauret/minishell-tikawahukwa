@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/15 19:16:13 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/16 17:23:30 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	exec_builtin(t_data *data, t_pipex *pipex)
 		return (ft_echo(pipex->exec->cmd));
 	if (ft_strnstr((data->token->str), "env", 3))
 			return (ft_env(data->env));
-	// if (ft_strnstr((data->token->str), "export", 6))
-	// 	return (ft_export(data));
+	 if (ft_strnstr((data->token->str), "export", 6))
+	 	return (ft_export(pipex->exec->cmd, data));
 	if (ft_strnstr((data->token->str), "pwd", 3))
 		return (ft_pwd());
 	// if (ft_strnstr((data->token->str), "unset", 5))

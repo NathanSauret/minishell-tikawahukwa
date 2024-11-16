@@ -11,6 +11,8 @@ SRC =	Src/main.c	\
 		Src/Terminate/exit.c \
 		Src/Utils/free_token.c \
 		Src/Utils/signals.c \
+		Src/Utils/array_utils.c \
+		Src/Utils/utils.c \
 		Src/Parsing/parsing.c \
 		Src/Parsing/token.c \
 		Src/Parsing/parsing_utils.c \
@@ -31,6 +33,7 @@ SRC =	Src/main.c	\
 		Src/Built_in/ft_pwd.c \
 		Src/Built_in/ft_echo.c \
 		Src/Built_in/ft_env.c \
+		Src/Built_in/ft_export.c \
 		Src/Initialization/cmd_list.c \
 		Src/Parsing/cmd_struct_fill.c
 

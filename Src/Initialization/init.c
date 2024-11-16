@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:40:17 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/15 15:40:48 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/16 17:13:05 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	data_init(t_data *data)
 	data->input = NULL;
 	data->env = NULL;
 	data->cmd = NULL;
+	data->env_len = 0;
 	data->num_of_pipe = 0;
 	signals();
 }
@@ -47,5 +48,6 @@ int	env_init(t_data *data, char **env_array)
 		env = new;
 		i++;
 	}
+	data->env_len = i;
 	return (0);
 }
