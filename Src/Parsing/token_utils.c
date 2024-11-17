@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/08 12:47:02 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/17 18:11:25 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ int	token_parsing(t_data *data)
 	return (1);
 }
 
-int	token_len(char *str, int *start, int *space, t_token *token)
+int	token_len(char *str, int *space, t_token *token)
 {
 	int		i;
 	char	quote;
 
 	i = 0;
+	*space = 1;
 	if (str[i] && is_quote(str[i]))
 	{
 		if (token && str[i - 1] && !ft_is_space(str[i - 1]))
 			*space = 0;
-		*start = 1;
 		quote = str[i++];
 		while (str[i] && str[i] != quote)
 			i++;

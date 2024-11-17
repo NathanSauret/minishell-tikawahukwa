@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/15 17:37:11 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/17 16:44:40 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int	exec(t_data *data, char **env)
 	if (!create_pipes(&pipex, data))
 		return (0);
 	prepare_for_exec(data, &pipex);
-	res_execute_commands = execute_commands(data, &pipex, env);
+	if (pipex.exec->is_builtin)
+		res_execute_commands = exec_builtin(data, &pipex);
+	else
+		res_execute_commands = execute_commands(data, &pipex, env);
 	close_pipes(&pipex, data);
 	parent_free(&pipex, data);
 	waitpid(-1, NULL, 0);

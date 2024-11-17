@@ -6,13 +6,13 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/16 17:23:30 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/17 16:45:39 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int	exec_builtin(t_data *data, t_pipex *pipex)
+int	exec_builtin(t_data *data, t_pipex *pipex)
 {
 	if (ft_strnstr((pipex->exec->cmd[0]), "exit", 4))
 		return (ft_exit(data));

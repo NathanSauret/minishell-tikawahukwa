@@ -6,10 +6,9 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid Date        by                   #+#    #+#             */
-/*   Updated: 2024/11/16 17:37:06 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/17 18:11:54 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -121,7 +120,6 @@ void	sort_array(char **arr, int len);
 char	**lst_to_arr(t_env *env, int len);
 int		print_error(char *str);
 void	free_array(char **arr);
-void	print_array(char **tab);
 
 /*init*/
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);
@@ -149,7 +147,7 @@ int		check_quote(char *str);
 int		is_quote(char c);
 int		line_is_empty(char *str);
 int		is_cmd(t_token *token);
-int		token_len(char *str, int *start, int *space, t_token *token);
+int	token_len(char *str, int *space, t_token *token);
 int		get_type(t_token *token, char *str, int *type, int len);
 int		is_operator(char *str);
 int		get_sorted_arg(t_data *data);
@@ -177,6 +175,7 @@ t_exec	*execnew(t_cmd *cmd, int in, int out);
 void	execadd_back(t_exec **exec, t_exec *new);
 // exec.c
 int		exec(t_data *data, char **env);
+int		exec_builtin(t_data *data, t_pipex *pipex);
 // exit_error_exec.c
 int		exit_error_exec(t_pipex *pipex, int error_case, char *arg);
 // free_exec.c
@@ -192,7 +191,6 @@ void	prepare_for_exec(t_data *data, t_pipex *pipex);
 int		redirection_input(t_cmd *cmd);
 int		redirection_trunc(t_pipex *pipex, t_cmd *cmd);
 int		redirection_append(t_pipex *pipex, t_cmd *cmd);
-
 
 /*builtins*/
 int		ft_exit(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/08 12:45:48 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/17 18:10:39 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,24 @@ int	add_cmd(t_data *data, char *str, int type)
 int	get_arg(t_data *data, char **str)
 {
 	int		len;
-	int		start;
 	int		type;
 	int		space;
 	t_token	*tmp;
 
 	tmp = ft_token_lstlast(data->token);
-	space = 1;
-	start = 0;
-	len = token_len(*str, &start, &space, tmp);
+	len = token_len(*str, &space, tmp);
 	if (!len)
 		return ((*str) += 1, 1);
 	len = get_type(data->token, *str, &type, len);
 	if (!space && tmp && !is_operator(tmp->str))
 	{
-		tmp->str = ft_strjoin(tmp->str, ft_substr(*str, start, len));
+		tmp->str = ft_strjoin(tmp->str,
+				ft_substr(*str, is_quote(*(*str)), len));
 		if (!tmp->str)
 			return (0);
 	}
 	else
-		if (!(add_cmd(data, ft_substr(*str, start, len), type)))
+		if (!(add_cmd(data, ft_substr(*str, is_quote(*(*str)), len), type)))
 			return (0);
 	if (is_quote(*(*str)))
 		(*str) += len + 2;
