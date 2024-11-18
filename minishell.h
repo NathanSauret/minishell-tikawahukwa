@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/11/15 18:48:59 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/18 14:06:34 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,8 @@ int		exec(t_data *data, char **env);
 // exit_error_exec.c
 int		exit_error_exec(t_pipex *pipex, int error_case, char *arg);
 // free_exec.c
-void	parent_free(t_pipex *pipex, t_data *data);
-int		pipe_free(t_pipex *pipex);
+void	free_parent(t_pipex *pipex, t_data *data);
+int		free_pipe(t_pipex *pipex);
 // pipes_exec.c
 int		create_pipes(t_pipex *pipex, t_data *data);
 int		pipe_free(t_pipex *pipex);

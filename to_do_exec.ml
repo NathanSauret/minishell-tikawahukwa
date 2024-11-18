@@ -7,8 +7,8 @@
 [X] - Use builtins when possible.
 [X] - Get the result of execve when exiting child function.
 [X] - Fix leaks when exit cmd.
-[ ] - Fix leaks when builtin in pipe.
-[ ] = Fix builtins redirections.
+[X] - Fix leaks when builtin in pipe.
+[X] = Fix builtins redirections.
 [ ] - Fix "cat Makefile | ls > /dev/stdin".
 [ ] - << redirection.
 [ ] - Add sleep function.

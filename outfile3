@@ -1,0 +1,9 @@
+NAME 	= minishell
+CFLAGS	= -Wall -Werror -Wextra -g3
+all: $(NAME)
+$(NAME): $(OBJ)
+	@$(MAKE) -C $(LIBFT_DIR)
+	@$(CC) -o $(NAME) $(CFLAGS) $(OBJ) $(LIBFT) -lreadline
+	@$(MAKE) clean -C $(LIBFT_DIR)
+	@$(MAKE) fclean -C $(LIBFT_DIR)
+	@rm -f $(NAME)

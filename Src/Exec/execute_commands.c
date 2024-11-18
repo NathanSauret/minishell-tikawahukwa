@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/15 19:06:54 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/18 17:27:26 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,26 @@ static int	exec_builtin(t_data *data, t_pipex *pipex)
 	return (-1);
 }
 
-int	execute_lonely_command(t_data *data, t_pipex *pipex, char **env)
+static void	close_iofiles(t_exec *exec)
 {
-	t_exec	*exec;
-	int		res;
+	close(exec->in);
+	close(exec->out);
+}
 
-	res = -1;
-	exec = pipex->exec;
-	// dup2(exec->in, 0);
-	// dup2(exec->out, 1);
-	close_pipes(pipex, data);
-	if (exec->is_builtin)
-		res = exec_builtin(data, pipex);
-	else
-		res = execve(exec->path, exec->cmd, env);
-	if (exec->is_infile)
-		close(exec->in);
-	if (exec->is_outfile)
-		close(exec->out);
-	return (res);
+static void	free_child(t_data *data, t_pipex *pipex)
+{	
+	t_exec	*prev_exec;
+
+	while (pipex->exec)
+	{
+		prev_exec = pipex->exec;
+		pipex->exec = pipex->exec->next;
+		close_iofiles(prev_exec);
+		free(prev_exec);
+	}
+	free_parent(pipex, data);
+	free_token(data);
+	free_env(data->env);
 }
 
 static int	child(t_data *data, t_pipex *pipex, char **env)
@@ -56,43 +57,35 @@ static int	child(t_data *data, t_pipex *pipex, char **env)
 	int		res;
 	int		status;
 
-	exec = pipex->exec;
-	pipex->pid = fork();
+	data->pid = fork();
 	res = -1;
-	if (!pipex->pid)
+	if (!data->pid)
 	{
+		exec = pipex->exec;
 		dup2(exec->in, 0);
 		dup2(exec->out, 1);
 		close_pipes(pipex, data);
 		if (exec->is_builtin)
 			res = exec_builtin(data, pipex);
 		else
-			execve(exec->path, exec->cmd, env);
-		if (exec->is_infile)
-			close(exec->in);
-		if (exec->is_outfile)
-			close(exec->out);
-		if (exec->is_builtin)
-		{
-			parent_free(pipex, data);
-			free_token(data);
-			free_env(data->env);
-		}
+			res = execve(exec->path, exec->cmd, env);
+		free_child(data, pipex);
 		exit (res);
 	}
-	waitpid(pipex->pid, &status, 0);
+	waitpid(data->pid, &status, 0);
 	return (WEXITSTATUS (status));
 }
 
 int	execute_commands(t_data *data, t_pipex *pipex, char **env)
 {
 	t_exec	*exec_head;
+	t_exec	*prev_exec;
 	int		res;
 
 	exec_head = pipex->exec;
-	pipex->idx = -1;
+	pipex->idx = 0;
 	res = 1;
-	while (++pipex->idx < pipex->cmd_nb)
+	while (pipex->idx++ < pipex->cmd_nb)
 	{
 		if (ft_strncmp(pipex->exec->cmd[0], "sleep", 5)
 			&& ft_strncmp(pipex->exec->cmd[0], "exit", 4)
@@ -100,7 +93,10 @@ int	execute_commands(t_data *data, t_pipex *pipex, char **env)
 		{
 			res = child(data, pipex, env);
 		}
+		prev_exec = pipex->exec;
 		pipex->exec = pipex->exec->next;
+		close_iofiles(prev_exec);
+		free(prev_exec);
 	}
 	pipex->exec = exec_head;
 	// sleep_case(all, argv, envp);
