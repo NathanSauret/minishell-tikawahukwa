@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/17 18:10:39 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/19 20:00:45 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,57 @@ char	**tokens_to_args(t_token *token_list)
 	return (args);
 }
 
-int	add_cmd(t_data *data, char *str, int type)
+int	add_cmd(t_data *data, char *str, int len, int type)
 {
+	char	*token;
+	char	quote;
+
+	quote = '$';
+	token = ft_substr(str, is_quote(*str), len);
+	if (!token)
+		return (printf(ERR_MALLOC), 0);
+	if (*str != '\'' && ft_strnstr(str, "$", len))
+	{
+		if (is_quote(*str))
+			quote = *str;
+		token = handle_dolar(data, token, &len, quote);
+		if (!str)
+			return (print_error(ERR_MALLOC));
+	}
+	if (!(ft_token_lstadd_back(&(data->token), ft_token_lstnew(token, type))))
+		return (printf(ERR_MALLOC), 0);
+	return (1);
+}
+
+int	join_token(t_data *data, t_token *token, char *str, int len)
+{
+	char	quote;
+	char	*res;
+
+	quote = '$';
+	res = ft_substr(str, is_quote(*str), len);
 	if (!str)
 		return (printf(ERR_MALLOC), 0);
-	if (!(ft_token_lstadd_back(&(data->token), ft_token_lstnew(str, type))))
-		return (printf(ERR_MALLOC), 0);
+	if (*str != '\'' && ft_strnstr(str, "$", len))
+	{
+		if (is_quote(*str))
+			quote = *str;
+		res = handle_dolar(data, res, &len, quote);
+		if (!res)
+			return (print_error(ERR_MALLOC));
+	}
+	token->str = ft_strjoin(token->str, res);
+	if (!token->str)
+		return (0);
 	return (1);
 }
 
 int	get_arg(t_data *data, char **str)
 {
-	int		len;
-	int		type;
-	int		space;
-	t_token	*tmp;
+	int			len;
+	int			type;
+	int			space;
+	t_token		*tmp;
 
 	tmp = ft_token_lstlast(data->token);
 	len = token_len(*str, &space, tmp);
@@ -64,19 +100,17 @@ int	get_arg(t_data *data, char **str)
 	len = get_type(data->token, *str, &type, len);
 	if (!space && tmp && !is_operator(tmp->str))
 	{
-		tmp->str = ft_strjoin(tmp->str,
-				ft_substr(*str, is_quote(*(*str)), len));
-		if (!tmp->str)
+		if (!(join_token(data, tmp, *(str), len)))
 			return (0);
 	}
 	else
-		if (!(add_cmd(data, ft_substr(*str, is_quote(*(*str)), len), type)))
+	{
+		if (!(add_cmd(data, *str, len, type)))
 			return (0);
+	}
 	if (is_quote(*(*str)))
-		(*str) += len + 2;
-	else
-		(*str) += len;
-	return (1);
+		return ((*str) += len + 2, 1);
+	return ((*str) += len, 1);
 }
 
 int	add_token(t_data *data)

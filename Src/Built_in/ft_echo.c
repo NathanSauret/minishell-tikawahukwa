@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:37:27 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/11/15 17:25:15 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/19 20:07:50 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ int	ft_echo(char **arg)
 
 	i = 1;
 	new_line = 1;
+	if (!arg[i])
+	{
+		ft_printf("\n");
+		return (1);
+	}
 	if (ft_strnstr(arg[i], "-n", 2))
 	{
 		new_line = 0;

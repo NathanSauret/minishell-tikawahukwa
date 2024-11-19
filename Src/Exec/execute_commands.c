@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/17 16:45:39 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/18 16:02:35 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	exec_builtin(t_data *data, t_pipex *pipex)
 	if (ft_strnstr((pipex->exec->cmd[0]), "exit", 4))
 		return (ft_exit(data));
 	if (ft_strnstr((pipex->exec->cmd[0]), "cd", 2))
-		return (ft_cd(data->args));
+		return (ft_cd(data->env, data->args));
 	if (ft_strnstr((pipex->exec->cmd[0]), "echo", 4))
 		return (ft_echo(pipex->exec->cmd));
 	if (ft_strnstr((data->token->str), "env", 3))

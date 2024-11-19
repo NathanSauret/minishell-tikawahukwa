@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid Date        by                   #+#    #+#             */
-/*   Updated: 2024/11/17 18:11:54 by jmiccio          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/11/19 20:05:14 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_token
 	char			*path;
 	int				cmd_line_size;
 	int				type;
+	int				quote[MAX_PATH_LENGTH];
 	int				is_builtin;
 	struct s_token	*prev;
 	struct s_token	*next;
@@ -120,6 +121,8 @@ void	sort_array(char **arr, int len);
 char	**lst_to_arr(t_env *env, int len);
 int		print_error(char *str);
 void	free_array(char **arr);
+char	*ft_getenv(t_env *env, char *str);
+char	**free_var(char **str, int len);
 
 /*init*/
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);
@@ -147,17 +150,17 @@ int		check_quote(char *str);
 int		is_quote(char c);
 int		line_is_empty(char *str);
 int		is_cmd(t_token *token);
-int	token_len(char *str, int *space, t_token *token);
+int		token_len(char *str, int *space, t_token *token);
 int		get_type(t_token *token, char *str, int *type, int len);
 int		is_operator(char *str);
 int		get_sorted_arg(t_data *data);
 int		token_parsing(t_data *data);
-int		handle_dolar(t_data *data);
+char	*handle_dolar(t_data *data, char *str, int *len, char quote);
 int		copy_str(char **res, char **str, int *i, int len);
 int		copy_var(char **res, char *var, int *i, int len);
-char	**free_var(char **str, int len);
 char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100]);
-int		full_len(t_token *token, char **var);
+int		full_len(t_env *env, char *token, char **var);
+int		var_len(char *str, int *y);
 
 /*debug*/
 void	print_token(t_token *token, int show_args);
@@ -194,7 +197,7 @@ int		redirection_append(t_pipex *pipex, t_cmd *cmd);
 
 /*builtins*/
 int		ft_exit(t_data *data);
-int		ft_cd(char **args);
+int		ft_cd(t_env *env, char **args);
 int		ft_echo(char **arg);
 int		ft_pwd(void);
 int		ft_echo(char **arg);

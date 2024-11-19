@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 20:44:08 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/08 14:15:05 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/19 14:58:01 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_token	*ft_token_lstnew(char *str, int type)
 	t_newnode->is_builtin = 0;
 	t_newnode->next = NULL;
 	t_newnode->prev = NULL;
+	ft_memset(t_newnode->quote, 0, sizeof(t_newnode->quote));
 	return (t_newnode);
 }
 

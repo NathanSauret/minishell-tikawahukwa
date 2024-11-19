@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:43 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/11 17:06:29 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/18 16:02:46 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_cd(char **args)
+int	ft_cd(t_env *env, char **args)
 {
 	char	*home;
 
-	home = getenv("HOME");
+	home = ft_getenv(env, "HOME");
 	if (args[1] == NULL)
 	{
 		if (home == NULL || chdir(home) != 0)
