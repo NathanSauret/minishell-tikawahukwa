@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/14 17:16:29 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/20 17:31:32 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	set_values(t_pipex *pipex, t_data *data)
 		pipex->pipe = (int *)malloc(sizeof(int) * (data->num_of_pipe * 2));
 		if (!pipex->pipe)
 		{
-			pipe_free(pipex);
+			free_pipe(pipex);
 			return (exit_error_exec(pipex, 1, "Error: pipe"));
 		}
 	}
@@ -34,7 +34,7 @@ int	exec(t_data *data, char **env)
 	int		res_execute_commands;
 
 	if (!data->num_of_pipe && !ft_strncmp(data->args[0], "exit", 4))
-		return (-1);
+		return (ft_exit(data), -1);
 	if (!set_values(&pipex, data))
 		return (0);
 	if (!create_pipes(&pipex, data))
@@ -42,7 +42,7 @@ int	exec(t_data *data, char **env)
 	prepare_for_exec(data, &pipex);
 	res_execute_commands = execute_commands(data, &pipex, env);
 	close_pipes(&pipex, data);
-	parent_free(&pipex, data);
+	free_parent(&pipex, data);
 	waitpid(-1, NULL, 0);
 	return (res_execute_commands);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/08 12:46:15 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/18 15:28:18 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,7 @@ int	exec_test(char *str, t_data *data, char **env)
 		return (printf("exit..\n"), 1);
 	if (!parsing(data))
 		return (0);
-	if (!(exec(data, env)))
-		return (0);
+	exec(data, env);
 	free_token(data);
 	return (1);
 }

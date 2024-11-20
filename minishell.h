@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/11/11 16:52:00 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/20 17:40:59 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int		exec_test(char *str, t_data *data, char **env);
 
 /*     exec     */
 // execute_commands.c
+int		execute_lonely_command(t_data *data, t_pipex *pipex, char **env);
 int		execute_commands(t_data *data, t_pipex *pipex, char **env);
 // exec_struct_utils.c
 t_exec	*execnew(t_cmd *cmd, int in, int out);
@@ -173,8 +174,10 @@ int		exec(t_data *data, char **env);
 // exit_error_exec.c
 int		exit_error_exec(t_pipex *pipex, int error_case, char *arg);
 // free_exec.c
-void	parent_free(t_pipex *pipex, t_data *data);
-void	child_free(t_pipex *pipex);
+void	free_parent(t_pipex *pipex, t_data *data);
+int		free_pipe(t_pipex *pipex);
+// here_doc.c
+void	here_doc(char *argv, t_pipex *pipex);
 // pipes_exec.c
 int		create_pipes(t_pipex *pipex, t_data *data);
 int		pipe_free(t_pipex *pipex);
@@ -185,6 +188,8 @@ void	prepare_for_exec(t_data *data, t_pipex *pipex);
 int		redirection_input(t_cmd *cmd);
 int		redirection_trunc(t_pipex *pipex, t_cmd *cmd);
 int		redirection_append(t_pipex *pipex, t_cmd *cmd);
+// sleep_case.c
+int		sleep_case(char *max_sleep, char **env);
 
 
 /*builtins*/

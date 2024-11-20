@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 23:27:39 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/08 14:48:18 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/18 14:35:20 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	free_command_line(t_token *token)
 
 void	free_token(t_data *data)
 {
-	free(data->input);
+	if (data->input)
+		free(data->input);
 	if (data->token)
 		ft_token_lstclear(&(data->token));
 	if (data->cmd)
