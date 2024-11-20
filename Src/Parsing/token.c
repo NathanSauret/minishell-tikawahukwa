@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/19 20:00:45 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/20 18:20:12 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ int	add_cmd(t_data *data, char *str, int len, int type)
 	quote = '$';
 	token = ft_substr(str, is_quote(*str), len);
 	if (!token)
-		return (printf(ERR_MALLOC), 0);
+		return ( 0);
 	if (*str != '\'' && ft_strnstr(str, "$", len))
 	{
 		if (is_quote(*str))
 			quote = *str;
 		token = handle_dolar(data, token, &len, quote);
-		if (!str)
-			return (print_error(ERR_MALLOC));
+		if (!token)
+			return (0);
 	}
 	if (!(ft_token_lstadd_back(&(data->token), ft_token_lstnew(token, type))))
-		return (printf(ERR_MALLOC), 0);
+		return (0);
 	return (1);
 }
 
@@ -70,15 +70,15 @@ int	join_token(t_data *data, t_token *token, char *str, int len)
 
 	quote = '$';
 	res = ft_substr(str, is_quote(*str), len);
-	if (!str)
-		return (printf(ERR_MALLOC), 0);
+	if (!res)
+		return (0);
 	if (*str != '\'' && ft_strnstr(str, "$", len))
 	{
 		if (is_quote(*str))
 			quote = *str;
 		res = handle_dolar(data, res, &len, quote);
 		if (!res)
-			return (print_error(ERR_MALLOC));
+			return (0);
 	}
 	token->str = ft_strjoin(token->str, res);
 	if (!token->str)

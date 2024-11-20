@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/19 18:38:56 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/20 17:43:20 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,26 +89,6 @@ void	print_token(t_token *token, int show_args)
 	printf("Type : %d, [%s]\n", token->type, token->str);
 	if (show_args)
 		show_command_line(tmp);
-}
-
-char	*ft_getenv(t_env *env, char *str)
-{
-	char	*ptr;
-	int		size;
-
-	size = ft_strlen(str);
-	ptr = NULL;
-	while (env)
-	{
-		if (!ft_strncmp(env->value, str, size)
-			&& (env->value[size] == '=' || env->value[size] == '\0'))
-			{
-				ptr = &env->value[size + 1];
-				return(ptr);
-			}
-			env = env->next;
-	}
-	return (ptr);
 }
 
 int	exec_test(char *str, t_data *data, char **env)

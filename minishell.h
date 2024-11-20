@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/11/19 20:05:14 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/20 18:02:08 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct s_token
 	char			*path;
 	int				cmd_line_size;
 	int				type;
-	int				quote[MAX_PATH_LENGTH];
 	int				is_builtin;
 	struct s_token	*prev;
 	struct s_token	*next;

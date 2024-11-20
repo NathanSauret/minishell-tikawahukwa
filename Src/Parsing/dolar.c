@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:05:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/19 22:30:59 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/20 18:33:28 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**get_var_name(char *str, int *v_num)
 	return (fill_var_name(str, *v_num, v_pos, v_len));
 }
 
-char	*get_new_str(char *token, char **var, int len)
+char	*get_new_str(char *token, char **var, int len, int var_num)
 {
 	char	*res;
 	int		i;
@@ -45,7 +45,7 @@ char	*get_new_str(char *token, char **var, int len)
 	v_num = 0;
 	res = malloc(sizeof(char) * (len + 1));
 	if (!res)
-		return (NULL);
+		return (free_var(var, var_num), NULL);
 	while (i < len && *token)
 	{
 		if (!copy_str(&res, &token, &i, len) || !var[v_num])
@@ -72,7 +72,7 @@ char	**replace_var_env(t_env *env, char **var, int v_num)
 	while (i < v_num)
 	{
 		tmp[i] = ft_strdup(ft_getenv(env, var[i]));
-		if (!tmp)
+		if (!tmp[i])
 			return (free_var(tmp, i), free_var(var, v_num));
 		i++;
 	}
@@ -87,17 +87,18 @@ char	*replace_dolar(t_data *data, char *str, int *len, int quote)
 	int		var_num;
 	char	*res;
 
+	(void)quote;
 	var_num = 0;
 	var = get_var_name(str, &var_num);
 	if (!var)
-		return (is_error(ERR_MALLOC, data), NULL);
+		return (NULL);
 	*len = full_len(data->env, str, var);
 	var = replace_var_env(data->env, var, var_num);
-	res = get_new_str(str, var, *len);
+	if (!var)
+		return (NULL);
+	res = get_new_str(str, var, *len, var_num);
 	if (!res)
-		return (is_error(ERR_MALLOC, data), NULL);
-	if (is_quote(quote))
-		*len -= 1;
+		return (NULL);
 	return (res);
 }
 

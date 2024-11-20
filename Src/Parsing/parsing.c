@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/19 16:22:13 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/20 18:53:11 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,19 @@ int	get_sorted_arg(t_data *data)
 
 int	is_builtin(char *str)
 {
-	if (ft_strnstr((str), "exit", 4))
+	if (!(ft_strncmp("exit", str, MAX_PATH_LENGTH)))
 		return (1);
-	else if (ft_strnstr((str), "cd", 2))
+	else if (!(ft_strncmp("cd", str, MAX_PATH_LENGTH)))
 		return (1);
-	else if (ft_strnstr((str), "echo", 4))
+	else if (!(ft_strncmp("echo", str, MAX_PATH_LENGTH)))
 		return (1);
-	if (ft_strnstr((str), "env", 3))
+	else if (!(ft_strncmp("env", str, MAX_PATH_LENGTH)))
 		return (1);
-	else if (ft_strnstr((str), "export", 6))
+	else if (!(ft_strncmp("export", str, MAX_PATH_LENGTH)))
 		return (1);
-	/*else if (ft_strnstr((str), "unset", 4))
+	/*else if (!(ft_strncmp("unset", str, MAX_PATH_LENGTH)))
 		return (1);*/
-	else if (ft_strnstr((str), "pwd", 3))
+	else if (!(ft_strncmp("pwd", str, MAX_PATH_LENGTH)))
 		return (1);
 	return (0);
 }
@@ -109,15 +109,15 @@ int	parsing(t_data *data)
 		return (is_error("quote error\n", data));
 	if (!(add_token(data)))
 		return (is_error(ERR_MALLOC, data));
+	if (!(token_parsing(data)))
+		return (0);
+	if (!(check_valid_cmd(data)))
+		return (is_error(NULL, data));
 	data->args = tokens_to_args(data->token);
 	if (!data->args)
 		return (is_error(ERR_MALLOC, data));
 	if (!(get_sorted_arg(data)))
 		return (is_error(ERR_MALLOC, data));
-	if (!(token_parsing(data)))
-		return (0);
-	if (!(check_valid_cmd(data)))
-		return (is_error(NULL, data));
 	if (!(fill_cmd_struct(data)))
 		return (is_error(ERR_MALLOC, data));
 	print_token(data->token, 0);
