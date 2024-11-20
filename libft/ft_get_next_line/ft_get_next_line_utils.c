@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_next_line_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:05:51 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/14 22:14:48 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/20 17:42:50 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../get_next_line.h"
-
-void	*ft_calloc(size_t ft_nmemb, size_t ft_size)
-{
-	char	*ptr;
-	size_t	total_size;
-	size_t	i;
-
-	if (ft_nmemb == 0 || ft_size == 0)
-		return (malloc(0));
-	total_size = ft_nmemb * ft_size;
-	if (total_size / ft_size != ft_nmemb)
-		return (NULL);
-	ptr = malloc(total_size);
-	if (!ptr)
-		return (NULL);
-	i = 0;
-	while (i < total_size)
-		ptr[i++] = '\0';
-	return (ptr);
-}
 
 char	*gnl_strjoin(char *s1, char *s2)
 {

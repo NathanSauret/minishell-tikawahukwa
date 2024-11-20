@@ -21,9 +21,11 @@ SRC =	Src/main.c	\
 		Src/Exec/exec.c	\
 		Src/Exec/exit_error_exec.c	\
 		Src/Exec/free_exec.c	\
+		Src/Exec/here_doc.c	\
 		Src/Exec/pipes_exec.c	\
 		Src/Exec/prepare_for_exec.c	\
 		Src/Exec/redirections.c	\
+		Src/Exec/sleep_case.c	\
 		Src/debug_utils.c \
 		Src/Built_in/ft_exit.c \
 		Src/Built_in/ft_cd.c \

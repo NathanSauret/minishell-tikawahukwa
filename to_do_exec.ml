@@ -9,8 +9,7 @@
 [X] - Fix leaks when exit cmd.
 [X] - Fix leaks when builtin in pipe.
 [X] = Fix builtins redirections.
-[ ] - Fix "cat Makefile | ls > /dev/stdin".
-[ ] - << redirection.
+[X] - << redirection.
 [ ] - Add sleep function.
-[ ] - Close fds.
- 
+[ ] - Fix "cat Makefile | ls > /dev/stdin".
+[ ] - Fix  open fds at exit.

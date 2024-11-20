@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_exec.c                                        :+:      :+:    :+:   */
+/*   sleep_case.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 14:56:46 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/20 17:40:31 by nsauret          ###   ########.fr       */
+/*   Created: 2024/10/18 16:06:28 by nsauret           #+#    #+#             */
+/*   Updated: 2024/11/20 17:43:33 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	free_parent(t_pipex *pipex, t_data *data)
+static void	get_to_bed(char *max_sleep, char **env)
 {
-	int	i;
+	char	**cmd;
 
-	i = 0;
-	if (pipex->here_doc)
-		unlink(".heredoc");
-	if (data->num_of_pipe > 0)
-		free(pipex->pipe);
+	cmd = ft_calloc(3, sizeof(char *));
+	if (!cmd)
+		return ;
+	cmd[0] = "sleep";
+	cmd[1] = max_sleep;
+	if (ft_atoi(cmd[1]) > 0)
+		execve("/usr/bin/sleep", cmd, env);
+	free(cmd);
 }
 
-int	free_pipe(t_pipex *pipex)
+int	sleep_case(char *max_sleep, char **env)
 {
-	if (pipex->here_doc >= 0)
-		unlink(".heredoc");
-	free(pipex->pipe);
-	return (exit_error_exec(pipex, 0, "Environment"));
+	get_to_bed(max_sleep, env);
+	return (1);
 }

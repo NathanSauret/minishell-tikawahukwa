@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/18 17:27:26 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/20 17:50:11 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ static int	exec_builtin(t_data *data, t_pipex *pipex)
 
 static void	close_iofiles(t_exec *exec)
 {
-	close(exec->in);
-	close(exec->out);
+	if (exec->in != 0)
+		close(exec->in);
+	if (exec->out != 1)
+		close(exec->out);
 }
 
 static void	free_child(t_data *data, t_pipex *pipex)
@@ -78,14 +80,13 @@ static int	child(t_data *data, t_pipex *pipex, char **env)
 
 int	execute_commands(t_data *data, t_pipex *pipex, char **env)
 {
-	t_exec	*exec_head;
+	char	*max_sleep;
 	t_exec	*prev_exec;
 	int		res;
 
-	exec_head = pipex->exec;
-	pipex->idx = 0;
+	max_sleep = "0";
 	res = 1;
-	while (pipex->idx++ < pipex->cmd_nb)
+	while (pipex->exec)
 	{
 		if (ft_strncmp(pipex->exec->cmd[0], "sleep", 5)
 			&& ft_strncmp(pipex->exec->cmd[0], "exit", 4)
@@ -93,12 +94,15 @@ int	execute_commands(t_data *data, t_pipex *pipex, char **env)
 		{
 			res = child(data, pipex, env);
 		}
+		if (!ft_strncmp(pipex->exec->cmd[0], "sleep", 5)
+			&& ft_atoi(pipex->exec->cmd[1]) > ft_atoi(max_sleep))
+		{
+			max_sleep = pipex->exec->cmd[1];
+		}
 		prev_exec = pipex->exec;
 		pipex->exec = pipex->exec->next;
 		close_iofiles(prev_exec);
 		free(prev_exec);
 	}
-	pipex->exec = exec_head;
-	// sleep_case(all, argv, envp);
-	return (res);
+	return (sleep_case(max_sleep, env), res);
 }

@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/11/18 14:06:34 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/20 17:40:59 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,8 @@ int		exit_error_exec(t_pipex *pipex, int error_case, char *arg);
 // free_exec.c
 void	free_parent(t_pipex *pipex, t_data *data);
 int		free_pipe(t_pipex *pipex);
+// here_doc.c
+void	here_doc(char *argv, t_pipex *pipex);
 // pipes_exec.c
 int		create_pipes(t_pipex *pipex, t_data *data);
 int		pipe_free(t_pipex *pipex);
@@ -186,6 +188,8 @@ void	prepare_for_exec(t_data *data, t_pipex *pipex);
 int		redirection_input(t_cmd *cmd);
 int		redirection_trunc(t_pipex *pipex, t_cmd *cmd);
 int		redirection_append(t_pipex *pipex, t_cmd *cmd);
+// sleep_case.c
+int		sleep_case(char *max_sleep, char **env);
 
 
 /*builtins*/
