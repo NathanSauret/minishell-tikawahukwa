@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/21 14:26:35 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/21 19:24:57 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,21 +105,21 @@ int	check_valid_cmd(t_data *data)
 
 int	parsing(t_data *data)
 {
-	if (!(check_quote(data->input)))
-		return (is_error("quote error\n", data));
+	if (!(check_quote(data, data->input)))
+		return (is_error("quote error\n", data, 2));
 	if (!(add_token(data)))
-		return (is_error(ERR_MALLOC, data));
+		return (is_error(ERR_MALLOC, data, 1));
 	if (!(token_parsing(data)))
 		return (0);
 	if (!(check_valid_cmd(data)))
-		return (is_error(NULL, data));
+		return (is_error(NULL, data, 127));
 	data->args = tokens_to_args(data->token);
 	if (!data->args)
-		return (is_error(ERR_MALLOC, data));
+		return (is_error(ERR_MALLOC, data, 1));
 	if (!(get_sorted_arg(data)))
-		return (is_error(ERR_MALLOC, data));
+		return (is_error(ERR_MALLOC, data, 1));
 	if (!(fill_cmd_struct(data)))
-		return (is_error(ERR_MALLOC, data));
+		return (is_error(ERR_MALLOC, data, 1));
 	print_token(data->token, 0);
 	// print_cmd(data->cmd);
 	return (1);

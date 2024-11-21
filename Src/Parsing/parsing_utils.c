@@ -6,13 +6,13 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 23:27:38 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/28 16:00:00 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/21 19:05:38 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	check_quote(char *str)
+int	check_quote(t_data *data, char *str)
 {
 	int	q;
 	int	dq;
@@ -29,6 +29,7 @@ int	check_quote(char *str)
 	}
 	if (q == -1 && dq == -1)
 		return (1);
+	data->exit_status = 2;
 	return (0);
 }
 

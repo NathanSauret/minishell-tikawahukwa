@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:59:22 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/11/17 18:24:40 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/21 19:38:51 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	export_without_args(t_env *lst, int env_len)
 	return (1);
 }
 
-t_env	*exist(t_env *env, char *str)
+int	exist2(t_env *env, char *str)
 {
 	int		i;
 
@@ -50,28 +50,32 @@ t_env	*exist(t_env *env, char *str)
 	{
 		if (!ft_strncmp(env->value, str, i)
 			&& (env->value[i] == '=' || env->value[i] == '\0'))
-			return (env);
+			break ;
 		env = env->next;
 	}
-	return (NULL);
+	if (!env)
+		return (0);
+	if (!ft_strnstr(str, "=", ft_strlen(str)))
+		return (1);
+	free(env->value);
+	env->value = ft_strdup(str);
+	if (!env->value)
+		return (-1);
+	return (1);
 }
 
 int	export_with_args(t_data *data, char *str)
 {
 	t_env	*tmp;
 	t_env	*new;
+	int		res;
 
-	tmp = exist(data->env, str);
-	if (tmp)
-	{
-		if (!ft_strnstr(tmp->value, "=", ft_strlen(tmp->value)))
-			return (1);
-		free(tmp->value);
-		tmp->value = ft_strdup(str);
-		if (!tmp->value)
-			return (0);
-	}
-	else if (tmp == NULL)
+	res = exist(data->env, str);
+	if (res == -1)
+		return (0);
+	else if (res)
+		return (1);
+	else
 	{
 		tmp = data->env;
 		while (tmp->next != NULL)

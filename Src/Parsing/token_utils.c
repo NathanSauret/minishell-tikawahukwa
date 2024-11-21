@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/21 14:19:00 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/21 19:40:00 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,15 @@ int	token_parsing(t_data *data)
 			|| (current->type == PIPE && !current->next)
 			|| (is_redirect(current->str)
 				&& (current->next && current->next->type == PIPE)))
-			return (is_error("error near unexpected token '|'\n", data));
+			return (is_error("error near unexpected token '|'\n",
+					data, 2));
 		else if (is_redirect(current->str) && (!current->next))
-			return (is_error("error near unexpected token 'new line'\n", data));
+			return (is_error("error near unexpected token 'new line'\n",
+					data, 2));
 		else if (is_redirect(current->str)
 			&& (current->next && is_redirect(current->next->str)))
-			return (is_error("error near unexpected token 'redirect'\n", data));
+			return (is_error("error near unexpected token 'redirect'\n",
+					data, 2));
 		current = current->next;
 	}
 	return (1);

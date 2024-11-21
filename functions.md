@@ -120,7 +120,7 @@ The exit() function causes normal process termination and the least significant 
 </br>
 
 #### char *getcwd(char *buf, size_t size)
-The getcwd() function copies an absolute pathname of the current working directory to the array pointed to by buf, which is of length size.
+The () function copies an absolute pathname of the current working directory to the array pointed to by buf, which is of length size.
 </br>
 
 #### int chdir(const char *path)
