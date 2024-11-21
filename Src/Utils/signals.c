@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 17:37:43 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/18 16:02:46 by j_sk8            ###   ########.fr       */
+/*   Created: 2024/11/15 15:36:26 by jmiccio           #+#    #+#             */
+/*   Updated: 2024/11/15 15:38:53 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_cd(t_env *env, char **args)
+static void	clear_rl_line(void)
 {
-	char	*home;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+}
 
-	home = ft_getenv(env, "HOME");
-	if (args[1] == NULL)
-	{
-		if (home == NULL || chdir(home) != 0)
-			perror("cd");
-	}
-	else
-	{
-		if (chdir(args[1]) != 0)
-			perror("cd");
-	}
-	return (1);
+static void	handle_sigint(int sig)
+{
+	(void)sig;
+	printf("\n");
+	clear_rl_line();
+	rl_redisplay();
+}
+
+void	signals(void)
+{
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
 }

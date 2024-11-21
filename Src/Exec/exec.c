@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/20 17:31:32 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/21 14:03:46 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int	exec(t_data *data, char **env)
 	if (!create_pipes(&pipex, data))
 		return (0);
 	prepare_for_exec(data, &pipex);
-	res_execute_commands = execute_commands(data, &pipex, env);
+	if (pipex.exec->is_builtin)
+		res_execute_commands = exec_builtin(data, &pipex);
+	else
+		res_execute_commands = execute_commands(data, &pipex, env);
 	close_pipes(&pipex, data);
 	free_parent(&pipex, data);
 	waitpid(-1, NULL, 0);

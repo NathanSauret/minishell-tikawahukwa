@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/08 12:47:02 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/21 14:19:00 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,31 @@ int	token_parsing(t_data *data)
 	while (current)
 	{
 		if ((current->type == PIPE && !current->prev)
-			|| (current->type == PIPE && !current->next))
+			|| (current->type == PIPE && !current->next)
+			|| (is_redirect(current->str)
+				&& (current->next && current->next->type == PIPE)))
 			return (is_error("error near unexpected token '|'\n", data));
 		else if (is_redirect(current->str) && (!current->next))
 			return (is_error("error near unexpected token 'new line'\n", data));
-		else if (is_redirect(current->str) && is_redirect(current->next->str))
+		else if (is_redirect(current->str)
+			&& (current->next && is_redirect(current->next->str)))
 			return (is_error("error near unexpected token 'redirect'\n", data));
 		current = current->next;
 	}
 	return (1);
 }
 
-int	token_len(char *str, int *start, int *space, t_token *token)
+int	token_len(char *str, int *space, t_token *token)
 {
 	int		i;
 	char	quote;
 
 	i = 0;
+	*space = 1;
 	if (str[i] && is_quote(str[i]))
 	{
 		if (token && str[i - 1] && !ft_is_space(str[i - 1]))
 			*space = 0;
-		*start = 1;
 		quote = str[i++];
 		while (str[i] && str[i] != quote)
 			i++;

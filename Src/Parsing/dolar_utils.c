@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:39:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/07 17:51:38 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/21 14:35:04 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 int	copy_str(char **res, char **str, int *i, int len)
 {
-	while (**str && **str != '$' && *i < len)
+	while (**str && *i < len)
+	{
+		if (**str == '$' && (*str)[1]
+			&& (ft_isalnum((*str)[1]) || (*str)[1] == '_'))
+			break ;
 		(*res)[(*i)++] = *((*str)++);
+	}
 	return (**str == '$');
 }
 
@@ -29,18 +34,18 @@ int	copy_var(char **res, char *var, int *i, int len)
 	return (y);
 }
 
-char	**free_var(char **str, int len)
+int	var_len(char *str, int *y)
 {
 	int	i;
 
 	i = 0;
-	while (i < len)
-	{
-		free(str[i]);
+	if (ft_isdigit(*str))
+		return (*y += 1, 1);
+	while (str[i] && (ft_isalnum(str[i])
+		|| str[i] == '_') && !is_quote(str[i]))
 		i++;
-	}
-	free(str);
-	return (NULL);
+	*y += i;
+	return (i);
 }
 
 char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100])
@@ -63,7 +68,7 @@ char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100])
 	return (res);
 }
 
-int	full_len(t_token *token, char **var)
+int	full_len(t_env *env, char *token, char **var)
 {
 	int	full_v_len;
 	int	total_len;
@@ -73,15 +78,15 @@ int	full_len(t_token *token, char **var)
 	full_v_len = 0;
 	while (var[i])
 	{
-		full_v_len += ft_strlen(var[i]);
+		full_v_len += ft_strlen(var[i]) + 1;
 		i++;
 	}
-	total_len = ft_strlen(token->str) - full_v_len;
+	total_len = ft_strlen(token) - full_v_len;
 	full_v_len = 0;
 	i = 0;
 	while (var[i])
 	{
-		full_v_len += ft_strlen(getenv(var[i]));
+		full_v_len += ft_strlen(ft_getenv(env, var[i]));
 		i++;
 	}
 	total_len += full_v_len;

@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:40:17 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/10/30 18:07:47 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/19 14:42:01 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	data_init(t_data *data)
 	data->input = NULL;
 	data->env = NULL;
 	data->cmd = NULL;
+	data->env_len = 0;
 	data->num_of_pipe = 0;
+	signals();
 }
 
 int	env_init(t_data *data, char **env_array)
@@ -46,5 +48,6 @@ int	env_init(t_data *data, char **env_array)
 		env = new;
 		i++;
 	}
+	data->env_len = i;
 	return (0);
 }

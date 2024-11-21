@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/11/20 17:40:59 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/21 14:51:37 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -41,6 +40,8 @@
 # define ERR_FORK	"fork error\n"
 
 # define MAX_PATH_LENGTH 256
+
+extern pid_t	g_signal_pid;
 
 typedef struct s_exec
 {
@@ -98,6 +99,8 @@ typedef struct t_data
 	char			*input;
 	char			**args;
 	int				num_of_pipe;
+	int				env_len;
+	int				exit_status;
 	t_env			*env;
 	t_cmd			*cmd;
 	t_token			*token;
@@ -115,6 +118,13 @@ void	free_env(t_env *env);
 void	free_token(t_data *data);
 int		is_error(char *str, t_data *data);
 void	free_command_line(t_token *token);
+void	signals(void);
+void	sort_array(char **arr, int len);
+char	**lst_to_arr(t_env *env, int len);
+int		print_error(char *str);
+void	free_array(char **arr);
+char	*ft_getenv(t_env *env, char *str);
+char	**free_var(char **str, int len);
 
 /*init*/
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);
@@ -142,21 +152,21 @@ int		check_quote(char *str);
 int		is_quote(char c);
 int		line_is_empty(char *str);
 int		is_cmd(t_token *token);
-int		token_len(char *str, int *start, int *space, t_token *token);
+int		token_len(char *str, int *space, t_token *token);
 int		get_type(t_token *token, char *str, int *type, int len);
 int		is_operator(char *str);
 int		get_sorted_arg(t_data *data);
 int		token_parsing(t_data *data);
-int		handle_dolar(t_data *data);
+char	*handle_dolar(t_data *data, char *str, int *len, char quote);
 int		copy_str(char **res, char **str, int *i, int len);
 int		copy_var(char **res, char *var, int *i, int len);
-char	**free_var(char **str, int len);
 char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100]);
-int		full_len(t_token *token, char **var);
+int		full_len(t_env *env, char *token, char **var);
+int		var_len(char *str, int *y);
 
 /*debug*/
 void	print_token(t_token *token, int show_args);
-void	print_3d(char **str);
+void	print_tab(char **tab);
 void	print_cmd(t_cmd *cmd);
 int		exec_test(char *str, t_data *data, char **env);
 void	print_cmd(t_cmd *cmd);
@@ -171,6 +181,7 @@ t_exec	*execnew(t_cmd *cmd, int in, int out);
 void	execadd_back(t_exec **exec, t_exec *new);
 // exec.c
 int		exec(t_data *data, char **env);
+int		exec_builtin(t_data *data, t_pipex *pipex);
 // exit_error_exec.c
 int		exit_error_exec(t_pipex *pipex, int error_case, char *arg);
 // free_exec.c
@@ -191,11 +202,12 @@ int		redirection_append(t_pipex *pipex, t_cmd *cmd);
 // sleep_case.c
 int		sleep_case(char *max_sleep, char **env);
 
-
 /*builtins*/
 int		ft_exit(t_data *data);
-int		ft_cd(char **args);
+int		ft_cd(t_env *env, char **args);
 int		ft_echo(char **arg);
-int		ft_cd(char **args);
+int		ft_pwd(void);
 int		ft_echo(char **arg);
+int		ft_env(t_env *env);
+int		ft_export(char **str, t_data *data);
 #endif
