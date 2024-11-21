@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:39:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/21 14:35:04 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/21 16:32:23 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	copy_str(char **res, char **str, int *i, int len)
 	while (**str && *i < len)
 	{
 		if (**str == '$' && (*str)[1]
-			&& (ft_isalnum((*str)[1]) || (*str)[1] == '_'))
+			&& (ft_isalnum((*str)[1]) || (*str)[1] == '_'
+				|| (*str)[1] == '?'))
 			break ;
 		(*res)[(*i)++] = *((*str)++);
 	}
@@ -39,10 +40,10 @@ int	var_len(char *str, int *y)
 	int	i;
 
 	i = 0;
-	if (ft_isdigit(*str))
+	if (ft_isdigit(*str) || *str == '?')
 		return (*y += 1, 1);
 	while (str[i] && (ft_isalnum(str[i])
-		|| str[i] == '_') && !is_quote(str[i]))
+			|| str[i] == '_') && !is_quote(str[i]))
 		i++;
 	*y += i;
 	return (i);
@@ -68,7 +69,7 @@ char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100])
 	return (res);
 }
 
-int	full_len(t_env *env, char *token, char **var)
+int	full_len(t_data *data, char *token, char **var)
 {
 	int	full_v_len;
 	int	total_len;
@@ -86,7 +87,10 @@ int	full_len(t_env *env, char *token, char **var)
 	i = 0;
 	while (var[i])
 	{
-		full_v_len += ft_strlen(ft_getenv(env, var[i]));
+		if (var[i][0] == '?')
+			full_v_len += ft_intlen(data->exit_status);
+		else
+			full_v_len += ft_strlen(ft_getenv(data->env, var[i]));
 		i++;
 	}
 	total_len += full_v_len;
