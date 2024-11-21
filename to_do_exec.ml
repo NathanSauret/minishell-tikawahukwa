@@ -8,8 +8,9 @@
 [X] - Get the result of execve when exiting child function.
 [X] - Fix leaks when exit cmd.
 [X] - Fix leaks when builtin in pipe.
-[X] = Fix builtins redirections.
+[X] - Fix builtins redirections.
 [X] - << redirection.
+[ ] - cd, exort and unset must be executed in parent.
 [ ] - Add sleep function.
 [ ] - Fix "cat Makefile | ls > /dev/stdin".
 [ ] - Fix  open fds at exit.
