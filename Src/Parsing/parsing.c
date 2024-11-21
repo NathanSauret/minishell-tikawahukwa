@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/21 16:41:43 by nsauret          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/11/21 19:48:46 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../minishell.h"
 
@@ -120,6 +121,7 @@ int	parsing(t_data *data)
 		return (is_error(ERR_MALLOC, data));
 	if (!(fill_cmd_struct(data)))
 		return (is_error(ERR_MALLOC, data));
+	// print_token(data->token, 0);
 	// print_token(data->token, 0);
 	// print_cmd(data->cmd);
 	return (1);
