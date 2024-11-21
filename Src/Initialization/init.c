@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:40:17 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/19 14:42:01 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/21 16:35:37 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	data_init(t_data *data)
 	data->cmd = NULL;
 	data->env_len = 0;
 	data->num_of_pipe = 0;
+	data->exit_status = 0;
+	g_signal_pid = 0;
 	signals();
 }
 

@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/11/21 14:51:37 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/21 16:31:55 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int		print_error(char *str);
 void	free_array(char **arr);
 char	*ft_getenv(t_env *env, char *str);
 char	**free_var(char **str, int len);
+int		ft_intlen(int n);
 
 /*init*/
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);
@@ -161,7 +162,7 @@ char	*handle_dolar(t_data *data, char *str, int *len, char quote);
 int		copy_str(char **res, char **str, int *i, int len);
 int		copy_var(char **res, char *var, int *i, int len);
 char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100]);
-int		full_len(t_env *env, char *token, char **var);
+int		full_len(t_data *data, char *token, char **var);
 int		var_len(char *str, int *y);
 
 /*debug*/
