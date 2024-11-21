@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:34:03 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/20 16:03:36 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/21 16:36:01 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ void	here_doc(char *argv, t_pipex *pipex)
 		buffer = get_next_line(0, 1);
 		if (buffer == NULL)
 		{
-			get_next_line(0, 0);
-			return ;
+			return (get_next_line(0, 0), (void)NULL);
 		}
 		if (!ft_strncmp(argv, buffer, ft_strlen(argv))
 			&& ft_strlen(argv) == ft_strlen(buffer) - 1)
