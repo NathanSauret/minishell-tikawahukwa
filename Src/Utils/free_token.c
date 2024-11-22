@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 23:27:39 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/21 19:19:36 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/22 18:29:42 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	free_token(t_data *data)
 		ft_cmd_lstclear(&(data->cmd));
 	if (data->args)
 		free(data->args);
-	data->args = NULL;
+	data->cmd = NULL;
+	data->token = NULL;
 	data->num_of_pipe = 0;
 }
 

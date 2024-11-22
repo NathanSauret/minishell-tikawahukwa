@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/21 15:02:15 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/22 17:03:45 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ int	exec_builtin(t_data *data, t_pipex *pipex)
 		return (ft_cd(data->env, data->args));
 	if (ft_strnstr((pipex->exec->cmd[0]), "echo", 4))
 		return (ft_echo(pipex->exec->cmd));
-	if (ft_strnstr((data->token->str), "env", 3))
-			return (ft_env(data->env));
-	 if (ft_strnstr((data->token->str), "export", 6))
-	 	return (ft_export(pipex->exec->cmd, data));
-	if (ft_strnstr((data->token->str), "pwd", 3))
+	if (ft_strnstr((pipex->exec->cmd[0]), "env", 3))
+		return (ft_env(data->env));
+	if (ft_strnstr((pipex->exec->cmd[0]), "export", 6))
+		return (ft_export(pipex->exec->cmd, data));
+	if (ft_strnstr((pipex->exec->cmd[0]), "pwd", 3))
 		return (ft_pwd());
-	// if (ft_strnstr((data->token->str), "unset", 5))
-	// 	return (ft_unset(data));
+	if (ft_strnstr((pipex->exec->cmd[0]), "unset", 5))
+		return (ft_unset(pipex->exec->cmd, data));
 	return (-1);
 }
 

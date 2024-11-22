@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:38:42 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/21 14:49:50 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/22 18:25:02 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ int	main(int argc, char **argv, char **env)
 	if (argc > 1)
 	{
 		data_init(&data);
-		env_init(&data, env);
+		data.env_len = env_init(&data, env);
+		if (!data.env_len)
+			terminate(&data, ERR_MALLOC, data.exit_status);
 		exec_test(argv[1], &data, env);
 		free_env(data.env);
 	}
@@ -52,7 +54,9 @@ int	main(int argc, char **argv, char **env)
 		(void)argc;
 		(void)argv;
 		data_init(&data);
-		env_init(&data, env);
+		data.env_len = env_init(&data, env);
+		if (!data.env_len)
+			terminate(&data, ERR_MALLOC, data.exit_status);
 		loop(&data, env);
 		free_env(data.env);
 		clear_history();

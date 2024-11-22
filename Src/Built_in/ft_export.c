@@ -6,13 +6,13 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:59:22 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/11/21 19:38:51 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/22 18:16:40 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	export_without_args(t_env *lst, int env_len)
+static int	export_without_args(t_env *lst, int env_len)
 {
 	char	**env;
 	int		i;
@@ -39,7 +39,7 @@ int	export_without_args(t_env *lst, int env_len)
 	return (1);
 }
 
-int	exist2(t_env *env, char *str)
+static int	exist(t_env *env, char *str)
 {
 	int		i;
 
@@ -64,7 +64,7 @@ int	exist2(t_env *env, char *str)
 	return (1);
 }
 
-int	export_with_args(t_data *data, char *str)
+static int	export_with_args(t_data *data, char *str)
 {
 	t_env	*tmp;
 	t_env	*new;
@@ -93,18 +93,24 @@ int	export_with_args(t_data *data, char *str)
 	return (1);
 }
 
-int	syntax_parsing(char *str)
+static int	syntax_parsing(char *str)
 {
 	int	i;
 
 	i = 0;
 	if (str[i] && (!ft_isalpha(str[i]) && str[i] != '_'))
+	{
+		ft_printf("export: <<%s>> invalid identifier\n", str);
 		return (0);
+	}
 	i++;
 	while (str[i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
+		{
+			ft_printf("export: <<%s>> invalid identifier\n", str);
 			return (0);
+		}
 		i++;
 	}
 	return (1);
@@ -112,19 +118,27 @@ int	syntax_parsing(char *str)
 
 int	ft_export(char **str, t_data *data)
 {
+	int	i;
+	int	exit_status;
+
+	exit_status = 0;
+	i = 1;
 	if (!str || !str[1])
 	{
 		if (!export_without_args(data->env, data->env_len))
 			return (print_error(ERR_MALLOC));
-		return (0);
+		return (exit_status);
 	}
 	else
 	{
-		if (!syntax_parsing(str[1]))
-			return (print_error("export: invalid identifier\n"));
-		if (!export_with_args(data, str[1]))
-			return (print_error(ERR_MALLOC));
-		return (0);
+		while (str[i])
+		{
+			if (!syntax_parsing(str[i]))
+				exit_status = 1;
+			else if (!export_with_args(data, str[i]))
+				return (print_error(ERR_MALLOC));
+			i++;
+		}
 	}
-	return (0);
+	return (exit_status);
 }
