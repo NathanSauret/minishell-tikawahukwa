@@ -11,8 +11,9 @@ echo
 echo "\t\t~ BUILTINS ~"
 echo
 
-echo "cd .. | pwd :"
-eval $VALGRIND "'cd .. | pwd'"
+echo "cd .. -> pwd :"
+eval $VALGRIND "'cd ..'"
+eval $VALGRIND "'pwd'"
 echo
 
 echo "echo test :"
@@ -45,7 +46,7 @@ echo
 echo "\t  ~ BUILTINS WITH PIPES ~"
 echo
 
-echo "echo test | cat"
+echo "echo test | cat :"
 eval $VALGRIND "'echo test | cat'"
 echo
 
