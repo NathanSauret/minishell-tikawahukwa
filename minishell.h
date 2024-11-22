@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/11/22 16:08:37 by nsauret          ###   ########.fr       */
+/*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
+/*   Updated: 2024/11/22 18:48:36 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct t_env
 {
 	char			*value;
 	struct t_env	*next;
+	struct t_env	*prev;
 }	t_env;
 
 typedef struct t_data
@@ -116,7 +117,7 @@ void	data_init(t_data *data);
 int		exit_error2(t_data *data, char *str);
 void	free_env(t_env *env);
 void	free_token(t_data *data);
-int		is_error(char *str, t_data *data);
+int		is_error(char *str, t_data *data, int exit_status);
 void	free_command_line(t_token *token);
 void	signals(void);
 void	sort_array(char **arr, int len);
@@ -126,6 +127,7 @@ void	free_array(char **arr);
 char	*ft_getenv(t_env *env, char *str);
 char	**free_var(char **str, int len);
 int		ft_intlen(int n);
+void	terminate(t_data *data, char *msg, int ext_status);
 
 /*init*/
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);
@@ -149,7 +151,7 @@ int		fill_cmd_struct(t_data *data);
 int		fill_cmd_struct(t_data *data);
 
 /*parsing utils*/
-int		check_quote(char *str);
+int		check_quote(t_data *data, char *str);
 int		is_quote(char c);
 int		line_is_empty(char *str);
 int		is_cmd(t_token *token);
@@ -212,4 +214,5 @@ int		ft_pwd(void);
 int		ft_echo(char **arg);
 int		ft_env(t_env *env);
 int		ft_export(char **str, t_data *data);
+int		ft_unset(char **arg, t_data *data);
 #endif

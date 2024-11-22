@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/22 16:46:10 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/22 18:47:34 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,14 @@ int	exec_builtin(t_data *data, t_pipex *pipex)
 	if (ft_strnstr((pipex->exec->cmd[0]), "export", 6))
 		return (ft_export(pipex->exec->cmd, data));
 	if (ft_strnstr((pipex->exec->cmd[0]), "pwd", 3))
+	if (ft_strnstr((pipex->exec->cmd[0]), "env", 3))
+		return (ft_env(data->env));
+	if (ft_strnstr((pipex->exec->cmd[0]), "export", 6))
+		return (ft_export(pipex->exec->cmd, data));
+	if (ft_strnstr((pipex->exec->cmd[0]), "pwd", 3))
 		return (ft_pwd());
-	// if (ft_strnstr((pipex->exec->cmd[0]), "unset", 5))
-	// 	return (ft_unset(pipex->exec->cmd, data));
+	if (ft_strnstr((pipex->exec->cmd[0]), "unset", 5))
+		return (ft_unset(pipex->exec->cmd, data));
 	return (-1);
 }
 

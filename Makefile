@@ -36,6 +36,7 @@ SRC =	Src/main.c	\
 		Src/Built_in/ft_echo.c \
 		Src/Built_in/ft_env.c \
 		Src/Built_in/ft_export.c \
+		Src/Built_in/ft_unset.c \
 		Src/Initialization/cmd_list.c \
 		Src/Parsing/cmd_struct_fill.c
 
