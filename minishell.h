@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/22 18:48:36 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/25 17:40:30 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	free_command_line(t_token *token);
 void	signals(void);
 void	sort_array(char **arr, int len);
 char	**lst_to_arr(t_env *env, int len);
-int		print_error(char *str);
+void	print_error(char *str, char *arg);
 void	free_array(char **arr);
 char	*ft_getenv(t_env *env, char *str);
 char	**free_var(char **str, int len);
@@ -166,6 +166,7 @@ int		copy_var(char **res, char *var, int *i, int len);
 char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100]);
 int		full_len(t_data *data, char *token, char **var);
 int		var_len(char *str, int *y);
+int		is_operator2(int type, int pipe);
 
 /*debug*/
 void	print_token(t_token *token, int show_args);

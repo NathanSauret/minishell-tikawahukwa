@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:59:22 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/11/22 19:26:42 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/25 18:23:30 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static int	syntax_parsing(char *str)
 	i = 0;
 	if (str[i] && (!ft_isalpha(str[i]) && str[i] != '_'))
 	{
-		ft_printf("export: <<%s>> invalid identifier\n", str);
+		ft_printerr("invalid identifier « %s »\n", str);
 		return (0);
 	}
 	i++;
@@ -106,7 +106,7 @@ static int	syntax_parsing(char *str)
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
-			ft_printf("export: <<%s>> invalid identifier\n", str);
+			ft_printerr("invalid identifier « %s »\n", str);
 			return (0);
 		}
 		i++;
@@ -124,7 +124,7 @@ int	ft_export(char **str, t_data *data)
 	if (!str || !str[1])
 	{
 		if (!export_without_args(data->env, data->env_len))
-			return (print_error(ERR_MALLOC));
+			return (ft_printerr(ERR_MALLOC), 0);
 		return (exit_status);
 	}
 	else
@@ -134,7 +134,7 @@ int	ft_export(char **str, t_data *data)
 			if (!syntax_parsing(str[i]))
 				exit_status = 1;
 			else if (!export_with_args(data, str[i]))
-				return (print_error(ERR_MALLOC));
+				return (ft_printerr(ERR_MALLOC), 0);
 			i++;
 		}
 	}

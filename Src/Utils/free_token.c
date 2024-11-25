@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 23:27:39 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/22 18:53:03 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/25 18:42:41 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	is_error(char *str, t_data *data, int exit_status)
 {
 	data->exit_status = exit_status;
 	if (str)
-		printf("%s", str);
+		ft_printerr("%s", str);
 	free_token(data);
 	return (0);
 }

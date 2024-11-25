@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_struct_fill.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:16:46 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/05 16:37:52 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/11/25 18:41:26 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	is_operator(char *str)
 {
-	if (ft_strnstr((str), "<<", 2))
+	if (!ft_strncmp("<<", (str), 2))
 		return (1);
-	else if (ft_strnstr((str), ">>", 2))
+	else if (!ft_strncmp(">>", (str), 2))
 		return (1);
-	if (ft_strnstr((str), "<", 1))
+	if (!ft_strncmp("<", (str), 1))
 		return (1);
-	else if (ft_strnstr((str), ">", 1))
+	else if (!ft_strncmp(">", (str), 1))
 		return (1);
-	else if (ft_strnstr((str), "|", 1))
+	else if (!ft_strncmp("|", (str), 1))
 		return (1);
 	return (0);
 }
@@ -39,13 +39,13 @@ int	fill_cmd(t_cmd *cmd, t_token *token)
 	cmd->tokens = token;
 	while (i < token->cmd_line_size)
 	{
-		if (is_operator(tmp->str) && (i + 2) != token->cmd_line_size)
+		if (is_operator2(tmp->type, 1) && (i + 2) != token->cmd_line_size)
 		{
 			tmp = tmp->next->next;
 			i += 2;
 			continue ;
 		}
-		else if (is_operator(tmp->str) && (i + 2) >= token->cmd_line_size)
+		else if (is_operator2(tmp->type, 1) && (i + 2) >= token->cmd_line_size)
 			break ;
 		cmd->cmd[y] = token->command_line[i];
 		y++;

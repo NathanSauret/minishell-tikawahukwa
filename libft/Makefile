@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+         #
+#    By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 13:45:19 by jmiccio           #+#    #+#              #
-#    Updated: 2024/10/28 15:27:44 by nsauret          ###   ########.fr        #
+#    Updated: 2024/11/25 18:18:55 by j_sk8            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRC = ft_is/ft_isalnum.c \
       ft_printf/ft_print_pointer.c \
       ft_printf/ft_print_str.c \
       ft_printf/ft_print_unsigned.c \
+      ft_printerr/ft_printerr.c
 
 OBJ = $(SRC:.c=.o)
 

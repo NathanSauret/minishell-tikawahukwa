@@ -6,11 +6,32 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:37:27 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/11/21 14:08:45 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/25 17:05:31 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	is_newline(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (arg[i] != '-')
+		return (1);
+	i++;
+	if (arg[i] == 'n')
+	{
+		while (arg[i])
+		{
+			if (arg[i] != 'n')
+				return (1);
+			i++;
+		}
+		return (0);
+	}
+	return (1);
+}
 
 int	ft_echo(char **arg)
 {
@@ -18,23 +39,20 @@ int	ft_echo(char **arg)
 	int	i;
 
 	i = 1;
-	new_line = 1;
 	if (!arg[i])
 	{
 		ft_printf("\n");
-		return (1);
+		return (0);
 	}
-	if (ft_strnstr(arg[i], "-n", 2))
-	{
-		new_line = 0;
-		i++;
-	}
+	new_line = is_newline(arg[i]);
 	while (arg[i])
 	{
-		ft_printf("%s ", arg[i]);
+		ft_printf("%s", arg[i]);
 		i++;
+		if (arg[i])
+			ft_printf(" ");
 	}
 	if (new_line)
 		ft_printf("\n");
-	return (1);
+	return (0);
 }
