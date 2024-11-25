@@ -11,9 +11,8 @@
 [X] - Fix builtins redirections.
 [X] - << redirection.
 [X] - cd, export and unset must be executed in parent.
-[ ] - Add sleep function.
-[ ] - Here_doc without a file.
-[ ] - Fix "> outfile".
-[ ] - Fix "<< EOF"
-[ ] - Fix "cat Makefile | ls > /dev/stdin".
+[X] - Here_doc without a file.
 [ ] - Fix  open fds at exit.
+[ ] - Fix multi-cat.
+[ ] - Add sleep function.
+[ ] - Fix "cat Makefile | ls > /dev/stdin".

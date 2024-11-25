@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/11/22 16:08:37 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/25 18:13:32 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ void	free_parent(t_pipex *pipex, t_data *data);
 void	free_child(t_data *data, t_pipex *pipex);
 int		free_pipe(t_pipex *pipex);
 // here_doc.c
-void	here_doc(char *argv, t_pipex *pipex);
+int		here_doc(char *argv);
 // pipes_exec.c
 int		create_pipes(t_pipex *pipex, t_data *data);
 int		pipe_free(t_pipex *pipex);
