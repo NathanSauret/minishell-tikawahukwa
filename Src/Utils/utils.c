@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 17:07:31 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/11/26 13:13:33 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 16:44:04 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,6 @@ char	*ft_getenv(t_env *env, char *str)
 		env = env->next;
 	}
 	return ("");
-}
-
-char	**free_var(char **str, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i < len)
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-	return (NULL);
 }
 
 int	ft_intlen(int n)

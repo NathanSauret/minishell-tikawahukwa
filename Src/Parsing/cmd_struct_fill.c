@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:16:46 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/25 18:41:26 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 16:58:34 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_operator(char *str)
 	return (0);
 }
 
-int	fill_cmd(t_cmd *cmd, t_token *token)
+static int	fill_cmd(t_cmd *cmd, t_token *token)
 {
 	int		i;
 	int		y;
@@ -56,7 +56,7 @@ int	fill_cmd(t_cmd *cmd, t_token *token)
 	return (1);
 }
 
-int	parse_cmd(t_data *data, t_token *token)
+static int	parse_cmd(t_data *data, t_token *token)
 {
 	t_cmd	*new_cmd;
 	t_token	*tmp;

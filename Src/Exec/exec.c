@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/26 15:49:22 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/26 17:19:04 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ static int	set_values(t_pipex *pipex, t_data *data)
 	return (1);
 }
 
-int	exec(t_data *data, char **env)
+int	exec(t_data *data)
 {
 	t_pipex	pipex;
 	int		res_execute_commands;
 
-	if (!data->num_of_pipe && !ft_strncmp(data->args[0], "exit", 4))
+	if (!data->num_of_pipe && !ft_strncmp(data->token->str, "exit", 4))
 		return (ft_exit(data), -1);
 	if (!set_values(&pipex, data))
 		return (0);
 	if (!create_pipes(&pipex, data))
 		return (0);
 	prepare_for_exec(data, &pipex);
-	res_execute_commands = execute_commands(data, &pipex, env);
+	res_execute_commands = execute_commands(data, &pipex);
 	close_pipes(&pipex, data);
 	free_parent(&pipex, data);
 	// waitpid(data->pid, NULL, 0);

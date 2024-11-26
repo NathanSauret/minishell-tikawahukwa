@@ -7,8 +7,8 @@ LIBFT = -L $(LIBFT_DIR) -lft
 SRC =	Src/main.c	\
 		Src/Initialization/init.c	\
 		Src/Initialization/token_list.c \
-		Src/Terminate/free.c \
-		Src/Terminate/exit.c \
+		Src/Utils/free.c \
+		Src/Utils/exit.c \
 		Src/Utils/free_token.c \
 		Src/Utils/signals.c \
 		Src/Utils/array_utils.c \
@@ -70,6 +70,6 @@ re: fclean all
 
 run:
 	make
-	valgrind --trace-children=yes  ./minishell
+	valgrind --trace-children=yes --suppressions=supp.supp --quiet ./minishell
 
 .PHONY: all clean fclean re

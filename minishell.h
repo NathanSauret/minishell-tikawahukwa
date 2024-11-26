@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/26 16:00:53 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 17:32:00 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ typedef struct t_env
 typedef struct t_data
 {
 	char			*input;
-	char			**args;
 	int				num_of_pipe;
-	int				env_len;
 	int				exit_status;
+	int				env_len;
+	char			**env_array;
 	t_env			*env;
 	t_cmd			*cmd;
 	t_token			*token;
@@ -110,26 +110,7 @@ typedef struct t_data
 
 /*initialization*/
 int		env_init(t_data *data, char **env_array);
-char	*get_ex_path(char *cmd, t_data *data);
 void	data_init(t_data *data);
-
-/*utils*/
-int		exit_error2(t_data *data, char *str);
-void	free_env(t_env *env);
-void	free_token(t_data *data);
-int		is_error(char *str, t_data *data, int exit_status);
-void	free_command_line(t_token *token);
-void	signals(void);
-void	sort_array(char **arr, int len);
-char	**lst_to_arr(t_env *env, int len);
-void	print_error(char *str, char *arg);
-void	free_array(char **arr);
-char	*ft_getenv(t_env *env, char *str);
-char	**free_var(char **str, int len);
-int		ft_intlen(int n);
-void	terminate(t_data *data, char *msg, int ext_status);
-
-/*init*/
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);
 t_cmd	*ft_cmd_lstnew(char **cmd);
 void	ft_cmd_lstclear(t_cmd **lst);
@@ -141,13 +122,19 @@ t_token	*ft_token_lstlast(t_token *lst);
 t_cmd	*ft_cmd_lstlast(t_cmd *lst);
 t_cmd	*ft_cmd_lstlast(t_cmd *lst);
 
+/*utils*/
+int		is_error(char *str, t_data *data, int exit_status);
+void	signals(void);
+void	sort_array(char **arr, int len);
+char	**lst_to_arr(t_env *env, int len);
+void	print_error(char *str, char *arg);
+int		ft_intlen(int n);
+char	*ft_getenv(t_env *env, char *str);
+
 /*parsing*/
 int		parsing(t_data *data);
-int		add_token(t_data *data);
 int		get_arg(t_data *data, char **str);
-char	**tokens_to_args(t_token *token_list);
 int		line_is_empty(char *str);
-int		fill_cmd_struct(t_data *data);
 int		fill_cmd_struct(t_data *data);
 
 /*parsing utils*/
@@ -155,37 +142,48 @@ int		check_quote(t_data *data, char *str);
 int		is_quote(char c);
 int		line_is_empty(char *str);
 int		is_cmd(t_token *token);
+int		is_operator(char *str);
+int		is_operator2(int type, int pipe);
+void	absolute_path(char **path, char *cmd, t_data *data);
+char	*get_ex_path(char *cmd, t_data *data);
+
+/*token*/
+int		add_token(t_data *data);
 int		token_len(char *str, int *space, t_token *token);
 int		get_type(t_token *token, char *str, int *type, int len);
-int		is_operator(char *str);
-int		get_sorted_arg(t_data *data);
 int		token_parsing(t_data *data);
+
+/*dolar utils*/
 char	*handle_dolar(t_data *data, char *str, int *len, char quote);
 int		copy_str(char **res, char **str, int *i, int len);
 int		copy_var(char **res, char *var, int *i, int len);
 char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100]);
 int		full_len(t_data *data, char *token, char **var);
 int		var_len(char *str, int *y);
-int		is_operator2(int type, int pipe);
-void	absolute_path(char **path, char *cmd, t_data *data);
+
+/*free*/
+void	terminate(t_data *data, char *msg, int ext_status);
+void	free_env(t_env *env);
+void	free_token(t_data *data);
+void	free_array(char **arr);
+char	**free_var(char **str, int len);
+void	free_command_line(t_token *token);
 
 /*debug*/
 void	print_token(t_token *token, int show_args);
 void	print_tab(char **tab);
+int		exec_test(char *str, t_data *data);
 void	print_cmd(t_cmd *cmd);
-int		exec_test(char *str, t_data *data, char **env);
-void	print_cmd(t_cmd *cmd);
-int		exec_test(char *str, t_data *data, char **env);
 
 /*     exec     */
 // execute_commands.c
 int		execute_lonely_command(t_data *data, t_pipex *pipex, char **env);
-int		execute_commands(t_data *data, t_pipex *pipex, char **env);
+int		execute_commands(t_data *data, t_pipex *pipex);
 // exec_struct_utils.c
 t_exec	*execnew(t_cmd *cmd, int in, int out);
 void	execadd_back(t_exec **exec, t_exec *new);
 // exec.c
-int		exec(t_data *data, char **env);
+int		exec(t_data *data);
 int		exec_builtin(t_data *data, t_pipex *pipex);
 // exit_error_exec.c
 int		exit_error_exec(t_pipex *pipex, int error_case, char *arg);

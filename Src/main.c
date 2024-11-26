@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:38:42 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/26 15:41:02 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 16:52:35 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 pid_t	g_signal_pid;
 
-int	loop(t_data *data, char **env)
+static int	loop(t_data *data)
 {
 	while (1)
 	{
@@ -29,7 +29,7 @@ int	loop(t_data *data, char **env)
 		}
 		if (!parsing(data))
 			continue ;
-		if ((exec(data, env)) == -1)
+		if ((exec(data)) == -1)
 			break ;
 		free_token(data);
 	}
@@ -46,7 +46,7 @@ int	main(int argc, char **argv, char **env)
 		data.env_len = env_init(&data, env);
 		if (!data.env_len)
 			terminate(&data, ERR_MALLOC, data.exit_status);
-		exec_test(argv[1], &data, env);
+		exec_test(argv[1], &data);
 		free_env(data.env);
 	}
 	else
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **env)
 		data.env_len = env_init(&data, env);
 		if (!data.env_len)
 			terminate(&data, ERR_MALLOC, data.exit_status);
-		loop(&data, env);
+		loop(&data);
 		free_env(data.env);
 		rl_clear_history();
 	}

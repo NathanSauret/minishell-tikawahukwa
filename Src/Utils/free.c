@@ -6,11 +6,21 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:41:13 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/22 18:29:12 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 16:43:57 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	free_command_line(t_token *token)
+{
+	while (token)
+	{
+		if (token->command_line)
+			free(token->command_line);
+		token = token->next;
+	}
+}
 
 void	free_array(char **arr)
 {
@@ -43,4 +53,18 @@ void	free_env(t_env *env)
 	env->value = NULL;
 	free(env);
 	env = NULL;
+}
+
+char	**free_var(char **str, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	return (NULL);
 }

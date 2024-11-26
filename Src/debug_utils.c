@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/21 14:02:51 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 17:00:39 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,14 @@ void	print_token(t_token *token, int show_args)
 		show_command_line(tmp);
 }
 
-int	exec_test(char *str, t_data *data, char **env)
+int	exec_test(char *str, t_data *data)
 {
 	data->input = ft_strdup(str);
 	if (data->input == NULL)
 		return (printf("exit..\n"), 1);
 	if (!parsing(data))
 		return (0);
-	exec(data, env);
+	exec(data);
 	free_token(data);
 	return (1);
 }

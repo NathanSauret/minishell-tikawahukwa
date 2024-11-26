@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/26 16:00:32 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 17:24:10 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,9 @@
 int	exec_builtin(t_data *data, t_pipex *pipex)
 {
 	if (ft_strnstr((pipex->exec->cmd[0]), "cd", 2))
-		return (ft_cd(data->env, data->args));
+		return (ft_cd(data->env, pipex->exec->cmd));
 	if (ft_strnstr((pipex->exec->cmd[0]), "echo", 4))
 		return (ft_echo(pipex->exec->cmd));
-	if (ft_strnstr((pipex->exec->cmd[0]), "env", 3))
-		return (ft_env(data->env));
-	if (ft_strnstr((pipex->exec->cmd[0]), "export", 6))
-		return (ft_export(pipex->exec->cmd, data));
-	if (ft_strnstr((pipex->exec->cmd[0]), "pwd", 3))
 	if (ft_strnstr((pipex->exec->cmd[0]), "env", 3))
 		return (ft_env(data->env));
 	if (ft_strnstr((pipex->exec->cmd[0]), "export", 6))
@@ -56,7 +51,7 @@ static int	lonely_child(t_data *data, t_pipex *pipex)
 	return (res);
 }
 
-static int	child(t_data *data, t_pipex *pipex, char **env)
+static int	child(t_data *data, t_pipex *pipex)
 {
 	t_exec	*exec;
 	int		res;
@@ -78,7 +73,7 @@ static int	child(t_data *data, t_pipex *pipex, char **env)
 		if (exec->is_builtin)
 			res = exec_builtin(data, pipex);
 		else
-			res = execve(exec->path, exec->cmd, env);
+			res = execve(exec->path, exec->cmd, data->env_array);
 		free_child(data, pipex);
 		exit (res);
 	}
@@ -87,7 +82,7 @@ static int	child(t_data *data, t_pipex *pipex, char **env)
 	return (WEXITSTATUS (status));
 }
 
-int	execute_commands(t_data *data, t_pipex *pipex, char **env)
+int	execute_commands(t_data *data, t_pipex *pipex)
 {
 	char	*max_sleep;
 	int		res;
@@ -104,7 +99,7 @@ int	execute_commands(t_data *data, t_pipex *pipex, char **env)
 		else if (ft_strncmp(pipex->exec->cmd[0], "sleep", 5)
 			&& ft_strncmp(pipex->exec->cmd[0], "exit", 4)
 			&& pipex->exec->in != -1 && pipex->exec->out != -1)
-			res = child(data, pipex, env);
+			res = child(data, pipex);
 		if (!ft_strncmp(pipex->exec->cmd[0], "sleep", 5)
 			&& ft_atoi(pipex->exec->cmd[1]) > ft_atoi(max_sleep))
 			max_sleep = pipex->exec->cmd[1];

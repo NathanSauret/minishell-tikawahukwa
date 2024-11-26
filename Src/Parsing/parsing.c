@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/26 15:21:49 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 17:25:34 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	fill_command_line(t_token *head, int size)
 	return (1);
 }
 
-int	get_sorted_arg(t_data *data)
+static int	get_sorted_arg(t_data *data)
 {
 	t_token	*tmp;
 	t_token	*head;
@@ -41,9 +41,6 @@ int	get_sorted_arg(t_data *data)
 
 	tmp = data->token;
 	pipe = 0;
-	data->args = tokens_to_args(data->token);
-	if (!data->args)
-		return (0);
 	while (pipe < data->num_of_pipe + 1)
 	{
 		i = 0;
@@ -61,7 +58,7 @@ int	get_sorted_arg(t_data *data)
 	return (1);
 }
 
-int	is_builtin(char *str)
+static int	is_builtin(char *str)
 {
 	if (!(ft_strncmp("exit", str, MAX_PATH_LENGTH)))
 		return (1);
@@ -80,7 +77,7 @@ int	is_builtin(char *str)
 	return (0);
 }
 
-int	check_valid_cmd(t_data *data)
+static int	check_valid_cmd(t_data *data)
 {
 	t_token	*tmp;
 	char	*path;
@@ -122,7 +119,10 @@ int	parsing(t_data *data)
 		terminate(data, ERR_MALLOC, 1);
 	if (!(fill_cmd_struct(data)))
 		terminate(data, ERR_MALLOC, 1);
+	data->env_array = lst_to_arr(data->env, data->env_len);
+	if (!data->env_array)
+		terminate(data, ERR_MALLOC, 1);
 	//print_token(data->token, 0);
-	// print_cmd(data->cmd);
+	//print_cmd(data->cmd);
 	return (1);
 }

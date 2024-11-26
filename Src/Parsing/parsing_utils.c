@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 23:27:38 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/26 15:56:23 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 16:57:39 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	line_is_empty(char *str)
 	return (1);
 }
 
-char	*get_path_from_env(t_data *data)
+static char	*get_path_from_env(t_data *data)
 {
 	t_env	*current;
 

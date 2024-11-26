@@ -6,13 +6,13 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:05:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/22 19:06:39 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 16:58:01 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	**get_var_name(char *str, int *v_num)
+static char	**get_var_name(char *str, int *v_num)
 {
 	int		i;
 	int		v_len[100];
@@ -36,7 +36,7 @@ char	**get_var_name(char *str, int *v_num)
 	return (fill_var_name(str, *v_num, v_pos, v_len));
 }
 
-char	*get_new_str(char *token, char **var, int len, int var_num)
+static char	*get_new_str(char *token, char **var, int len, int var_num)
 {
 	char	*res;
 	int		i;
@@ -64,7 +64,7 @@ char	*get_new_str(char *token, char **var, int len, int var_num)
 	return (free_var(var, v_num + 1), res);
 }
 
-char	**replace_var_env(t_data *data, char **var, int v_num)
+static char	**replace_var_env(t_data *data, char **var, int v_num)
 {
 	char	**tmp;
 	int		i;
@@ -88,7 +88,7 @@ char	**replace_var_env(t_data *data, char **var, int v_num)
 	return (tmp);
 }
 
-char	*replace_dolar(t_data *data, char *str, int *len, int quote)
+static char	*replace_dolar(t_data *data, char *str, int *len, int quote)
 {
 	char	**var;
 	int		var_num;

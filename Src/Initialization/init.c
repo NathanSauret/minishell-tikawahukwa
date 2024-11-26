@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:40:17 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/26 13:20:39 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 17:19:34 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	data_init(t_data *data)
 {
-	data->args = NULL;
 	data->token = NULL;
 	data->input = NULL;
 	data->env = NULL;
 	data->cmd = NULL;
+	data->env_array = NULL;
 	data->env_len = 0;
 	data->num_of_pipe = 0;
 	data->exit_status = 0;

@@ -6,11 +6,27 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/25 19:23:46 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 16:56:51 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	is_cmd(t_token *token)
+{
+	t_token	*tmp;
+
+	if (!token)
+		return (1);
+	tmp = ft_token_lstlast(token);
+	if (tmp->type == PIPE)
+		return (1);
+	if (is_operator2(token->type, 0) && tmp->type == ARG)
+		return (1);
+	if (is_operator2(tmp->type, 0))
+		return (0);
+	return (0);
+}
 
 int	is_operator2(int type, int pipe)
 {
@@ -74,22 +90,6 @@ int	token_len(char *str, int *space, t_token *token)
 	if (is_operator(&str[i]) && i == 0)
 		i++;
 	return (i);
-}
-
-int	is_cmd(t_token *token)
-{
-	t_token	*tmp;
-
-	if (!token)
-		return (1);
-	tmp = ft_token_lstlast(token);
-	if (tmp->type == PIPE)
-		return (1);
-	if (is_operator2(token->type, 0) && tmp->type == ARG)
-		return (1);
-	if (is_operator2(tmp->type, 0))
-		return (0);
-	return (0);
 }
 
 int	get_type(t_token *token, char *str, int *type, int len)
