@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/22 18:48:36 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 15:49:56 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ void	free_parent(t_pipex *pipex, t_data *data);
 void	free_child(t_data *data, t_pipex *pipex);
 int		free_pipe(t_pipex *pipex);
 // here_doc.c
-void	here_doc(char *argv, t_pipex *pipex);
+int		here_doc(char *argv);
 // pipes_exec.c
 int		create_pipes(t_pipex *pipex, t_data *data);
 int		pipe_free(t_pipex *pipex);

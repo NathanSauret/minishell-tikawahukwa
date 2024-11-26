@@ -116,4 +116,15 @@ echo
 
 
 
+#sleep
+echo
+echo "\t\t   ~ SLEEP ~"
+echo
+
+echo "time sleep 2 | sleep 5 (must return 5) :"
+eval $VALGRIND "'time sleep 2 | sleep 5'"
+echo
+
+
+
 rm infile

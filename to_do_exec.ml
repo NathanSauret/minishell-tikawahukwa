@@ -10,7 +10,10 @@
 [X] - Fix leaks when builtin in pipe.
 [X] - Fix builtins redirections.
 [X] - << redirection.
-[ ] - cd, export and unset must be executed in parent.
+[X] - cd, export and unset must be executed in parent.
+[X] - Here_doc without a file.
+[ ] - Try to move the waitpid of the exec.
+[ ] - Fix  open fds at exit.
+[ ] - Fix multi-cat.
 [ ] - Add sleep function.
 [ ] - Fix "cat Makefile | ls > /dev/stdin".
-[ ] - Fix  open fds at exit.

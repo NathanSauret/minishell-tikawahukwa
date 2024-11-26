@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/22 18:30:39 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 15:49:22 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	exec(t_data *data, char **env)
 	res_execute_commands = execute_commands(data, &pipex, env);
 	close_pipes(&pipex, data);
 	free_parent(&pipex, data);
+	// waitpid(data->pid, NULL, 0);
 	waitpid(-1, NULL, 0);
 	return (res_execute_commands);
 }

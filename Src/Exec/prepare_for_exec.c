@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:50:29 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/21 17:04:14 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/25 18:26:46 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	check_redirections(t_cmd *cmd, t_pipex *pipex)
 	else if (cmd->tokens->type == HEREDOC)
 	{
 		cmd->tokens = cmd->tokens->next;
-		here_doc(cmd->tokens->str, pipex);
+		pipex->exec->in = here_doc(cmd->tokens->str);
 		pipex->exec->is_infile = 1;
 	}
 	else if (cmd->tokens->type == TRUNC)
