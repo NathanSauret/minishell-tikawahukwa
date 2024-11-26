@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/25 18:24:56 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/26 15:46:56 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ static int	child(t_data *data, t_pipex *pipex, char **env)
 	res = -1;
 	if (!data->pid)
 	{
-		ft_printf("cmd: %s ~ in: %d | out: %d\n", pipex->exec->cmd[0], pipex->exec->in, pipex->exec->out);
+		// ft_printf("cmd: %s ~ in: %d | out: %d\n", pipex->exec->cmd[0], pipex->exec->in, pipex->exec->out);
 		exec = pipex->exec;
 		dup2(exec->in, 0);
 		dup2(exec->out, 1);
-		if (exec->is_infile)
-			close(exec->in);
-		if (exec->is_outfile)
-			close(exec->out);
+		// if (exec->is_infile)
+		// 	close(exec->in);
+		// if (exec->is_outfile)
+		// 	close(exec->out);
 		close_pipes(pipex, data);
 		if (exec->is_builtin)
 			res = exec_builtin(data, pipex);
@@ -78,7 +78,8 @@ static int	child(t_data *data, t_pipex *pipex, char **env)
 		exit (res);
 	}
 	waitpid(data->pid, &status, 0);
-	return (data->exit_status = WEXITSTATUS (status), WEXITSTATUS (status));
+	data->exit_status = WEXITSTATUS (status);
+	return (WEXITSTATUS (status));
 }
 
 int	execute_commands(t_data *data, t_pipex *pipex, char **env)
@@ -104,5 +105,6 @@ int	execute_commands(t_data *data, t_pipex *pipex, char **env)
 			max_sleep = pipex->exec->cmd[1];
 		close_iofiles_and_free_prev_exec(pipex);
 	}
-	return (sleep_case(max_sleep, env), res);
+	// sleep_case(max_sleep, env);
+	return (res);
 }
