@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/26 16:00:28 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 16:00:32 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static int	child(t_data *data, t_pipex *pipex, char **env)
 			res = exec_builtin(data, pipex);
 		else
 			res = execve(exec->path, exec->cmd, env);
-		printf("check\n");
 		free_child(data, pipex);
 		exit (res);
 	}
