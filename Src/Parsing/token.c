@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/21 19:18:26 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/25 22:39:35 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ int	get_arg(t_data *data, char **str)
 	if (!len)
 		return ((*str) += 1, 1);
 	len = get_type(data->token, *str, &type, len);
-	if (!space && tmp && !is_operator(tmp->str))
+	if (tmp && ((ft_strlen(tmp->str) == 0)
+			|| (!space && !is_operator(tmp->str))))
 	{
 		if (!(join_token(data, tmp, *(str), len)))
 			return (0);

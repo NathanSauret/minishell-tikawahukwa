@@ -70,6 +70,6 @@ re: fclean all
 
 run:
 	make
-	valgrind --trace-children=yes --suppressions=supp.supp --quiet ./minishell
+	valgrind --trace-children=yes  ./minishell
 
 .PHONY: all clean fclean re

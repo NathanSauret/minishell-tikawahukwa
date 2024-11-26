@@ -6,11 +6,25 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 23:27:38 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/21 19:05:38 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 15:56:23 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	absolute_path(char **path, char *cmd, t_data *data)
+{
+	*path = ft_strdup(cmd);
+	if (!(*path))
+		terminate(data, ERR_MALLOC, 1);
+	if (access((*path), F_OK))
+	{
+		write(2, (*path), ft_strlen((*path)));
+		write(2, " : command not found\n", 21);
+		free(*path);
+		*path = NULL;
+	}
+}
 
 int	check_quote(t_data *data, char *str)
 {
@@ -42,11 +56,6 @@ int	line_is_empty(char *str)
 		str++;
 	}
 	return (1);
-}
-
-int	is_quote(char c)
-{
-	return ((c == '\'' || c == '"'));
 }
 
 char	*get_path_from_env(t_data *data)

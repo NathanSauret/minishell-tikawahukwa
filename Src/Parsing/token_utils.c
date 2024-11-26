@@ -6,22 +6,21 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/21 19:40:00 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/25 19:23:46 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	is_redirect(char *str)
+int	is_operator2(int type, int pipe)
 {
-	if (ft_strnstr((str), "<<", 2))
+	if (type == 1 || type == 2 || type == 3 || type == 4)
 		return (1);
-	else if (ft_strnstr((str), ">>", 2))
-		return (1);
-	if (ft_strnstr((str), "<", 1))
-		return (1);
-	else if (ft_strnstr((str), ">", 1))
-		return (1);
+	if (pipe)
+	{
+		if (type == 5)
+			return (1);
+	}
 	return (0);
 }
 
@@ -34,15 +33,15 @@ int	token_parsing(t_data *data)
 	{
 		if ((current->type == PIPE && !current->prev)
 			|| (current->type == PIPE && !current->next)
-			|| (is_redirect(current->str)
+			|| (is_operator2(current->type, 0)
 				&& (current->next && current->next->type == PIPE)))
 			return (is_error("error near unexpected token '|'\n",
 					data, 2));
-		else if (is_redirect(current->str) && (!current->next))
+		else if (is_operator2(current->type, 0) && (!current->next))
 			return (is_error("error near unexpected token 'new line'\n",
 					data, 2));
-		else if (is_redirect(current->str)
-			&& (current->next && is_redirect(current->next->str)))
+		else if (is_operator2(current->type, 0)
+			&& (current->next && is_operator2(current->next->type, 0)))
 			return (is_error("error near unexpected token 'redirect'\n",
 					data, 2));
 		current = current->next;
@@ -84,8 +83,12 @@ int	is_cmd(t_token *token)
 	if (!token)
 		return (1);
 	tmp = ft_token_lstlast(token);
-	if (tmp->type == PIPE || (tmp->prev && is_redirect(tmp->prev->str)))
+	if (tmp->type == PIPE)
 		return (1);
+	if (is_operator2(token->type, 0) && tmp->type == ARG)
+		return (1);
+	if (is_operator2(tmp->type, 0))
+		return (0);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:38:42 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/22 18:25:02 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 15:41:02 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int argc, char **argv, char **env)
 			terminate(&data, ERR_MALLOC, data.exit_status);
 		loop(&data, env);
 		free_env(data.env);
-		clear_history();
+		rl_clear_history();
 	}
 	return (0);
 }

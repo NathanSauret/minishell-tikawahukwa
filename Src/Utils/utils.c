@@ -6,11 +6,16 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 17:07:31 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/11/22 19:04:57 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 13:13:33 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	is_quote(char c)
+{
+	return ((c == '\'' || c == '"'));
+}
 
 char	*ft_getenv(t_env *env, char *str)
 {
@@ -44,13 +49,6 @@ char	**free_var(char **str, int len)
 	}
 	free(str);
 	return (NULL);
-}
-
-int	print_error(char *str)
-{
-	if (str)
-		write(2, str, ft_strlen(str));
-	return (1);
 }
 
 int	ft_intlen(int n)
