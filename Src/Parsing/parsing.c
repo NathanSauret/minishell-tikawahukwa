@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/25 22:49:36 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 15:21:49 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,23 @@ int	check_valid_cmd(t_data *data)
 	t_token	*tmp;
 	char	*path;
 
-	path = NULL;
 	tmp = data->token;
 	while (tmp)
 	{
 		if (tmp->type == CMD)
 		{
-			if (is_builtin(tmp->str))
+			path = NULL;
+			if (ft_strchr(tmp->str, '/'))
+				absolute_path(&path, tmp->str, data);
+			else if (is_builtin(tmp->str))
 				tmp->is_builtin = 1;
 			else
 			{
 				path = get_ex_path(tmp->str, data);
 				if (!path)
-				{
-					ft_printerr("%s: command not found\n", tmp->str);
-					return (0);
-				}
-				tmp->path = path;
+					return (ft_printerr("%s not found\n", tmp->str), 0);
 			}
+			tmp->path = path;
 		}
 		tmp = tmp->next;
 	}

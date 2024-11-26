@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/25 17:40:30 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/26 15:22:17 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100]);
 int		full_len(t_data *data, char *token, char **var);
 int		var_len(char *str, int *y);
 int		is_operator2(int type, int pipe);
+void	absolute_path(char **path, char *cmd, t_data *data);
 
 /*debug*/
 void	print_token(t_token *token, int show_args);
