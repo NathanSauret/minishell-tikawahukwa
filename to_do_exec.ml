@@ -14,6 +14,6 @@
 [X] - Here_doc without a file.
 [X] - Try to move the waitpid of the exec.
 [X] - Fix multi-cat.
+[X] - Fix sleep function.
 [ ] - Fix  open fds at exit.
-[ ] - Fix sleep function.
 [ ] - Fix "cat Makefile | ls > /dev/stdin".
