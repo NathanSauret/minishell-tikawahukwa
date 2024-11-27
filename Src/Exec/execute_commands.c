@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/26 17:24:10 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/27 16:26:52 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,19 @@ static void	close_iofiles_and_free_prev_exec(t_pipex *pipex)
 	free(prev_exec);
 }
 
-static int	lonely_child(t_data *data, t_pipex *pipex)
+static void	lonely_child(t_data *data, t_pipex *pipex)
 {
 	int		res;
 
+	data->pid = 0;
 	res = exec_builtin(data, pipex);
 	data->exit_status = res;
-	return (res);
 }
 
-static int	child(t_data *data, t_pipex *pipex)
+static void	child(t_data *data, t_pipex *pipex)
 {
 	t_exec	*exec;
 	int		res;
-	int		status;
 
 	data->pid = fork();
 	res = -1;
@@ -65,10 +64,10 @@ static int	child(t_data *data, t_pipex *pipex)
 		exec = pipex->exec;
 		dup2(exec->in, 0);
 		dup2(exec->out, 1);
-		// if (exec->is_infile)
-		// 	close(exec->in);
-		// if (exec->is_outfile)
-		// 	close(exec->out);
+		if (exec->is_infile)
+			close(exec->in);
+		if (exec->is_outfile)
+			close(exec->out);
 		close_pipes(pipex, data);
 		if (exec->is_builtin)
 			res = exec_builtin(data, pipex);
@@ -77,34 +76,32 @@ static int	child(t_data *data, t_pipex *pipex)
 		free_child(data, pipex);
 		exit (res);
 	}
-	waitpid(data->pid, &status, 0);
-	data->exit_status = WEXITSTATUS (status);
-	return (WEXITSTATUS (status));
 }
 
 int	execute_commands(t_data *data, t_pipex *pipex)
 {
-	char	*max_sleep;
-	int		res;
-
-	max_sleep = "0";
-	res = 1;
 	while (pipex->exec)
 	{
 		if (!data->num_of_pipe
 			&& (!ft_strncmp(pipex->exec->cmd[0], "cd", 2)
 				|| !ft_strncmp(pipex->exec->cmd[0], "export", 6)
 				|| !ft_strncmp(pipex->exec->cmd[0], "unset", 5)))
-			res = lonely_child(data, pipex);
-		else if (ft_strncmp(pipex->exec->cmd[0], "sleep", 5)
-			&& ft_strncmp(pipex->exec->cmd[0], "exit", 4)
+		{
+			lonely_child(data, pipex);
+		}
+		else if (ft_strncmp(pipex->exec->cmd[0], "exit", 4)
+			&& ft_strncmp(pipex->exec->cmd[0], "sleep", 5)
 			&& pipex->exec->in != -1 && pipex->exec->out != -1)
-			res = child(data, pipex);
-		if (!ft_strncmp(pipex->exec->cmd[0], "sleep", 5)
-			&& ft_atoi(pipex->exec->cmd[1]) > ft_atoi(max_sleep))
-			max_sleep = pipex->exec->cmd[1];
+		{
+			if (pipex->exec->cmd[1]
+				&& !ft_strncmp(pipex->exec->cmd[1], "sleep", 5))
+				pipex->have_time_cmd = pipex->have_time_cmd;
+			else
+				child(data, pipex);
+		}
+		exec_count_time(pipex);
 		close_iofiles_and_free_prev_exec(pipex);
 	}
-	// sleep_case(max_sleep, env);
-	return (res);
+	sleep_case(data, pipex);
+	return (1);
 }

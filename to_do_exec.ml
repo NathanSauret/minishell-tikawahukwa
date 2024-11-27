@@ -12,8 +12,8 @@
 [X] - << redirection.
 [X] - cd, export and unset must be executed in parent.
 [X] - Here_doc without a file.
-[ ] - Try to move the waitpid of the exec.
+[X] - Try to move the waitpid of the exec.
+[X] - Fix multi-cat.
 [ ] - Fix  open fds at exit.
-[ ] - Fix multi-cat.
-[ ] - Add sleep function.
+[ ] - Fix sleep function.
 [ ] - Fix "cat Makefile | ls > /dev/stdin".

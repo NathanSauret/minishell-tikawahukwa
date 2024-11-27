@@ -21,6 +21,7 @@ SRC =	Src/main.c	\
 		Src/Parsing/dolar_utils.c \
 		Src/Exec/execute_commands.c	\
 		Src/Exec/exec_struct_utils.c	\
+		Src/Exec/exec_time_utils.c	\
 		Src/Exec/exec.c	\
 		Src/Exec/exit_error_exec.c	\
 		Src/Exec/free_exec.c	\
@@ -70,6 +71,6 @@ re: fclean all
 
 run:
 	make
-	valgrind --trace-children=yes --suppressions=supp.supp --quiet ./minishell
+	valgrind --trace-children=yes --track-fds=yes --suppressions=supp.supp --quiet ./minishell
 
 .PHONY: all clean fclean re

@@ -61,7 +61,7 @@ echo
 echo "\t   ~ CMDS WITH PIPES ~"
 echo
 
-echo "cat infile | cat"
+echo "cat infile | cat :"
 eval $VALGRIND "'cat infile | cat'"
 echo
 
@@ -76,11 +76,11 @@ echo
 echo "\t  ~ INFILE REDIRECTION ~"
 echo
 
-echo "< infile cat"
+echo "< infile cat :"
 eval $VALGRIND "'< infile cat'"
 echo
 
-echo "< infile cat | grep -o pon"
+echo "< infile cat | grep -o pon :"
 eval $VALGRIND "'< infile cat | grep -o pon'"
 echo
 
@@ -91,11 +91,11 @@ echo
 echo "\t~ OUTFILE TRUNC REDIRECTION ~"
 echo
 
-echo "cat infile > outfile | cat outfile"
+echo "cat infile > outfile | cat outfile :"
 eval $VALGRIND "'cat infile > outfile | cat outfile'"
 echo
 
-echo "cat infile | grep -o pon > outfile | cat outfile"
+echo "cat infile | grep -o pon > outfile | cat outfile :"
 eval $VALGRIND "'cat infile | grep -o pon > outfile | cat outfile'"
 echo
 
@@ -106,11 +106,11 @@ echo
 echo "\t ~ OUTFILE APPEND REDIRECTION ~"
 echo
 
-echo "echo start > outfile | cat infile >> outfile | cat outfile"
+echo "echo start > outfile | cat infile >> outfile | cat outfile :"
 eval $VALGRIND "'echo start > outfile | cat infile >> outfile | cat outfile'"
 echo
 
-echo "echo start > outfile | cat infile | grep -o pon > outfile | cat outfile"
+echo "echo start > outfile | cat infile | grep -o pon > outfile | cat outfile :"
 eval $VALGRIND "'echo start > outfile | cat infile | grep -o pon >> outfile | cat outfile'"
 echo
 

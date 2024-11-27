@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/26 17:32:00 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/27 15:53:54 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ typedef struct s_exec
 
 typedef struct s_pipex
 {
-	int		*here_doc;
 	int		cmd_nb;
 	int		*pipe;
 	int		idx;
-	pid_t	pid;
+	int		max_sleep;
+	int		have_time_cmd;
 	t_exec	*exec;
 }	t_pipex;
 
@@ -182,6 +182,8 @@ int		execute_commands(t_data *data, t_pipex *pipex);
 // exec_struct_utils.c
 t_exec	*execnew(t_cmd *cmd, int in, int out);
 void	execadd_back(t_exec **exec, t_exec *new);
+// exec_time-utils.c
+void	exec_count_time(t_pipex *pipex);
 // exec.c
 int		exec(t_data *data);
 int		exec_builtin(t_data *data, t_pipex *pipex);
@@ -198,13 +200,13 @@ int		create_pipes(t_pipex *pipex, t_data *data);
 int		pipe_free(t_pipex *pipex);
 void	close_pipes(t_pipex *pipex, t_data *data);
 // prepare_for_exec.c
-void	prepare_for_exec(t_data *data, t_pipex *pipex);
+int		prepare_for_exec(t_data *data, t_pipex *pipex);
 // redirections.c
 int		redirection_input(t_cmd *cmd);
 int		redirection_trunc(t_pipex *pipex, t_cmd *cmd);
 int		redirection_append(t_pipex *pipex, t_cmd *cmd);
 // sleep_case.c
-int		sleep_case(char *max_sleep, char **env);
+int		sleep_case(t_data *data, t_pipex *pipex);
 
 /*builtins*/
 int		ft_exit(t_data *data);

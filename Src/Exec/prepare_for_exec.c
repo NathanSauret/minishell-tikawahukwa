@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:50:29 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/25 18:26:46 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/27 14:32:39 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ static void	redirect_with_pipes(t_pipex *pipex)
 		pipex->exec->in = pipex->pipe[2 * pipex->idx - 2];
 	if (pipex->exec->out == -2 && pipex->idx == (pipex->cmd_nb - 1))
 		pipex->exec->out = 1;
-	if (pipex->exec->out == -2)
+	else if (pipex->exec->out == -2)
 		pipex->exec->out = pipex->pipe[2 * pipex->idx + 1];
 }
 
-void	prepare_for_exec(t_data *data, t_pipex *pipex)
+int	prepare_for_exec(t_data *data, t_pipex *pipex)
 {
 	t_exec	*exec_head;
 	t_cmd	*cmd_head;
@@ -86,4 +86,5 @@ void	prepare_for_exec(t_data *data, t_pipex *pipex)
 	}
 	pipex->exec = exec_head;
 	data->cmd = cmd_head;
+	return (1);
 }
