@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:19:51 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/26 17:26:34 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/28 15:41:18 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void	terminate(t_data *data, char *msg, int ext_status)
 	free_env(data->env);
 	rl_clear_history();
 	if (msg)
-		printf("%s", msg);
+		ft_printerr(msg);
 	exit (ext_status);
 }
