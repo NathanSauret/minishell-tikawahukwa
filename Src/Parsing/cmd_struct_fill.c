@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:16:46 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/26 16:58:34 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/28 16:06:57 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ static int	parse_cmd(t_data *data, t_token *token)
 	fill_cmd(new_cmd, token);
 	while (token && token->type != CMD)
 		token = token->next;
-	if (!token->is_builtin)
+	if (token && !token->is_builtin)
 		new_cmd->path = ft_strdup(token->path);
-	else
+	else if (token)
 		new_cmd->is_builtin = 1;
 	return (ft_cmd_lstadd_back(&(data->cmd), new_cmd));
 }
