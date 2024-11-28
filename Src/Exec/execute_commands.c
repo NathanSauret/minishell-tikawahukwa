@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/27 16:26:52 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/28 14:39:23 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	execute_commands(t_data *data, t_pipex *pipex)
 	{
 		if (!data->num_of_pipe
 			&& (!ft_strncmp(pipex->exec->cmd[0], "cd", 2)
-				|| !ft_strncmp(pipex->exec->cmd[0], "export", 6)
+				|| (!ft_strncmp(pipex->exec->cmd[0], "export", 6)
+					&& pipex->exec->cmd[1])
 				|| !ft_strncmp(pipex->exec->cmd[0], "unset", 5)))
 		{
 			lonely_child(data, pipex);
