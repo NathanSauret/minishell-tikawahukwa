@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/26 16:56:51 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/28 21:12:38 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,22 @@
 int	is_cmd(t_token *token)
 {
 	t_token	*tmp;
+	t_token	*head;
 
 	if (!token)
 		return (1);
 	tmp = ft_token_lstlast(token);
+	head = tmp;
+	if (head->type == PIPE)
+		head = head->prev;
+	while (head->prev && head->prev->type != PIPE)
+		head = head->prev;
 	if (tmp->type == PIPE)
-		return (1);
-	if (is_operator2(token->type, 0) && tmp->type == ARG)
 		return (1);
 	if (is_operator2(tmp->type, 0))
 		return (0);
+	if (is_operator2(head->type, 0) && tmp->type == ARG)
+		return (1);
 	return (0);
 }
 
@@ -45,6 +51,8 @@ int	token_parsing(t_data *data)
 	t_token	*current;
 
 	current = data->token;
+	if (line_is_empty(current->str))
+		return (is_error(NULL, data, 0));
 	while (current)
 	{
 		if ((current->type == PIPE && !current->prev)

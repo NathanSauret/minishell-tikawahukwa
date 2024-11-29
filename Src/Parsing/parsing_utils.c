@@ -6,24 +6,37 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 23:27:38 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/26 16:57:39 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/28 19:14:40 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	absolute_path(char **path, char *cmd, t_data *data)
+int	absolute_path(char **path, char *cmd, t_data *data)
 {
+	struct stat	sb;
+
 	*path = ft_strdup(cmd);
 	if (!(*path))
 		terminate(data, ERR_MALLOC, 1);
-	if (access((*path), F_OK))
+	if (stat(*path, &sb) == -1)
 	{
-		write(2, (*path), ft_strlen((*path)));
-		write(2, " : command not found\n", 21);
+		ft_printerr("%s: No such file or directory\n", *path);
 		free(*path);
-		*path = NULL;
+		return (data->exit_status = 127, 0);
 	}
+	if (S_ISDIR(sb.st_mode))
+	{
+		ft_printerr("%s: Is a directory\n", *path);
+		free(*path);
+		return (data->exit_status = 126, 0);
+	}
+	if (access(*path, X_OK) == -1)
+	{
+		ft_printerr("%s: bad permission\n", *path);
+		return (data->exit_status = 126, 0);
+	}
+	return (1);
 }
 
 int	check_quote(t_data *data, char *str)
