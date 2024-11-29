@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/29 14:54:30 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/29 15:08:17 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <dirent.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <limits.h>
 # include <errno.h>
 # include <signal.h>
@@ -144,7 +145,7 @@ int		line_is_empty(char *str);
 int		is_cmd(t_token *token);
 int		is_operator(char *str);
 int		is_operator2(int type, int pipe);
-void	absolute_path(char **path, char *cmd, t_data *data);
+int		absolute_path(char **path, char *cmd, t_data *data);
 char	*get_ex_path(char *cmd, t_data *data);
 
 /*token*/
