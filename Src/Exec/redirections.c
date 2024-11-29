@@ -6,13 +6,13 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:03:55 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/25 18:13:35 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/29 18:00:35 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	redirection_input(t_cmd *cmd)
+int	redirection_input(t_data *data, t_pipex *pipex, t_cmd *cmd)
 {
 	int	fd;
 
@@ -20,12 +20,14 @@ int	redirection_input(t_cmd *cmd)
 	if (fd < 0)
 	{
 		perror(cmd->tokens->str);
+		if (!pipex->exec->next)
+			data->exit_status = 1;
 		return (-1);
 	}
 	return (fd);
 }
 
-int	redirection_trunc(t_pipex *pipex, t_cmd *cmd)
+int	redirection_trunc(t_data *data, t_pipex *pipex, t_cmd *cmd)
 {
 	int	fd;
 
@@ -35,12 +37,14 @@ int	redirection_trunc(t_pipex *pipex, t_cmd *cmd)
 	if (fd < 0)
 	{
 		perror(cmd->tokens->str);
+		if (!pipex->exec->next)
+			data->exit_status = 1;
 		return (-1);
 	}
 	return (fd);
 }
 
-int	redirection_append(t_pipex *pipex, t_cmd *cmd)
+int	redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd)
 {
 	int	fd;
 
@@ -50,6 +54,8 @@ int	redirection_append(t_pipex *pipex, t_cmd *cmd)
 	if (fd < 0)
 	{
 		perror(cmd->tokens->str);
+		if (!pipex->exec->next)
+			data->exit_status = 1;
 		return (-1);
 	}
 	return (fd);

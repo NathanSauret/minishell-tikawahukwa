@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/29 17:55:51 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/29 18:01:57 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,9 +202,9 @@ void	close_pipes(t_pipex *pipex, t_data *data);
 // prepare_for_exec.c
 int		prepare_for_exec(t_data *data, t_pipex *pipex);
 // redirections.c
-int		redirection_input(t_cmd *cmd);
-int		redirection_trunc(t_pipex *pipex, t_cmd *cmd);
-int		redirection_append(t_pipex *pipex, t_cmd *cmd);
+int		redirection_input(t_data *data, t_pipex *pipex, t_cmd *cmd);
+int		redirection_trunc(t_data *data, t_pipex *pipex, t_cmd *cmd);
+int		redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd);
 // sleep_case.c
 int		sleep_case(t_data *data, t_pipex *pipex);
 

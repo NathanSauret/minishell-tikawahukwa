@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/29 17:56:27 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/29 18:02:54 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	finish_exec(t_data *data, t_pipex *pipex)
 	if (g_signal_pid)
 	{
 		waitpid(g_signal_pid, &status, 0);
-		data->exit_status = WEXITSTATUS (status);
+		if (data->exit_status == 0)
+			data->exit_status = WEXITSTATUS (status);
 	}
 	waitpid(-1, NULL, 0);
 }
@@ -38,6 +39,7 @@ static int	set_values(t_pipex *pipex, t_data *data)
 			return (exit_error_exec(pipex, 1, "Error: pipe"));
 		}
 	}
+	data->exit_status = 0;
 	g_signal_pid = 0;
 	pipex->max_sleep = 0;
 	pipex->have_time_cmd = 0;
