@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/28 15:34:42 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/29 15:04:35 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	finish_exec(t_data *data, t_pipex *pipex)
 		data->exit_status = WEXITSTATUS (status);
 	}
 	waitpid(-1, NULL, 0);
-	// ft_printf("exit status: %d\n", data->exit_status);
 }
 
 static int	set_values(t_pipex *pipex, t_data *data)
@@ -50,7 +49,7 @@ int	exec(t_data *data)
 	t_pipex	pipex;
 
 	if (!data->num_of_pipe && !ft_strncmp(data->token->str, "exit", 4))
-		return (ft_exit(data), -1);
+		return (ft_exit(data, data->cmd->cmd), -1);
 	if (!set_values(&pipex, data))
 		return (-1);
 	if (!create_pipes(&pipex, data))

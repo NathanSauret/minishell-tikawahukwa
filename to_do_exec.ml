@@ -15,5 +15,6 @@
 [X] - Try to move the waitpid of the exec.
 [X] - Fix multi-cat.
 [X] - Fix sleep function.
+[X] - If exit at the end: exit_status get the.
 [ ] - Fix  open fds at exit.
 [ ] - Fix "cat Makefile | ls > /dev/stdin".

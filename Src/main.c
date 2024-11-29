@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/11/29 14:45:07 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/29 14:47:03 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static int	loop(t_data *data)
 	{
 		data->input = readline("minishell> ");
 		if (data->input == NULL)
-			return (printf("exit\n"), 1);
 			return (printf("exit\n"), 1);
 		add_history(data->input);
 		if (line_is_empty(data->input))

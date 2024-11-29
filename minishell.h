@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/28 15:31:25 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/29 14:54:30 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ int		redirection_append(t_pipex *pipex, t_cmd *cmd);
 int		sleep_case(t_data *data, t_pipex *pipex);
 
 /*builtins*/
-void	ft_exit(t_data *data);
+void	ft_exit(t_data *data, char **cmd);
 int		ft_cd(t_env *env, char **args);
 int		ft_echo(char **arg);
 int		ft_pwd(void);

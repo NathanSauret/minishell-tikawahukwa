@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/28 14:39:23 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/29 15:04:13 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	exec_builtin(t_data *data, t_pipex *pipex)
 		return (ft_pwd());
 	if (ft_strnstr((pipex->exec->cmd[0]), "unset", 5))
 		return (ft_unset(pipex->exec->cmd, data));
+	if (ft_strnstr((pipex->exec->cmd[0]), "exit", 4))
+		ft_exit(data, pipex->exec->cmd);
 	return (-1);
 }
 
@@ -90,8 +92,7 @@ int	execute_commands(t_data *data, t_pipex *pipex)
 		{
 			lonely_child(data, pipex);
 		}
-		else if (ft_strncmp(pipex->exec->cmd[0], "exit", 4)
-			&& ft_strncmp(pipex->exec->cmd[0], "sleep", 5)
+		else if (ft_strncmp(pipex->exec->cmd[0], "sleep", 5)
 			&& pipex->exec->in != -1 && pipex->exec->out != -1)
 		{
 			if (pipex->exec->cmd[1]
