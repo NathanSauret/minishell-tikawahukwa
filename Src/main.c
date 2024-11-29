@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 21:38:42 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/29 14:40:06 by nsauret          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/11/29 14:45:07 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../minishell.h"
 
@@ -20,6 +21,7 @@ static int	loop(t_data *data)
 	{
 		data->input = readline("minishell> ");
 		if (data->input == NULL)
+			return (printf("exit\n"), 1);
 			return (printf("exit\n"), 1);
 		add_history(data->input);
 		if (line_is_empty(data->input))
