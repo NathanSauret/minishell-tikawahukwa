@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/29 15:04:13 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/29 17:56:40 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	lonely_child(t_data *data, t_pipex *pipex)
 {
 	int		res;
 
-	data->pid = 0;
+	g_signal_pid = 0;
 	res = exec_builtin(data, pipex);
 	data->exit_status = res;
 }
@@ -58,9 +58,9 @@ static void	child(t_data *data, t_pipex *pipex)
 	t_exec	*exec;
 	int		res;
 
-	data->pid = fork();
+	g_signal_pid = fork();
 	res = -1;
-	if (!data->pid)
+	if (!g_signal_pid)
 	{
 		// ft_printf("cmd: %s ~ in: %d | out: %d\n", pipex->exec->cmd[0], pipex->exec->in, pipex->exec->out);
 		exec = pipex->exec;

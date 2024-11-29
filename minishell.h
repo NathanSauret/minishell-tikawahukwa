@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/29 15:08:17 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/29 17:55:51 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ typedef struct t_data
 	t_env			*env;
 	t_cmd			*cmd;
 	t_token			*token;
-	pid_t			pid;
 }	t_data;
 
 /*initialization*/

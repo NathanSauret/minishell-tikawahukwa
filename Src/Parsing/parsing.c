@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/28 19:53:09 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/11/29 17:57:48 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ int	parsing(t_data *data)
 		return (is_error("quote error\n", data, 2));
 	if (!(add_token(data)))
 		terminate(data, ERR_MALLOC, 1);
-	print_token(data->token, 0);
 	if (!(token_parsing(data)))
 		return (0);
 	if (!(check_valid_cmd(data)))
