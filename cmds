@@ -1,0 +1,9 @@
+echo 123
+ls
+sdfskdfj
+ls 
+skdjfsk
+echo now exit
+cat <<H
+skdjf
+H
