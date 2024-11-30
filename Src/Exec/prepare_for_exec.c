@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:50:29 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/29 18:02:05 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/11/30 16:14:33 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	prepare_for_exec(t_data *data, t_pipex *pipex)
 	{
 		while (data->cmd->tokens && data->cmd->tokens->type != PIPE)
 		{
-			check_redirections(data, data->cmd, pipex);
+			if (pipex->exec->in != -1 && pipex->exec->out != -1)
+				check_redirections(data, data->cmd, pipex);
 			data->cmd->tokens = data->cmd->tokens->next;
 		}
 		redirect_with_pipes(pipex);

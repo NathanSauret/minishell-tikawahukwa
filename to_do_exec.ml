@@ -16,5 +16,6 @@
 [X] - Fix multi-cat.
 [X] - Fix sleep function.
 [X] - If exit at the end: exit_status get the.
+[ ] - Fix multi-cat like "cat | cat | cat | ls" ?
 [ ] - Fix  open fds at exit.
 [ ] - Fix "cat Makefile | ls > /dev/stdin".
