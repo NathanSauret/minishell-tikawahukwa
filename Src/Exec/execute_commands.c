@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/11/29 18:02:18 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/01 17:13:15 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,21 @@ static void	child(t_data *data, t_pipex *pipex)
 	{
 		// ft_printf("cmd: %s ~ in: %d | out: %d\n", pipex->exec->cmd[0], pipex->exec->in, pipex->exec->out);
 		exec = pipex->exec;
-		dup2(exec->in, 0);
-		dup2(exec->out, 1);
-		if (exec->is_infile)
-			close(exec->in);
-		if (exec->is_outfile)
-			close(exec->out);
-		close_pipes(pipex, data);
-		if (exec->is_builtin)
-			res = exec_builtin(data, pipex);
-		else
-			res = execve(exec->path, exec->cmd, data->env_array);
-		free_child(data, pipex);
-		exit (res);
+		if (check_valid_cmd(data, exec))
+		{
+			dup2(exec->in, 0);
+			dup2(exec->out, 1);
+			if (exec->is_infile)
+				close(exec->in);
+			if (exec->is_outfile)
+				close(exec->out);
+			close_pipes(pipex, data);
+			if (exec->is_builtin)
+				res = exec_builtin(data, pipex);
+			else
+				res = execve(exec->path, exec->cmd, data->env_array);
+		}
+		terminate(data, NULL, res);
 	}
 }
 

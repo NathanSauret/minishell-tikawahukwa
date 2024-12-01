@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_struct_fill.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:16:46 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/28 16:06:57 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/01 17:01:24 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,6 @@ static int	parse_cmd(t_data *data, t_token *token)
 	fill_cmd(new_cmd, token);
 	while (token && token->type != CMD)
 		token = token->next;
-	if (token && !token->is_builtin)
-		new_cmd->path = ft_strdup(token->path);
-	else if (token)
-		new_cmd->is_builtin = 1;
 	return (ft_cmd_lstadd_back(&(data->cmd), new_cmd));
 }
 

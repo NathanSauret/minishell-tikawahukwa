@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/29 18:01:57 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/01 17:42:37 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,15 @@ typedef struct s_token
 {
 	char			*str;
 	char			**command_line;
-	char			*path;
 	int				cmd_line_size;
 	int				type;
-	int				is_builtin;
 	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
 
 typedef struct t_cmd
 {
-	int				is_builtin;
 	char			**cmd;
-	char			*path;
 	t_token			*tokens;
 	struct t_cmd	*next;
 	struct t_cmd	*prev;
@@ -106,6 +102,7 @@ typedef struct t_data
 	t_env			*env;
 	t_cmd			*cmd;
 	t_token			*token;
+	t_pipex			*pipex;
 }	t_data;
 
 /*initialization*/
@@ -136,6 +133,7 @@ int		parsing(t_data *data);
 int		get_arg(t_data *data, char **str);
 int		line_is_empty(char *str);
 int		fill_cmd_struct(t_data *data);
+int		check_valid_cmd(t_data *data, t_exec *exec);
 
 /*parsing utils*/
 int		check_quote(t_data *data, char *str);
@@ -144,8 +142,6 @@ int		line_is_empty(char *str);
 int		is_cmd(t_token *token);
 int		is_operator(char *str);
 int		is_operator2(int type, int pipe);
-int		absolute_path(char **path, char *cmd, t_data *data);
-char	*get_ex_path(char *cmd, t_data *data);
 
 /*token*/
 int		add_token(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:14:06 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/27 13:05:29 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/01 17:44:36 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,31 @@
 
 void	free_parent(t_pipex *pipex, t_data *data)
 {
-	if (data->num_of_pipe > 0)
+	if (data->num_of_pipe > 0 && pipex->pipe != NULL)
+	{
 		free(pipex->pipe);
+		pipex->pipe = NULL;
+	}
 }
 
 void	free_child(t_data *data, t_pipex *pipex)
 {
 	t_exec	*prev_exec;
 
-	while (pipex->exec)
+	if (pipex)
 	{
-		prev_exec = pipex->exec;
-		pipex->exec = pipex->exec->next;
-		close(prev_exec->in);
-		close(prev_exec->out);
-		free(prev_exec);
+		while (pipex->exec)
+		{
+			prev_exec = pipex->exec;
+			pipex->exec = pipex->exec->next;
+			if (prev_exec->path)
+				free(prev_exec->path);
+			close(prev_exec->in);
+			close(prev_exec->out);
+			free(prev_exec);
+		}
+		free_parent(pipex, data);
 	}
-	free_parent(pipex, data);
-	free_token(data);
-	free_env(data->env);
 }
 
 int	free_pipe(t_pipex *pipex)

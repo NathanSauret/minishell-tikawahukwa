@@ -19,6 +19,7 @@ SRC =	Src/main.c	\
 		Src/Parsing/token_utils.c \
 		Src/Parsing/dolar.c \
 		Src/Parsing/dolar_utils.c \
+		Src/Parsing/cmd_path.c \
 		Src/Exec/execute_commands.c	\
 		Src/Exec/exec_struct_utils.c	\
 		Src/Exec/exec_time_utils.c	\

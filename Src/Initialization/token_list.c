@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 20:44:08 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/20 18:02:15 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/01 17:00:19 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ t_token	*ft_token_lstnew(char *str, int type)
 		return (NULL);
 	t_newnode->str = str;
 	t_newnode->cmd_line_size = 0;
-	t_newnode->path = NULL;
 	t_newnode->command_line = NULL;
 	t_newnode->type = type;
-	t_newnode->is_builtin = 0;
 	t_newnode->next = NULL;
 	t_newnode->prev = NULL;
 	return (t_newnode);
@@ -67,8 +65,6 @@ void	ft_token_lstclear(t_token **lst)
 	{
 		tmp = (*lst)->next;
 		free((*lst)->str);
-		if ((*lst)->path)
-			free((*lst)->path);
 		free(*lst);
 		*lst = tmp;
 	}

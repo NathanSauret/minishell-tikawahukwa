@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:59:26 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/08 14:50:02 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/01 17:00:50 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ t_cmd	*ft_cmd_lstnew(char **cmd)
 	if (!t_newnode)
 		return (NULL);
 	t_newnode->cmd = cmd;
-	t_newnode->is_builtin = 0;
-	t_newnode->path = NULL;
 	t_newnode->next = NULL;
 	t_newnode->prev = NULL;
 	t_newnode->tokens = NULL;
@@ -64,7 +62,6 @@ void	ft_cmd_lstclear(t_cmd **lst)
 	{
 		tmp = (*lst)->next;
 		(*lst)->tokens = NULL;
-		free((*lst)->path);
 		free((*lst)->cmd);
 		free(*lst);
 		*lst = tmp;

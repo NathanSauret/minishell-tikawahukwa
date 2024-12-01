@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/01 12:10:51 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/01 16:03:39 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 static void	finish_exec(t_data *data, t_pipex *pipex)
 {
-	int	status;
+	int		status;
+	pid_t	pid;
 
 	close_pipes(pipex, data);
 	free_parent(pipex, data);
-	if (g_signal_pid)
+	pid = 1;
+	while (pid > 0)
 	{
-		waitpid(g_signal_pid, &status, 0);
-		if (data->exit_status == 0)
-			data->exit_status = WEXITSTATUS (status);
+		pid = waitpid(-1, &status, 0);
+		if (pid == g_signal_pid)
+			data->exit_status = WEXITSTATUS(status);
 	}
-	waitpid(-1, NULL, 0);
 }
 
 static int	set_values(t_pipex *pipex, t_data *data)
@@ -42,6 +43,7 @@ static int	set_values(t_pipex *pipex, t_data *data)
 	data->exit_status = 0;
 	pipex->max_sleep = 0;
 	pipex->have_time_cmd = 0;
+	data->pipex = pipex;
 	return (1);
 }
 
