@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:36:26 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/11/15 15:38:53 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/01 12:38:28 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,15 @@ static void	clear_rl_line(void)
 static void	handle_sigint(int sig)
 {
 	(void)sig;
+
 	printf("\n");
-	clear_rl_line();
-	rl_redisplay();
+	if (g_signal_pid > 0)
+		kill(g_signal_pid, SIGINT);
+	else
+	{
+		clear_rl_line();
+		rl_redisplay();
+	}
 }
 
 void	signals(void)
