@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/28 21:12:38 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/02 23:18:17 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,15 @@ int	token_parsing(t_data *data)
 			|| (current->type == PIPE && !current->next)
 			|| (is_operator2(current->type, 0)
 				&& (current->next && current->next->type == PIPE)))
-			return (is_error("error near unexpected token '|'\n",
-					data, 2));
+			return (is_error
+				("Minishell: error near unexpected token '|'\n", data, 2));
 		else if (is_operator2(current->type, 0) && (!current->next))
-			return (is_error("error near unexpected token 'new line'\n",
-					data, 2));
+			return (is_error
+				("Minishell: error near unexpected token 'new line'\n", data, 2));
 		else if (is_operator2(current->type, 0)
 			&& (current->next && is_operator2(current->next->type, 0)))
-			return (is_error("error near unexpected token 'redirect'\n",
-					data, 2));
+			return (is_error
+				("Minishell: error near unexpected token 'redirect'\n", data, 2));
 		current = current->next;
 	}
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/02 16:11:12 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/02 23:09:40 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@
 # define CMD		6	//"command"
 # define ARG		7	//"argument"
 
-# define ERR_MALLOC	"malloc error\n"
-# define ERR_PIPE	"pipe error\n"
-# define ERR_FORK	"fork error\n"
+# define ERR_MALLOC	"Minishell: malloc error\n"
+# define ERR_PIPE	"Minishell: pipe error\n"
+# define ERR_FORK	"Minishell: fork error\n"
 
 # define MAX_PATH_LENGTH 256
 

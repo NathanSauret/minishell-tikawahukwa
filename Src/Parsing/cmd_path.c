@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 15:26:48 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/02 16:19:45 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/02 23:05:36 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ static void	absolute_path(t_data *data, char **path, char *cmd)
 		terminate(data, ERR_MALLOC, 1);
 	if (stat(*path, &sb) == -1)
 	{
-		ft_printerr("%s: No such file or directory\n", *path);
+		ft_printerr("Minishell: %s : No such file or directory\n", *path);
 		free(*path);
 		terminate(data, NULL, 127);
 	}
 	if (S_ISDIR(sb.st_mode))
 	{
-		ft_printerr("%s: Is a directory\n", *path);
+		ft_printerr("Minishell: %s : Is a directory\n", *path);
 		free(*path);
 		terminate(data, NULL, 126);
 	}
 	if (access(*path, X_OK) == -1)
 	{
-		ft_printerr("%s: bad permission\n", *path);
+		ft_printerr("Minishell: %s : permission denied\n", *path);
 		free(*path);
 		terminate(data, NULL, 126);
 	}
