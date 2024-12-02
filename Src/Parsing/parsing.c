@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/01 15:45:00 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/02 16:04:04 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	get_sorted_arg(t_data *data)
 int	parsing(t_data *data)
 {
 	if (!(check_quote(data, data->input)))
-		return (is_error("quote error\n", data, 2));
+		return (is_error("minishell: quote error\n", data, 2));
 	if (!(add_token(data)))
 		terminate(data, ERR_MALLOC, 1);
 	if (!(token_parsing(data)))

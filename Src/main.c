@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/01 17:10:54 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/02 16:17:33 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	loop(t_data *data)
 {
 	while (1)
 	{
-		data->input = readline("minishell> ");
+		data->input = readline("minishell: ");
 		if (data->input == NULL)
 			return (printf("exit\n"), 1);
 		add_history(data->input);
@@ -40,27 +40,24 @@ static int	loop(t_data *data)
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
+	int		i;
 
-	if (argc > 1)
+	i = 2;
+	data_init(&data);
+	data.env_len = env_init(&data, env);
+	if (!data.env_len)
+		terminate(&data, ERR_MALLOC, data.exit_status);
+	if (argc > 2 && ft_strncmp(argv[1], "-c", MAX_PATH_LENGTH) == 0)
 	{
-		data_init(&data);
-		data.env_len = env_init(&data, env);
-		if (!data.env_len)
-			terminate(&data, ERR_MALLOC, data.exit_status);
-		exec_test(argv[1], &data);
-		free_env(data.env);
+		while (i < argc)
+		{
+			exec_test(argv[i], &data);
+			i++;
+		}
 	}
 	else
-	{
-		(void)argc;
-		(void)argv;
-		data_init(&data);
-		data.env_len = env_init(&data, env);
-		if (!data.env_len)
-			terminate(&data, ERR_MALLOC, data.exit_status);
 		loop(&data);
-		free_env(data.env);
-		rl_clear_history();
-	}
+	free_env(data.env);
+	rl_clear_history();
 	return (0);
 }

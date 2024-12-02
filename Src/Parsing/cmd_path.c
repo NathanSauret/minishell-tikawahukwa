@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 15:26:48 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/01 17:42:55 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/02 16:19:45 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ static void	get_path_from_env(t_data *data, char **path)
 		}
 		current = current->next;
 	}
-	terminate(data, "command not found\n", 127);
+	ft_printerr("minishell: %s: command not found\n", *path);
+	terminate(data, NULL, 127);
 }
 
 static char	*get_ex_path(char *cmd, t_data *data)
@@ -87,7 +88,6 @@ static char	*get_ex_path(char *cmd, t_data *data)
 	char	*start;
 	char	*end;
 
-	full_path[MAX_PATH_LENGTH - 1] = '\0';
 	get_path_from_env(data, &path_var);
 	start = path_var;
 	while (start && *start)
@@ -106,7 +106,8 @@ static char	*get_ex_path(char *cmd, t_data *data)
 			break ;
 	}
 	free(path_var);
-	return (terminate(data, "command not found\n", 127), NULL);
+	ft_printerr("minishell: %s: command not found\n", cmd);
+	return (terminate(data, NULL, 127), NULL);
 }
 
 int	check_valid_cmd(t_data *data, t_exec *exec)

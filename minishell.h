@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/01 17:42:37 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/02 16:11:12 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ int		line_is_empty(char *str);
 int		is_cmd(t_token *token);
 int		is_operator(char *str);
 int		is_operator2(int type, int pipe);
+char	*convert_str(t_data *data, char *str, int len);
 
 /*token*/
 int		add_token(t_data *data);
