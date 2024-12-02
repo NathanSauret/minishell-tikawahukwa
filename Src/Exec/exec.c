@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/01 16:03:39 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/02 12:26:42 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	finish_exec(t_data *data, t_pipex *pipex)
 	while (pid > 0)
 	{
 		pid = waitpid(-1, &status, 0);
-		if (pid == g_signal_pid)
+		if (pid == g_signal_pid && !data->exit_status)
 			data->exit_status = WEXITSTATUS(status);
 	}
 }
