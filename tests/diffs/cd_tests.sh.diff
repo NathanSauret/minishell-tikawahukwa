@@ -1,0 +1,25 @@
+*** outs/cd_tests.sh_bash.out	2024-12-03 22:18:58.777532597 +0100
+--- outs/cd_tests.sh_minishell.out	2024-12-03 22:18:59.669534982 +0100
+***************
+*** 1,7 ****
+--- 1,20 ----
++ minishell: cd does_not_exist
++ minishell: echo $?
+  1
++ minishell: cd tests
++ minishell: echo $?
+  1
++ minishell: /bin/pwd
+  /home/jsk8/git_repo/projet_42/M_3/minishell-tikawahukwa/tests
++ minishell: cd ../../../../../../
++ minishell: echo $?
+  0
++ minishell: /bin/pwd
+  /home
++ minishell: cd
++ minishell: echo $?
+  0
++ minishell: /bin/pwd
+  /home/jsk8
++ minishell: exit 0
++ exit

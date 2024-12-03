@@ -1,0 +1,32 @@
+*** outs/semicolons_tests.sh_bash.out	2024-12-03 22:19:12.429569103 +0100
+--- outs/semicolons_tests.sh_minishell.out	2024-12-03 22:19:13.233571253 +0100
+***************
+*** 1,11 ****
+! hello
+! Bonjouuuur
+! yoooo
+! Bonjouuuur
+! Bonjouuuur
+  0
+! hello
+! 
+! world
+! Bonjouuuur
+! 1
+--- 1,16 ----
+! minishell: /bin/echo hello;
+! hello;
+! minishell: /bin/echo Bonjouuuur; /bin/echo yoooo
+! Bonjouuuur; /bin/echo yoooo
+! minishell: /bin/echo Bonjouuuur; /bin/cat yoooo ; /bin/echo Bonjouuuur
+! Bonjouuuur; /bin/cat yoooo ; /bin/echo Bonjouuuur
+! minishell: echo $?
+  0
+! minishell: echo hello ; echo $LS ; echo world
+! hello ; echo ; echo world
+! minishell: /bin/echo Bonjouuuur  ;/bin/cat yoooo
+! Bonjouuuur ;/bin/cat yoooo
+! minishell: echo $?
+! 0
+! minishell: exit 0
+! exit

@@ -1,0 +1,32 @@
+*** outs/redirection_test.sh_bash.out	2024-12-03 22:19:09.661561702 +0100
+--- outs/redirection_test.sh_minishell.out	2024-12-03 22:19:10.621564269 +0100
+***************
+*** 1,12 ****
+--- 1,27 ----
++ minishell: echo "create dir"
+  create dir
++ minishell: echo "cd dir"
+  cd dir
++ minishell: cd ./sandbox
++ minishell: /bin/pwd
+  /home/jsk8/git_repo/projet_42/M_3/minishell-tikawahukwa/tests/sandbox
++ minishell: echo "hello world" > file
++ minishell: ls
+  file
++ minishell: cat < file
+  hello world
++ minishell: echo "hello france" >> file
++ minishell: ls
+  file
++ minishell: cat < file
+  hello world
+  hello france
++ minishell: rm -rf file
++ minishell: echo "hi" > file1 > file2 > file3
++ minishell: ls
+  file1
+  file2
+  file3
++ minishell: cat file1 file2 file3
+  hi
++ minishell: > file2 > file3

@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/02 23:09:40 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/03 23:15:40 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ t_cmd	*ft_cmd_lstlast(t_cmd *lst);
 /*utils*/
 int		is_error(char *str, t_data *data, int exit_status);
 void	signals(void);
+void	handle_sigint(int sig);
+void	here_doc_handler(int sig);
 void	sort_array(char **arr, int len);
 char	**lst_to_arr(t_env *env, int len);
 void	print_error(char *str, char *arg);

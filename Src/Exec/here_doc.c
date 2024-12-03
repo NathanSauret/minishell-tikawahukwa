@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:34:03 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/28 17:35:10 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/03 23:30:14 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	here_doc(char *argv)
 	if (pipe(fd) == -1)
 		return (-1);
 	here_doc = NULL;
-	while (1)
+	signal(SIGINT, here_doc_handler);
+	while (!g_signal_pid)
 	{
 		buffer = readline("> ");
 		if (buffer == NULL)
@@ -32,6 +33,9 @@ int	here_doc(char *argv)
 		buffer = ft_strjoin(buffer, ft_strdup("\n"));
 		here_doc = ft_strjoin(ft_strdup(here_doc), buffer);
 	}
+	signals();
+	if (g_signal_pid)
+		return (-1);
 	write(fd[1], here_doc, ft_strlen(here_doc));
 	close(fd[1]);
 	return (fd[0]);

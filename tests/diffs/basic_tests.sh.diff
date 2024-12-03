@@ -1,0 +1,51 @@
+*** outs/basic_tests.sh_bash.out	2024-12-03 22:18:58.025530586 +0100
+--- outs/basic_tests.sh_minishell.out	2024-12-03 22:18:58.725532457 +0100
+***************
+*** 1,4 ****
+--- 1,6 ----
++ minishell: /bin/echo Basic Testing
+  Basic Testing
++ minishell: /bin/ls
+  crash_test.sh
+  diffs
+  logs
+***************
+*** 8,13 ****
+--- 10,16 ----
+  parts
+  sandbox
+  test.sh
++ minishell: /bin/cat test.sh
+  # **************************************************************************** #
+  #                                                                              #
+  #                                                         :::      ::::::::    #
+***************
+*** 125,131 ****
+--- 128,136 ----
+  exit $error
+  
+  #rm -r ./outs/
++ minishell: echo Basic Testing
+  Basic Testing
++ minishell: ls
+  crash_test.sh
+  diffs
+  logs
+***************
+*** 135,140 ****
+--- 140,146 ----
+  parts
+  sandbox
+  test.sh
++ minishell: cat test.sh
+  # **************************************************************************** #
+  #                                                                              #
+  #                                                         :::      ::::::::    #
+***************
+*** 252,254 ****
+--- 258,262 ----
+  exit $error
+  
+  #rm -r ./outs/
++ minishell: exit 0
++ exit

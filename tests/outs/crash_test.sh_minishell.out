@@ -1,0 +1,19 @@
+minishell: echo "
+minishell: echo ;|
+minishell: "heloo
+minishell: hello >;
+minishell: heloo > |
+minishell: hello < |
+minishell: hello > | ;
+minishell: hi >> >> <
+minishell: file <
+minishell: echo '
+minishell: 'hi
+minishell: hello '  \'
+minishell: simp <> hello
+minishell: cd ./sandbox
+minishell: mkdir hello
+minishell: rm -rf ../hello
+minishell: cd ..
+minishell: exit 0
+exit

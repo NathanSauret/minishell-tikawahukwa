@@ -1,0 +1,5 @@
+minishell: echo "echo hello" | ../minishell
+minishell: echo hello
+hello
+minishell: exit
+minishell: exit

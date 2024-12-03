@@ -1,0 +1,21 @@
+*** outs/exit_tests.sh_bash.out	2024-12-03 22:19:04.845548823 +0100
+--- outs/exit_tests.sh_minishell.out	2024-12-03 22:19:05.905551658 +0100
+***************
+*** 1,3 ****
+--- 1,16 ----
++ minishell: echo hello | exit 12
++ exit
++ minishell: echo $?
+  12
++ minishell: echo hello | exit 0
++ exit
++ minishell: echo $?
+  0
++ minishell: echo hello | exit 255
++ exit
++ minishell: echo $?
+  255
++ minishell: echo hello | exit 90000000
++ exit
++ minishell: exit 0
++ exit
