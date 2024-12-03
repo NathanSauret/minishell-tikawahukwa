@@ -1,8 +1,0 @@
-minishell: echo '$USER'
-$USER
-minishell: echo ''echo ''
-minishell: echo '\'
-\
-minishell: echo '\   ;hi'
-\   ;hi
-minishell: exit
