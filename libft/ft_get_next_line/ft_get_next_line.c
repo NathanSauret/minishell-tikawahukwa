@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_next_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:05:47 by nsauret           #+#    #+#             */
-/*   Updated: 2024/10/14 21:52:08 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/05 20:39:24 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*_get_line(char *stache)
 	if (!stache)
 		return (NULL);
 	len = 0;
-	while (stache[len] && (len == 0 || stache[len - 1] != '\n'))
+	while (stache[len] && stache[len] != '\n')
 		len++;
 	line = ft_calloc(len + 1, sizeof(char));
 	if (!line)

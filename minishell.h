@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/03 23:15:40 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/05 20:36:49 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,16 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+# define RESET        "\033[0m"
+# define RED          "\033[31m"
+# define GREEN        "\033[32m"
+# define YELLOW       "\033[33m"
+# define BLUE         "\033[34m"
+# define ORANGE       "\033[38;5;208m"
+# define BOLD_GREEN   "\033[1;32m"
+# define BOLD_RED     "\033[1;31m"
+# define PROMPT -10
 
 # define INPUT		1	//"<"
 # define HEREDOC	2	//"<<"
@@ -118,6 +128,9 @@ t_token	*ft_token_lstnew(char *str, int type);
 t_token	*ft_token_lstlast(t_token *lst);
 t_cmd	*ft_cmd_lstlast(t_cmd *lst);
 t_cmd	*ft_cmd_lstlast(t_cmd *lst);
+int		ft_env_lstadd_back(t_env **lst, t_env *new);
+void	ft_env_lstclear(t_env **lst);
+t_env	*ft_env_lstnew(char *value);
 
 /*utils*/
 int		is_error(char *str, t_data *data, int exit_status);
@@ -193,7 +206,7 @@ void	free_parent(t_pipex *pipex, t_data *data);
 void	free_child(t_data *data, t_pipex *pipex);
 int		free_pipe(t_pipex *pipex);
 // here_doc.c
-int		here_doc(char *argv);
+int		here_doc(t_data *data, char *argv);
 // pipes_exec.c
 int		create_pipes(t_pipex *pipex, t_data *data);
 int		pipe_free(t_pipex *pipex);

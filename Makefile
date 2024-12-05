@@ -7,6 +7,7 @@ LIBFT = -L $(LIBFT_DIR) -lft
 SRC =	Src/main.c	\
 		Src/Initialization/init.c	\
 		Src/Initialization/token_list.c \
+		Src/Initialization/env_list.c \
 		Src/Utils/free.c \
 		Src/Utils/exit.c \
 		Src/Utils/free_token.c \

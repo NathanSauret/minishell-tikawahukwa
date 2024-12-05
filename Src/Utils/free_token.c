@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 23:27:39 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/02 23:10:55 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/05 13:21:24 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int	is_error(char *str, t_data *data, int exit_status)
 {
 	data->exit_status = exit_status;
 	if (str)
+	{
+		ft_printerr("Minishell: ");
 		ft_printerr("%s", str);
+	}
 	free_token(data);
 	return (0);
 }

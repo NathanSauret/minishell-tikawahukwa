@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/03 23:43:44 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/05 20:06:35 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int	loop(t_data *data)
 {
 	while (1)
 	{
-		data->input = readline("minishell: ");
+		g_signal_pid = PROMPT;
+		data->input = readline("Minishell: ");
 		if (data->input == NULL)
 			return (printf("exit\n"), 1);
 		add_history(data->input);
@@ -32,7 +33,6 @@ static int	loop(t_data *data)
 		if ((exec(data)) == -1)
 			break ;
 		free_token(data);
-		g_signal_pid = 0;
 	}
 	return (1);
 }
@@ -46,7 +46,7 @@ int	main(int argc, char **argv, char **env)
 	data_init(&data);
 	data.env_len = env_init(&data, env);
 	if (!data.env_len)
-		terminate(&data, ERR_MALLOC, data.exit_status);
+		terminate(&data, "env_error\n", data.exit_status);
 	if (argc > 2 && ft_strncmp(argv[1], "-c", MAX_PATH_LENGTH) == 0)
 	{
 		while (i < argc)

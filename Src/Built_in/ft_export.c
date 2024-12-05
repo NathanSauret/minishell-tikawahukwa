@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:59:22 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/02 23:09:12 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/05 22:38:59 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	export_without_args(t_env *lst, int env_len)
 	if (!env)
 		return (0);
 	sort_array(env, env_len);
+	printf("check\n");
 	while (env[i])
 	{
 		y = 0;

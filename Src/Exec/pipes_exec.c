@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:55:14 by nsauret           #+#    #+#             */
-/*   Updated: 2024/11/25 17:41:33 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/05 14:20:10 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,9 @@ void	close_pipes(t_pipex *pipex, t_data *data)
 
 	i = 0;
 	while (i < (data->num_of_pipe * 2))
-		close(pipex->pipe[i++]);
+	{
+		if (pipex->pipe[i] > -1)
+			close(pipex->pipe[i]);
+		i++;
+	}
 }

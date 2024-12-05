@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:50:29 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/01 15:59:29 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/04 15:12:08 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	check_redirections(t_data *data, t_cmd *cmd, t_pipex *pipex)
 	else if (cmd->tokens->type == HEREDOC)
 	{
 		cmd->tokens = cmd->tokens->next;
-		pipex->exec->in = here_doc(cmd->tokens->str);
+		pipex->exec->in = here_doc(data, cmd->tokens->str);
 		pipex->exec->is_infile = 1;
 	}
 	else if (cmd->tokens->type == TRUNC)

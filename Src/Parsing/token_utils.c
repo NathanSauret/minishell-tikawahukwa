@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/02 23:18:17 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/05 20:07:43 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@ int	is_cmd(t_token *token)
 		return (1);
 	if (is_operator2(tmp->type, 0))
 		return (0);
-	if (is_operator2(head->type, 0) && tmp->type == ARG)
+	if (is_operator2(head->type, 0)
+		&& (head->next && head->next->type == ARG && !head->next->next))
 		return (1);
+	else
+		return (0);
 	return (0);
 }
 
@@ -60,14 +63,14 @@ int	token_parsing(t_data *data)
 			|| (is_operator2(current->type, 0)
 				&& (current->next && current->next->type == PIPE)))
 			return (is_error
-				("Minishell: error near unexpected token '|'\n", data, 2));
+				("error near unexpected token '|'\n", data, 2));
 		else if (is_operator2(current->type, 0) && (!current->next))
 			return (is_error
-				("Minishell: error near unexpected token 'new line'\n", data, 2));
+				("error near unexpected token 'new line'\n", data, 2));
 		else if (is_operator2(current->type, 0)
 			&& (current->next && is_operator2(current->next->type, 0)))
 			return (is_error
-				("Minishell: error near unexpected token 'redirect'\n", data, 2));
+				("error near unexpected token 'redirect'\n", data, 2));
 		current = current->next;
 	}
 	return (1);

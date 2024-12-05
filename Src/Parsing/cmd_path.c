@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 15:26:48 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/02 23:05:36 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/05 20:05:19 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ static void	get_path_from_env(t_data *data, char **path)
 		}
 		current = current->next;
 	}
-	ft_printerr("minishell: %s: command not found\n", *path);
-	terminate(data, NULL, 127);
+	terminate(data, "command not found\n", 127);
 }
 
 static char	*get_ex_path(char *cmd, t_data *data)
@@ -106,8 +105,7 @@ static char	*get_ex_path(char *cmd, t_data *data)
 			break ;
 	}
 	free(path_var);
-	ft_printerr("minishell: %s: command not found\n", cmd);
-	return (terminate(data, NULL, 127), NULL);
+	return (terminate(data, "command not found\n", 127), NULL);
 }
 
 int	check_valid_cmd(t_data *data, t_exec *exec)
