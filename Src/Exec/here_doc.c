@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:34:03 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/06 12:56:31 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/06 15:24:08 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	sigint_handler(t_data *data, int fd[2], char *buffer, char *here_doc)
 		free(here_doc);
 	close(fd[1]);
 	if (open("/dev/tty", O_RDONLY) == -1)
-		terminate(data, "Error reopening stdin\n", 1);
+		terminate(data, " Error reopening stdin\n", 1);
 	data->exit_status = g_signal_pid;
 	return (-1);
 }
@@ -70,6 +70,7 @@ int	here_doc(t_data *data, char *argv)
 		return (-1);
 	}
 	write(fd[1], here_doc, ft_strlen(here_doc));
+	free(here_doc);
 	close(fd[1]);
 	return (fd[0]);
 }

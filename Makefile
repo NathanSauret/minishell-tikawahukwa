@@ -24,7 +24,6 @@ SRC =	Src/main.c	\
 		Src/Parsing/cmd_path.c \
 		Src/Exec/execute_commands.c	\
 		Src/Exec/exec_struct_utils.c	\
-		Src/Exec/exec_time_utils.c	\
 		Src/Exec/exec.c	\
 		Src/Exec/exit_error_exec.c	\
 		Src/Exec/free_exec.c	\
@@ -32,7 +31,6 @@ SRC =	Src/main.c	\
 		Src/Exec/pipes_exec.c	\
 		Src/Exec/prepare_for_exec.c	\
 		Src/Exec/redirections.c	\
-		Src/Exec/sleep_case.c	\
 		Src/debug_utils.c \
 		Src/Built_in/ft_exit.c \
 		Src/Built_in/ft_cd.c \

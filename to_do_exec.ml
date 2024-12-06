@@ -16,6 +16,9 @@
 [X] - Fix multi-cat.
 [X] - Fix sleep function.
 [X] - If exit at the end: exit_status get the.
-[ ] - Fix multi-cat like "cat | cat | cat | ls" ?
-[ ] - Fix  open fds at exit.
+[X] - Fix multi-cat like "cat | cat | cat | ls".
+[X] - Execute "sleep" in child.
+[X] - Fix segfault when just one cmd without arguments.
+[ ] - Verif all mallocs (terminate).
+[ ] - Execute time for the whole command?
 [ ] - Fix "cat Makefile | ls > /dev/stdin".

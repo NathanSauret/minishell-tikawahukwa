@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/06 13:12:54 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/06 15:05:50 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ typedef struct s_pipex
 	int		cmd_nb;
 	int		*pipe;
 	int		idx;
-	int		max_sleep;
-	int		have_time_cmd;
 	t_exec	*exec;
 }	t_pipex;
 
@@ -198,8 +196,6 @@ int		execute_commands(t_data *data, t_pipex *pipex);
 // exec_struct_utils.c
 t_exec	*execnew(t_cmd *cmd, int in, int out);
 void	execadd_back(t_exec **exec, t_exec *new);
-// exec_time-utils.c
-void	exec_count_time(t_pipex *pipex);
 // exec.c
 int		exec(t_data *data);
 int		exec_builtin(t_data *data, t_pipex *pipex);
@@ -213,7 +209,6 @@ int		free_pipe(t_pipex *pipex);
 int		here_doc(t_data *data, char *argv);
 // pipes_exec.c
 int		create_pipes(t_pipex *pipex, t_data *data);
-int		pipe_free(t_pipex *pipex);
 void	close_pipes(t_pipex *pipex, t_data *data);
 // prepare_for_exec.c
 int		prepare_for_exec(t_data *data, t_pipex *pipex);
@@ -221,8 +216,6 @@ int		prepare_for_exec(t_data *data, t_pipex *pipex);
 int		redirection_input(t_data *data, t_pipex *pipex, t_cmd *cmd);
 int		redirection_trunc(t_data *data, t_pipex *pipex, t_cmd *cmd);
 int		redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd);
-// sleep_case.c
-int		sleep_case(t_data *data, t_pipex *pipex);
 
 /*builtins*/
 void	ft_exit(t_data *data, char **cmd);

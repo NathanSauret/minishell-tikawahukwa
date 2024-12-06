@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/12/06 12:17:54 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/06 15:16:02 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static void	child(t_data *data, t_pipex *pipex)
 	res = -1;
 	if (!g_signal_pid)
 	{
-		// ft_printf("cmd: %s ~ in: %d | out: %d\n", pipex->exec->cmd[0], pipex->exec->in, pipex->exec->out);
 		exec = pipex->exec;
 		if (check_valid_cmd(data, exec))
 		{
@@ -86,7 +85,12 @@ int	execute_commands(t_data *data, t_pipex *pipex)
 {
 	while (pipex->exec)
 	{
-		if (!data->num_of_pipe
+		if (!pipex->exec->cmd[0])
+		{
+			close_iofiles_and_free_prev_exec(pipex);
+			continue ;
+		}
+		else if (!data->num_of_pipe
 			&& (!ft_strncmp(pipex->exec->cmd[0], "cd", 2)
 				|| (!ft_strncmp(pipex->exec->cmd[0], "export", 6)
 					&& pipex->exec->cmd[1])
@@ -94,18 +98,12 @@ int	execute_commands(t_data *data, t_pipex *pipex)
 		{
 			lonely_child(data, pipex);
 		}
-		else if (ft_strncmp(pipex->exec->cmd[0], "sleep", 5)
+		else if (ft_strncmp(pipex->exec->cmd[0], "time", 4)
 			&& pipex->exec->in != -1 && pipex->exec->out != -1)
 		{
-			if (pipex->exec->cmd[1]
-				&& !ft_strncmp(pipex->exec->cmd[1], "sleep", 5))
-				pipex->have_time_cmd = pipex->have_time_cmd;
-			else
-				child(data, pipex);
+			child(data, pipex);
 		}
-		exec_count_time(pipex);
 		close_iofiles_and_free_prev_exec(pipex);
 	}
-	sleep_case(data, pipex);
 	return (1);
 }

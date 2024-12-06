@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/06 12:41:14 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/06 15:06:13 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ static int	set_values(t_pipex *pipex, t_data *data)
 		}
 	}
 	data->exit_status = 0;
-	pipex->max_sleep = 0;
-	pipex->have_time_cmd = 0;
 	data->pipex = pipex;
 	return (1);
 }
