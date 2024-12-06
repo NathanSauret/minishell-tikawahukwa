@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/05 20:36:49 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/06 13:12:54 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ typedef struct t_data
 }	t_data;
 
 /*initialization*/
-int		env_init(t_data *data, char **env_array);
 void	data_init(t_data *data);
 int		ft_cmd_lstadd_back(t_cmd **lst, t_cmd *new);
 t_cmd	*ft_cmd_lstnew(char **cmd);
@@ -132,9 +131,14 @@ int		ft_env_lstadd_back(t_env **lst, t_env *new);
 void	ft_env_lstclear(t_env **lst);
 t_env	*ft_env_lstnew(char *value);
 
+/*emv_init*/
+int		env_init(t_data *data, char **env_array);
+int		shlvl_handler(t_data *data);
+
 /*utils*/
 int		is_error(char *str, t_data *data, int exit_status);
 void	signals(void);
+void	sig_child(int sig);
 void	handle_sigint(int sig);
 void	here_doc_handler(int sig);
 void	sort_array(char **arr, int len);

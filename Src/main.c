@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/05 20:06:35 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/06 13:11:50 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,21 @@
 
 pid_t	g_signal_pid;
 
-static int	loop(t_data *data)
+void	prompt(t_data *data)
+{
+	if (data->exit_status >= 128)
+		write(1, "\n", 1);
+	g_signal_pid = 0;
+	data->input = readline("Minishell: ");
+}
+
+static void	loop(t_data *data)
 {
 	while (1)
 	{
-		g_signal_pid = PROMPT;
-		data->input = readline("Minishell: ");
+		prompt(data);
 		if (data->input == NULL)
-			return (printf("exit\n"), 1);
+			terminate(data, "exit\n", 0);
 		add_history(data->input);
 		if (line_is_empty(data->input))
 		{
@@ -34,7 +41,6 @@ static int	loop(t_data *data)
 			break ;
 		free_token(data);
 	}
-	return (1);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -57,7 +63,5 @@ int	main(int argc, char **argv, char **env)
 	}
 	else
 		loop(&data);
-	free_env(data.env);
-	rl_clear_history();
-	return (0);
+	terminate(&data, NULL, 0);
 }
