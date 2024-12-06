@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/06 14:56:53 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/06 15:34:21 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ pid_t	g_signal_pid;
 
 void	prompt(t_data *data)
 {
-	if (data->exit_status >= 128)
+	if (data->is_space >= 128)
 		write(1, "\n", 1);
+	data->is_space = 0;
 	g_signal_pid = 0;
 	data->input = readline("Minishell: ");
 }

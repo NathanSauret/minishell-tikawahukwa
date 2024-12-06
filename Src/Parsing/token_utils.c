@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/05 20:07:43 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/06 14:32:12 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int	is_cmd(t_token *token)
 		return (1);
 	tmp = ft_token_lstlast(token);
 	head = tmp;
+	if (tmp->type == PIPE)
+		return (1);
 	if (head->type == PIPE)
 		head = head->prev;
 	while (head->prev && head->prev->type != PIPE)
 		head = head->prev;
-	if (tmp->type == PIPE)
-		return (1);
 	if (is_operator2(tmp->type, 0))
 		return (0);
 	if (is_operator2(head->type, 0)
