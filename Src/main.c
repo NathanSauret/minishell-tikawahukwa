@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/06 13:11:50 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/06 14:51:56 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ pid_t	g_signal_pid;
 
 void	prompt(t_data *data)
 {
-	if (data->exit_status >= 128)
+	if (data->is_space >= 128)
 		write(1, "\n", 1);
+	data->is_space = 0;
 	g_signal_pid = 0;
 	data->input = readline("Minishell: ");
 }
@@ -28,7 +29,7 @@ static void	loop(t_data *data)
 	{
 		prompt(data);
 		if (data->input == NULL)
-			terminate(data, "exit\n", 0);
+			terminate(data, NULL, 0);
 		add_history(data->input);
 		if (line_is_empty(data->input))
 		{

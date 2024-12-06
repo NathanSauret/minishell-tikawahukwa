@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/06 12:41:14 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/06 15:05:59 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static void	finish_exec(t_data *data, t_pipex *pipex)
 		if (pid > 0)
 		{
 			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			{
 				data->exit_status = 128 + WTERMSIG(status);
+				data->is_space = g_signal_pid;
+			}
 			else if (pid == g_signal_pid && WIFEXITED(status)
 					&& !data->exit_status)
 				data->exit_status = WEXITSTATUS(status);
@@ -67,7 +70,10 @@ int	exec(t_data *data)
 	if (!prepare_for_exec(data, &pipex))
 		return (finish_exec(data, &pipex), -1);
 	if (g_signal_pid == 130)
+	{
+		data->is_space = g_signal_pid;
 		return (finish_exec(data, &pipex), 0);
+	}
 	if (!execute_commands(data, &pipex))
 		return (finish_exec(data, &pipex), -1);
 	finish_exec(data, &pipex);

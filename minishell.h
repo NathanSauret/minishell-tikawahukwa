@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/06 13:12:54 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/06 14:51:01 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct t_data
 	char			*input;
 	int				num_of_pipe;
 	int				exit_status;
+	int				is_space;
 	int				env_len;
 	char			**env_array;
 	t_env			*env;

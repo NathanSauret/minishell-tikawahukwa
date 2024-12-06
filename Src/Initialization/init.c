@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:40:17 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/06 13:13:00 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/06 15:05:10 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	data_init(t_data *data)
 	data->env_len = 0;
 	data->num_of_pipe = 0;
 	data->exit_status = 0;
+	data->is_space = 0;
 	g_signal_pid = 0;
 	signals();
 }
