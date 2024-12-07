@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/06 14:32:12 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/07 23:32:22 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	is_operator2(int type, int pipe)
 	return (0);
 }
 
-int	token_parsing(t_data *data)
+int token_parsing(t_data *data)
 {
 	t_token	*current;
 
 	current = data->token;
-	if (line_is_empty(current->str))
+	if (!data->token || line_is_empty(current->str))
 		return (is_error(NULL, data, 0));
 	while (current)
 	{
@@ -75,6 +75,7 @@ int	token_parsing(t_data *data)
 	}
 	return (1);
 }
+
 
 int	token_len(char *str, int *space, t_token *token)
 {

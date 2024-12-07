@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/12/06 15:16:02 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/07 23:22:38 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,28 @@ static void	lonely_child(t_data *data, t_pipex *pipex)
 	data->exit_status = res;
 }
 
-static void	child(t_data *data, t_pipex *pipex)
+static void	pipe_handler(t_data *data, t_exec *exec, t_pipex *pipex)
+{
+	if (check_valid_cmd(data, exec))
+	{
+		if (exec->is_stdin)
+		{
+			close(exec->out);
+			exec->out = dup(exec->in);
+			dup2(exec->out, STDOUT_FILENO);
+		}
+		else
+			dup2(exec->out, STDOUT_FILENO);
+	}
+	dup2(exec->in, STDIN_FILENO);
+	if (exec->is_infile)
+		close(exec->in);
+	if (exec->is_outfile)
+		close(exec->out);
+	close_pipes(pipex, data);
+}
+
+static void child(t_data *data, t_pipex *pipex)
 {
 	t_exec	*exec;
 	int		res;
@@ -63,20 +84,12 @@ static void	child(t_data *data, t_pipex *pipex)
 	if (!g_signal_pid)
 	{
 		exec = pipex->exec;
-		if (check_valid_cmd(data, exec))
-		{
-			dup2(exec->in, 0);
-			dup2(exec->out, 1);
-			if (exec->is_infile)
-				close(exec->in);
-			if (exec->is_outfile)
-				close(exec->out);
-			close_pipes(pipex, data);
-			if (exec->is_builtin)
-				res = exec_builtin(data, pipex);
-			else
-				res = execve(exec->path, exec->cmd, data->env_array);
-		}
+		pipe_handler(data, exec, pipex);
+		if (exec->is_builtin)
+			res = exec_builtin(data, pipex);
+		else
+			res = execve(exec->path, exec->cmd, data->env_array);
+
 		terminate(data, NULL, res);
 	}
 }

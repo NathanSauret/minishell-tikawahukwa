@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_struct_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:29:11 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/01 17:07:15 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/07 20:06:36 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_exec	*execnew(t_cmd *cmd, int in, int out)
 	t_newnode->is_infile = 0;
 	t_newnode->is_outfile = 0;
 	t_newnode->is_builtin = 0;
+	t_newnode->is_stdin = 0;
 	t_newnode->next = NULL;
 	return (t_newnode);
 }

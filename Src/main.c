@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/06 15:57:50 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/07 17:17:21 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	loop(t_data *data)
 	{
 		prompt(data);
 		if (data->input == NULL)
-			terminate(data, NULL, 0);
+			return ;
 		add_history(data->input);
 		if (line_is_empty(data->input))
 		{
@@ -64,5 +64,5 @@ int	main(int argc, char **argv, char **env)
 	}
 	else
 		loop(&data);
-	terminate(&data, NULL, 0);
+	terminate(&data, "\033[2K\r", 0);
 }
