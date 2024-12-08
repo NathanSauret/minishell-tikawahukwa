@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:37:27 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/05 21:13:48 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/08 15:43:12 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	ft_echo(char **arg)
 		return (0);
 	}
 	new_line = is_newline(arg[i]);
+	if (!new_line)
+		i++;
 	while (arg[i])
 	{
 		ft_printf("%s", arg[i]);

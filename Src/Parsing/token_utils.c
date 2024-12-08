@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:47:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/07 23:32:22 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 17:44:16 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	is_operator2(int type, int pipe)
 	return (0);
 }
 
-int token_parsing(t_data *data)
+int	token_parsing(t_data *data)
 {
 	t_token	*current;
 
 	current = data->token;
-	if (!data->token || line_is_empty(current->str))
+	if (!data->token)
 		return (is_error(NULL, data, 0));
 	while (current)
 	{
@@ -63,19 +63,18 @@ int token_parsing(t_data *data)
 			|| (is_operator2(current->type, 0)
 				&& (current->next && current->next->type == PIPE)))
 			return (is_error
-				("error near unexpected token '|'\n", data, 2));
+				("syntax error near unexpected token `|'\n", data, 2));
 		else if (is_operator2(current->type, 0) && (!current->next))
 			return (is_error
-				("error near unexpected token 'new line'\n", data, 2));
+				("syntax error near unexpected token `newline'\n", data, 2));
 		else if (is_operator2(current->type, 0)
 			&& (current->next && is_operator2(current->next->type, 0)))
 			return (is_error
-				("error near unexpected token 'redirect'\n", data, 2));
+				("syntax error near unexpected token `redirect'\n", data, 2));
 		current = current->next;
 	}
 	return (1);
 }
-
 
 int	token_len(char *str, int *space, t_token *token)
 {

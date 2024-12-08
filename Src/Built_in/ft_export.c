@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:59:22 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/05 22:38:59 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/08 15:39:17 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static int	syntax_parsing(char *str)
 	i = 0;
 	if (str[i] && (!ft_isalpha(str[i]) && str[i] != '_'))
 	{
-		ft_printerr("Minishell: export: invalid identifier « %s »\n", str);
+		ft_printerr("Minishell: export: not a valid identifier\n");
 		return (0);
 	}
 	i++;
@@ -107,7 +107,7 @@ static int	syntax_parsing(char *str)
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
-			ft_printerr("Minishell: export: invalid identifier « %s »\n", str);
+			ft_printerr("Minishell: export: not a valid identifier\n");
 			return (0);
 		}
 		i++;

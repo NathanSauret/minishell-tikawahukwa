@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/07 17:17:21 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 17:43:45 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ int	main(int argc, char **argv, char **env)
 	}
 	else
 		loop(&data);
-	terminate(&data, "\033[2K\r", 0);
+	ft_printf("exit\n");
+	terminate(&data, NULL, 0);
 }

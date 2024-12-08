@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:43 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/02 23:14:43 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/08 15:37:49 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_cd(t_env *env, char **args)
 	{
 		if (args[2])
 		{
-			ft_printerr("Minishell: cd :too many arguments\n");
+			ft_printerr("Minishell: cd : too many arguments\n");
 			return (1);
 		}
 		if (chdir(args[1]) != 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:34:03 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/06 15:24:08 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/08 17:32:12 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	sigint_handler(t_data *data, int fd[2], char *buffer, char *here_doc)
 	close(fd[1]);
 	if (open("/dev/tty", O_RDONLY) == -1)
 		terminate(data, " Error reopening stdin\n", 1);
-	data->exit_status = g_signal_pid;
+	data->exit_status = 130;
 	return (-1);
 }
 
@@ -31,7 +31,7 @@ static void	loop(char **buffer, char **here_doc, char *argv)
 	{
 		*buffer = NULL;
 		*buffer = readline("> ");
-		if (g_signal_pid == 130 || !*buffer)
+		if (g_signal_pid == SIGINT || !*buffer)
 			break ;
 		if (!ft_strncmp(argv, *buffer, ft_strlen(argv))
 			&& ft_strlen(argv) == ft_strlen(*buffer))
@@ -60,7 +60,7 @@ int	here_doc(t_data *data, char *argv)
 	signal(SIGINT, here_doc_handler);
 	loop(&buffer, &here_doc, argv);
 	signals();
-	if (g_signal_pid == 130)
+	if (g_signal_pid == SIGINT)
 		return (sigint_handler(data, fd, buffer, here_doc));
 	if (!buffer)
 	{

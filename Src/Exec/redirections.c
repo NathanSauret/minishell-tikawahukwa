@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:03:55 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/07 20:11:47 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 15:20:24 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ int	redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd)
 
 	if (pipex->exec->out != -2)
 		close(pipex->exec->out);
+	if (!ft_strncmp(cmd->tokens->str, "/dev/stdin", MAX_PATH_LENGTH))
+		pipex->exec->is_stdin = 1;
+	else
+		pipex->exec->is_stdin = 0;
 	fd = open(cmd->tokens->str, O_CREAT | O_RDWR | O_APPEND, 0000644);
 	if (fd < 0)
 	{

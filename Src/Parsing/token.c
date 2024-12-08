@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/02 16:10:28 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/08 17:09:21 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static int	add_cmd(t_data *data, char *str, int len, int type)
 		if (!token)
 			return (0);
 	}
+	if (line_is_empty(token) && !is_quote(*str))
+		return (1);
 	if (!(ft_token_lstadd_back(&(data->token), ft_token_lstnew(token, type))))
 		return (0);
 	return (1);
@@ -72,11 +74,10 @@ int	get_arg(t_data *data, char **str)
 
 	tmp = ft_token_lstlast(data->token);
 	len = token_len(*str, &space, tmp);
-	if (!len)
-		return ((*str) += 1, 1);
 	len = get_type(data->token, *str, &type, len);
-	if (tmp && ((ft_strlen(tmp->str) == 0)
-			|| (!space && !is_operator(tmp->str))))
+	if (!len && !is_quote(*(*str)))
+		return ((*str) += (1 + is_quote(*(*str))), 1);
+	if (tmp && (!space && !is_operator(tmp->str)))
 	{
 		if (!(join_token(data, tmp, *(str), len)))
 			return (0);
@@ -102,7 +103,7 @@ int	add_token(t_data *data)
 			cmd++;
 		if (*cmd && !(get_arg(data, &cmd)))
 			return (0);
-		if (ft_token_lstlast(data->token)->type == PIPE)
+		if (data->token && ft_token_lstlast(data->token)->type == PIPE)
 			data->num_of_pipe += 1;
 	}
 	return (1);

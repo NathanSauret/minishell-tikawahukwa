@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 15:26:48 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/06 15:58:18 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/08 16:59:38 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	absolute_path(t_data *data, char **path, char *cmd)
 	}
 	if (access(*path, X_OK) == -1)
 	{
-		ft_printerr("Minishell: %s : permission denied\n", *path);
+		ft_printerr("Minishell: %s : Permission denied\n", *path);
 		free(*path);
 		terminate(data, NULL, 126);
 	}
@@ -105,7 +105,7 @@ static char	*get_ex_path(char *cmd, t_data *data)
 			break ;
 	}
 	free(path_var);
-	return (terminate(data, "command not found\n", 127), NULL);
+	return (terminate(data, " command not found\n", 127), NULL);
 }
 
 int	check_valid_cmd(t_data *data, t_exec *exec)
@@ -113,6 +113,8 @@ int	check_valid_cmd(t_data *data, t_exec *exec)
 	char	*path;
 
 	path = NULL;
+	if (line_is_empty(exec->cmd[0]))
+		terminate(data, " command not found\n", 127);
 	if (is_builtin(exec->cmd[0]))
 		exec->is_builtin = 1;
 	else if (ft_strchr(exec->cmd[0], '/'))

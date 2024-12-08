@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/06 15:33:14 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/08 17:31:45 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	exec(t_data *data)
 		return (-1);
 	if (!prepare_for_exec(data, &pipex))
 		return (finish_exec(data, &pipex), -1);
-	if (g_signal_pid == 130)
+	if (g_signal_pid == SIGINT)
 	{
-		data->is_space = g_signal_pid;
+		data->is_space = 130;
 		return (finish_exec(data, &pipex), 0);
 	}
 	if (!execute_commands(data, &pipex))
