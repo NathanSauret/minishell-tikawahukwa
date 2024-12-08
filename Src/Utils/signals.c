@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:36:26 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/08 17:38:38 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 18:00:10 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	handle_sigint(int sig)
 {
 	(void)sig;
-	if (g_signal_pid == 0)
+	if (g_signal_pid == 0 || g_signal_pid == SIGINT)
 	{
+		g_signal_pid = SIGINT;
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();

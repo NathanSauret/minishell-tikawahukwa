@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/08 16:59:50 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 18:01:29 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ static int	get_sorted_arg(t_data *data)
 
 int	parsing(t_data *data)
 {
+	if (g_signal_pid == SIGINT)
+	{
+		data->exit_status = 130;
+		g_signal_pid = 0;
+	}
 	if (!(check_quote(data, data->input)))
 		return (is_error("quote error\n", data, 2));
 	if (!(add_token(data)))
