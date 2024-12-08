@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 23:27:39 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/05 13:21:24 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/08 22:58:39 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	free_token(t_data *data)
 	if (data->cmd)
 		ft_cmd_lstclear(&(data->cmd));
 	data->pipex = NULL;
+	data->token = NULL;
+	data->cmd = NULL;
 	data->num_of_pipe = 0;
 }
 

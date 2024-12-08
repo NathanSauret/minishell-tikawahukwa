@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 20:08:19 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/05 22:40:09 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/08 22:13:45 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_env	*ft_env_lstnew(char *value)
 {
 	t_env	*t_newnode;
 
+	if (!value)
+		return (NULL);
 	t_newnode = malloc(sizeof(t_env));
 	if (!t_newnode)
 		return (NULL);

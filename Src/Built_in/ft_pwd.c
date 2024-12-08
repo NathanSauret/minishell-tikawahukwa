@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:09:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/11/22 18:49:08 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 22:07:35 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_pwd(void)
 {
-	char	cwd[MAX_PATH_LENGTH];
+	char	cwd[MAX_LENGTH];
 
-	if (getcwd(cwd, MAX_PATH_LENGTH))
+	if (getcwd(cwd, MAX_LENGTH))
 	{
 		ft_printf("%s\n", cwd);
 		return (0);

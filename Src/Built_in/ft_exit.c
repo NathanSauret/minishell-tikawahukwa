@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 17:39:22 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/08 15:16:25 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 19:42:59 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_exit(t_data *data, char **cmd)
 {
 	int	check_res;
 
+	check_res = data->exit_status;
 	ft_printf("exit\n");
 	if (cmd[1])
 	{
@@ -58,6 +59,6 @@ void	ft_exit(t_data *data, char **cmd)
 	}
 	else
 	{
-		terminate(data, NULL, 0);
+		terminate(data, NULL, check_res);
 	}
 }

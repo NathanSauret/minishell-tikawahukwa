@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:34:03 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/08 17:32:12 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 23:00:40 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	sigint_handler(t_data *data, int fd[2], char *buffer, char *here_doc)
 	if (here_doc)
 		free(here_doc);
 	close(fd[1]);
+	close(fd[0]);
 	if (open("/dev/tty", O_RDONLY) == -1)
 		terminate(data, " Error reopening stdin\n", 1);
 	data->exit_status = 130;
@@ -63,12 +64,7 @@ int	here_doc(t_data *data, char *argv)
 	if (g_signal_pid == SIGINT)
 		return (sigint_handler(data, fd, buffer, here_doc));
 	if (!buffer)
-	{
 		ft_printerr("minishell: here_doc: unexpected EOF\n");
-		close(fd[1]);
-		close(fd[0]);
-		return (-1);
-	}
 	write(fd[1], here_doc, ft_strlen(here_doc));
 	free(here_doc);
 	close(fd[1]);

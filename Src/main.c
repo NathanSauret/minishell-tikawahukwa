@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/08 17:57:59 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 23:19:55 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ int	main(int argc, char **argv, char **env)
 	data.env_len = env_init(&data, env);
 	if (!data.env_len)
 		terminate(&data, "env_error\n", data.exit_status);
-	if (argc > 2 && ft_strncmp(argv[1], "-c", MAX_PATH_LENGTH) == 0)
+	if (argc > 2 && ft_strncmp(argv[1], "-c", MAX_LENGTH) == 0)
 	{
 		while (i < argc)
 		{
-			exec_test(argv[i], &data);
+			exec_cmd(argv[i], &data);
 			i++;
 		}
 	}
-	else
+	else if (argc == 1)
 		loop(&data);
 	ft_printf("exit\n");
 	terminate(&data, NULL, 0);

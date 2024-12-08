@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:37:27 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/08 15:43:12 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 22:06:32 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_echo(char **arg)
 		return (0);
 	}
 	new_line = is_newline(arg[i]);
-	if (!new_line)
+	while (!is_newline(arg[i]))
 		i++;
 	while (arg[i])
 	{

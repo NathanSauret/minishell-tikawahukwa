@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:14:06 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/01 17:44:36 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/08 23:11:27 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	free_parent(t_pipex *pipex, t_data *data)
 		free(pipex->pipe);
 		pipex->pipe = NULL;
 	}
+	if (pipex->exec)
+		ft_exec_lstclear(&pipex->exec);
 }
 
 void	free_child(t_data *data, t_pipex *pipex)

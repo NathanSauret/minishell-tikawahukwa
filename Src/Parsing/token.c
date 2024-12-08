@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/08 17:09:21 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 23:14:13 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ static int	add_cmd(t_data *data, char *str, int len, int type)
 	char	quote;
 
 	quote = '$';
-	if (!is_quote(*str) && ft_strnstr(str, "\\", len))
-		token = convert_str(data, str, ft_strlen(str));
-	else
-		token = ft_substr(str, is_quote(*str), len);
+	token = ft_substr(str, is_quote(*str), len);
 	if (!token)
 		return (0);
 	if (*str != '\'' && ft_strnstr(str, "$", len))
@@ -45,10 +42,7 @@ static int	join_token(t_data *data, t_token *token, char *str, int len)
 	char	*res;
 
 	quote = '$';
-	if (!is_quote(*str) && ft_strnstr(str, "\\", len))
-		res = convert_str(data, str, ft_strlen(str));
-	else
-		res = ft_substr(str, is_quote(*str), len);
+	res = ft_substr(str, is_quote(*str), len);
 	if (!res)
 		return (0);
 	if (*str != '\'' && ft_strnstr(str, "$", len))

@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/07 20:05:24 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 23:12:23 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define ERR_PIPE	"Minishell: pipe error\n"
 # define ERR_FORK	"Minishell: fork error\n"
 
-# define MAX_PATH_LENGTH 256
+# define MAX_LENGTH 256
 
 extern pid_t	g_signal_pid;
 
@@ -188,7 +188,7 @@ void	free_command_line(t_token *token);
 /*debug*/
 void	print_token(t_token *token, int show_args);
 void	print_tab(char **tab);
-int		exec_test(char *str, t_data *data);
+int		exec_cmd(char *str, t_data *data);
 void	print_cmd(t_cmd *cmd);
 
 /*     exec     */
@@ -198,6 +198,8 @@ int		execute_commands(t_data *data, t_pipex *pipex);
 // exec_struct_utils.c
 t_exec	*execnew(t_cmd *cmd, int in, int out);
 void	execadd_back(t_exec **exec, t_exec *new);
+void	ft_exec_lstclear(t_exec **lst);
+void	close_iofiles_and_free_prev_exec(t_pipex *pipex);
 // exec.c
 int		exec(t_data *data);
 int		exec_builtin(t_data *data, t_pipex *pipex);

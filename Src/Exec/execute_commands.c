@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/12/07 23:22:38 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 23:11:44 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,6 @@ int	exec_builtin(t_data *data, t_pipex *pipex)
 	if (ft_strnstr((pipex->exec->cmd[0]), "exit", 4))
 		ft_exit(data, pipex->exec->cmd);
 	return (-1);
-}
-
-static void	close_iofiles_and_free_prev_exec(t_pipex *pipex)
-{
-	t_exec	*prev_exec;
-
-	prev_exec = pipex->exec;
-	pipex->exec = pipex->exec->next;
-	if (prev_exec->is_infile)
-		close(prev_exec->in);
-	if (prev_exec->is_outfile)
-		close(prev_exec->out);
-	free(prev_exec);
 }
 
 static void	lonely_child(t_data *data, t_pipex *pipex)
@@ -74,7 +61,7 @@ static void	pipe_handler(t_data *data, t_exec *exec, t_pipex *pipex)
 	close_pipes(pipex, data);
 }
 
-static void child(t_data *data, t_pipex *pipex)
+static void	child(t_data *data, t_pipex *pipex)
 {
 	t_exec	*exec;
 	int		res;
@@ -89,7 +76,6 @@ static void child(t_data *data, t_pipex *pipex)
 			res = exec_builtin(data, pipex);
 		else
 			res = execve(exec->path, exec->cmd, data->env_array);
-
 		terminate(data, NULL, res);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 15:26:48 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/08 16:59:38 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 22:07:47 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 static int	is_builtin(char *str)
 {
-	if (!(ft_strncmp("exit", str, MAX_PATH_LENGTH)))
+	if (!(ft_strncmp("exit", str, MAX_LENGTH)))
 		return (1);
-	else if (!(ft_strncmp("cd", str, MAX_PATH_LENGTH)))
+	else if (!(ft_strncmp("cd", str, MAX_LENGTH)))
 		return (1);
-	else if (!(ft_strncmp("echo", str, MAX_PATH_LENGTH)))
+	else if (!(ft_strncmp("echo", str, MAX_LENGTH)))
 		return (1);
-	else if (!(ft_strncmp("env", str, MAX_PATH_LENGTH)))
+	else if (!(ft_strncmp("env", str, MAX_LENGTH)))
 		return (1);
-	else if (!(ft_strncmp("export", str, MAX_PATH_LENGTH)))
+	else if (!(ft_strncmp("export", str, MAX_LENGTH)))
 		return (1);
-	else if (!(ft_strncmp("unset", str, MAX_PATH_LENGTH)))
+	else if (!(ft_strncmp("unset", str, MAX_LENGTH)))
 		return (1);
-	else if (!(ft_strncmp("pwd", str, MAX_PATH_LENGTH)))
+	else if (!(ft_strncmp("pwd", str, MAX_LENGTH)))
 		return (1);
 	return (0);
 }
@@ -83,7 +83,7 @@ static void	get_path_from_env(t_data *data, char **path)
 static char	*get_ex_path(char *cmd, t_data *data)
 {
 	char	*path_var;
-	char	full_path[MAX_PATH_LENGTH];
+	char	full_path[MAX_LENGTH];
 	char	*start;
 	char	*end;
 
@@ -94,9 +94,9 @@ static char	*get_ex_path(char *cmd, t_data *data)
 		end = ft_strchr(start, ':');
 		if (end)
 			*end = '\0';
-		ft_strlcpy(full_path, start, MAX_PATH_LENGTH);
-		ft_strlcat(full_path, "/", MAX_PATH_LENGTH);
-		ft_strlcat(full_path, cmd, MAX_PATH_LENGTH);
+		ft_strlcpy(full_path, start, MAX_LENGTH);
+		ft_strlcat(full_path, "/", MAX_LENGTH);
+		ft_strlcat(full_path, cmd, MAX_LENGTH);
 		if (access(full_path, X_OK) == 0)
 			return (free(path_var), ft_strdup(full_path));
 		if (end)

@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/08 17:31:45 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/08 23:13:15 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,11 @@ static void	finish_exec(t_data *data, t_pipex *pipex)
 				data->is_space = g_signal_pid;
 			}
 			else if (pid == g_signal_pid && WIFEXITED(status)
-					&& !data->exit_status)
+				&& !data->exit_status)
 				data->exit_status = WEXITSTATUS(status);
 		}
 	}
 }
-
 
 static int	set_values(t_pipex *pipex, t_data *data)
 {
