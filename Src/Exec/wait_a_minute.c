@@ -1,43 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   wait_a_minute.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 15:36:26 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/09 15:42:45 by nsauret          ###   ########.fr       */
+/*   Created: 2024/12/09 16:16:56 by nsauret           #+#    #+#             */
+/*   Updated: 2024/12/09 16:57:31 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	handle_sigint(int sig)
+void	wait_a_minute(t_data *data)
 {
-	(void)sig;
-	if (g_signal_pid == 0 || g_signal_pid == SIGINT)
-	{
-		g_signal_pid = SIGINT;
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}
+	int		pid;
+	char	*sleep_cmd[3];
 
-void	here_doc_handler(int sig)
-{
-	(void)sig;
-	if (g_signal_pid == 0)
+	pid = fork();
+	if (pid == -1)
+		terminate(data, ERR_FORK, 1);
+	if (pid == 0)
 	{
-		g_signal_pid = sig;
-		close(STDIN_FILENO);
-		rl_replace_line("", 0);
+		sleep_cmd[0] = "sleep";
+		sleep_cmd[1] = "0.001";
+		sleep_cmd[2] = NULL;
+		execve("/usr/bin/sleep", sleep_cmd, data->env_array);
+		terminate(data, "hello wolrd", 0);
 	}
-}
-
-void	signals(void)
-{
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, SIG_IGN);
+	waitpid(pid, NULL, 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/09 10:57:39 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/09 15:53:48 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	parsing(t_data *data)
 	data->env_array = lst_to_arr(data->env, data->env_len);
 	if (!data->env_array)
 		terminate(data, ERR_MALLOC, 1);
-	//print_token(data->token, 0);
+	// print_token(data->token, 0);
 	//print_cmd(data->cmd);
 	return (1);
 }

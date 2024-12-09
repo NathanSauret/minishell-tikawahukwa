@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/09 11:01:24 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/09 16:32:16 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,8 @@ int		prepare_for_exec(t_data *data, t_pipex *pipex);
 int		redirection_input(t_data *data, t_pipex *pipex, t_cmd *cmd);
 int		redirection_trunc(t_data *data, t_pipex *pipex, t_cmd *cmd);
 int		redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd);
+// wait_a_minute.c
+void	wait_a_minute(t_data *data);
 
 /*builtins*/
 void	ft_exit(t_data *data, char **cmd);

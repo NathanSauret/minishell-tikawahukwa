@@ -31,6 +31,7 @@ SRC =	Src/main.c	\
 		Src/Exec/pipes_exec.c	\
 		Src/Exec/prepare_for_exec.c	\
 		Src/Exec/redirections.c	\
+		Src/Exec/wait_a_minute.c	\
 		Src/debug_utils.c \
 		Src/Built_in/ft_exit.c \
 		Src/Built_in/ft_cd.c \

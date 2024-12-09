@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/09 11:03:01 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/09 15:43:24 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	exec(t_data *data)
 {
 	t_pipex	pipex;
 
-	if (!data->num_of_pipe && !ft_strncmp(data->token->str, "exit", 4))
+	if (!data->num_of_pipe && !ft_strncmp(data->token->str, "exit", MAX_LENGTH))
 		ft_exit(data, data->cmd->cmd);
 	if (!set_values(&pipex, data))
 		return (-1);

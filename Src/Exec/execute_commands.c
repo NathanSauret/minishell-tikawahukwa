@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/12/08 23:11:44 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/09 16:53:32 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,14 @@ static void	lonely_child(t_data *data, t_pipex *pipex)
 
 static void	pipe_handler(t_data *data, t_exec *exec, t_pipex *pipex)
 {
-	if (check_valid_cmd(data, exec))
+	if (exec->is_stdin)
 	{
-		if (exec->is_stdin)
-		{
-			close(exec->out);
-			exec->out = dup(exec->in);
-			dup2(exec->out, STDOUT_FILENO);
-		}
-		else
-			dup2(exec->out, STDOUT_FILENO);
+		close(exec->out);
+		exec->out = dup(exec->in);
+		dup2(exec->out, STDOUT_FILENO);
 	}
+	else
+		dup2(exec->out, STDOUT_FILENO);
 	dup2(exec->in, STDIN_FILENO);
 	if (exec->is_infile)
 		close(exec->in);
@@ -71,11 +68,14 @@ static void	child(t_data *data, t_pipex *pipex)
 	if (!g_signal_pid)
 	{
 		exec = pipex->exec;
-		pipe_handler(data, exec, pipex);
-		if (exec->is_builtin)
-			res = exec_builtin(data, pipex);
-		else
-			res = execve(exec->path, exec->cmd, data->env_array);
+		if (check_valid_cmd(data, exec))
+		{
+			pipe_handler(data, exec, pipex);
+			if (exec->is_builtin)
+				res = exec_builtin(data, pipex);
+			else
+				res = execve(exec->path, exec->cmd, data->env_array);
+		}
 		terminate(data, NULL, res);
 	}
 }
@@ -84,6 +84,7 @@ int	execute_commands(t_data *data, t_pipex *pipex)
 {
 	while (pipex->exec)
 	{
+		wait_a_minute(data);
 		if (!pipex->exec->cmd[0])
 		{
 			close_iofiles_and_free_prev_exec(pipex);
@@ -97,8 +98,7 @@ int	execute_commands(t_data *data, t_pipex *pipex)
 		{
 			lonely_child(data, pipex);
 		}
-		else if (ft_strncmp(pipex->exec->cmd[0], "time", 4)
-			&& pipex->exec->in != -1 && pipex->exec->out != -1)
+		else if (pipex->exec->in != -1 && pipex->exec->out != -1)
 		{
 			child(data, pipex);
 		}
