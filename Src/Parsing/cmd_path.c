@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 15:26:48 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/08 22:07:47 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/09 10:55:50 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,25 @@ static void	absolute_path(t_data *data, char **path, char *cmd)
 		terminate(data, ERR_MALLOC, 1);
 	if (stat(*path, &sb) == -1)
 	{
-		ft_printerr("Minishell: %s : No such file or directory\n", *path);
+		ft_printerr("~ Tikawahukwa: %s : No such file or directory\n", *path);
 		free(*path);
 		terminate(data, NULL, 127);
 	}
 	if (S_ISDIR(sb.st_mode))
 	{
-		ft_printerr("Minishell: %s : Is a directory\n", *path);
+		ft_printerr("~ Tikawahukwa: %s : Is a directory\n", *path);
 		free(*path);
 		terminate(data, NULL, 126);
 	}
 	if (access(*path, X_OK) == -1)
 	{
-		ft_printerr("Minishell: %s : Permission denied\n", *path);
+		ft_printerr("~ Tikawahukwa: %s : Permission denied\n", *path);
 		free(*path);
 		terminate(data, NULL, 126);
 	}
 }
 
-static void	get_path_from_env(t_data *data, char **path)
+static void	get_path_from_env(t_data *data, char **path, char *cmd)
 {
 	t_env	*current;
 	char	*res;
@@ -77,7 +77,8 @@ static void	get_path_from_env(t_data *data, char **path)
 		}
 		current = current->next;
 	}
-	terminate(data, "command not found\n", 127);
+	ft_printerr("~ Tikawahukwa: %s : command not found\n", cmd);
+	terminate(data, NULL, 127);
 }
 
 static char	*get_ex_path(char *cmd, t_data *data)
@@ -87,7 +88,7 @@ static char	*get_ex_path(char *cmd, t_data *data)
 	char	*start;
 	char	*end;
 
-	get_path_from_env(data, &path_var);
+	get_path_from_env(data, &path_var, cmd);
 	start = path_var;
 	while (start && *start)
 	{
@@ -105,7 +106,8 @@ static char	*get_ex_path(char *cmd, t_data *data)
 			break ;
 	}
 	free(path_var);
-	return (terminate(data, " command not found\n", 127), NULL);
+	ft_printerr("~ Tikawahukwa: %s : command not found\n", cmd);
+	return (terminate(data, NULL, 127), NULL);
 }
 
 int	check_valid_cmd(t_data *data, t_exec *exec)
@@ -114,7 +116,10 @@ int	check_valid_cmd(t_data *data, t_exec *exec)
 
 	path = NULL;
 	if (line_is_empty(exec->cmd[0]))
-		terminate(data, " command not found\n", 127);
+	{
+		ft_printerr("~ Tikawahukwa: %s : command not found\n", exec->cmd[0]);
+		terminate(data, NULL, 127);
+	}
 	if (is_builtin(exec->cmd[0]))
 		exec->is_builtin = 1;
 	else if (ft_strchr(exec->cmd[0], '/'))

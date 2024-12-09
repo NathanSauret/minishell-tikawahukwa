@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/08 23:13:15 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/09 11:03:01 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	finish_exec(t_data *data, t_pipex *pipex)
 			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 			{
 				data->exit_status = 128 + WTERMSIG(status);
-				data->is_space = g_signal_pid;
+				data->is_space = 1;
 			}
 			else if (pid == g_signal_pid && WIFEXITED(status)
 				&& !data->exit_status)
@@ -59,7 +59,7 @@ int	exec(t_data *data)
 	t_pipex	pipex;
 
 	if (!data->num_of_pipe && !ft_strncmp(data->token->str, "exit", 4))
-		return (ft_exit(data, data->cmd->cmd), -1);
+		ft_exit(data, data->cmd->cmd);
 	if (!set_values(&pipex, data))
 		return (-1);
 	if (!create_pipes(&pipex, data))
@@ -68,7 +68,7 @@ int	exec(t_data *data)
 		return (finish_exec(data, &pipex), -1);
 	if (g_signal_pid == SIGINT)
 	{
-		data->is_space = 130;
+		data->is_space = 1;
 		return (finish_exec(data, &pipex), 0);
 	}
 	if (!execute_commands(data, &pipex))

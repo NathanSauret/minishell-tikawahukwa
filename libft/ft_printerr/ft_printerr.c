@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printerr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:13:31 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/06 15:54:25 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/09 10:40:05 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
+
+#include <stdarg.h>
+#include <unistd.h>
 
 static void	ft_putstr(const char *s, int *count)
 {
@@ -34,7 +37,7 @@ static void	ft_putnbr(int n, int *count)
 	}
 	if (n < 0)
 	{
-		write(1, "-", 1);
+		write(2, "-", 1);
 		(*count)++;
 		n = -n;
 	}
@@ -77,6 +80,7 @@ int	ft_printerr(const char *format, ...)
 	int		count;
 
 	count = 0;
+	write(2, "\033[1;31m", 7);
 	va_start(args, format);
 	while (*format)
 	{
@@ -93,5 +97,6 @@ int	ft_printerr(const char *format, ...)
 		format++;
 	}
 	va_end(args);
+	write(2, "\033[0m", 4);
 	return (count);
 }

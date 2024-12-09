@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/08 23:12:23 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/09 11:01:24 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@
 # define CMD		6	//"command"
 # define ARG		7	//"argument"
 
-# define ERR_MALLOC	"Minishell: malloc error\n"
-# define ERR_PIPE	"Minishell: pipe error\n"
-# define ERR_FORK	"Minishell: fork error\n"
+# define ERR_MALLOC	"~ Tikawahukwa: malloc error\n"
+# define ERR_PIPE	"~ Tikawahukwa: pipe error\n"
+# define ERR_FORK	"~ Tikawahukwa: fork error\n"
 
 # define MAX_LENGTH 256
 

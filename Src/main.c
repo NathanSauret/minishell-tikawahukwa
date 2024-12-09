@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/08 23:19:55 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/09 11:06:05 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ pid_t	g_signal_pid;
 
 void	prompt(t_data *data)
 {
-	if (data->is_space >= 128)
+	if (data->is_space)
 		write(1, "\n", 1);
 	data->is_space = 0;
 	g_signal_pid = 0;
