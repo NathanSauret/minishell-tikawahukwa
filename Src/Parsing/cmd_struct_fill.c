@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:16:46 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/10 16:17:48 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/10 17:28:13 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static int	parse_cmd(t_data *data, t_token *token)
 
 	tmp = token;
 	new_cmd = ft_cmd_lstnew(NULL);
+	if (!new_cmd)
+		return (0);
 	if (!tmp)
 		return (0);
 	new_cmd->cmd = malloc(sizeof(char *) * (token->cmd_line_size + 1));
