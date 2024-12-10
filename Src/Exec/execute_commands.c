@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/12/10 17:42:20 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/10 17:43:36 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	execute_commands(t_data *data, t_pipex *pipex)
 {
 	while (pipex->exec)
 	{
-		//wait_a_minute(data);
 		if (!pipex->exec->cmd[0])
 		{
 			close_iofiles_and_free_prev_exec(pipex);

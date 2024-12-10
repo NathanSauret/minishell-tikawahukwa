@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/10 17:42:31 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/10 17:47:05 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,9 @@
 # include <readline/history.h>
 
 # define RESET        "\033[0m"
-# define RED          "\033[31m"
-# define GREEN        "\033[32m"
-# define YELLOW       "\033[33m"
 # define BLUE         "\033[34m"
-# define ORANGE       "\033[38;5;208m"
 # define BOLD_GREEN   "\033[1;32m"
 # define BOLD_RED     "\033[1;31m"
-# define PROMPT -10
 
 # define INPUT		1	//"<"
 # define HEREDOC	2	//"<<"
