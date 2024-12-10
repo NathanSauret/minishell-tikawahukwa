@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/09 15:24:00 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/10 16:39:02 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ pid_t	g_signal_pid;
 
 void	prompt(t_data *data)
 {
-	if (data->is_space)
+	if (data->is_space >= 128)
 		write(1, "\n", 1);
 	data->is_space = 0;
 	g_signal_pid = 0;

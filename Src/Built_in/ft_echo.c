@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:37:27 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/08 22:06:32 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/10 17:28:08 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,58 @@ int	is_newline(char *arg)
 	return (1);
 }
 
+static void	cpy_echo_str(int i, char **arg, int new_line)
+{
+	int	cpy;
+	int	y;
+	char	res[MAX_LENGTH];
+
+	y = 0;
+	cpy = 0;
+	ft_bzero(res, MAX_LENGTH);
+	while (arg[i])
+	{
+		y = 0;
+		while (arg[i][y] && cpy < MAX_LENGTH)
+		{
+			res[cpy] = arg[i][y];
+			cpy++;
+			y++;
+		}
+		i++;
+		if (arg[i] && cpy < MAX_LENGTH)
+		{
+			res[cpy] = ' ';
+			cpy++;
+		}
+	}
+	if (new_line)
+		res[cpy] = '\n';
+	write(1, &res, ft_strlen(res));
+
+}
+
 int	ft_echo(char **arg)
 {
-	int	new_line;
-	int	i;
+	int		new_line;
+	int		i;
+	int		y;
+	int		cpy;
 
+	cpy = 0;
+	y = 0;
 	i = 1;
 	if (!arg[i])
 	{
-		ft_printf("\n");
+		printf("\n");
 		return (0);
 	}
 	new_line = is_newline(arg[i]);
-	while (!is_newline(arg[i]))
-		i++;
-	while (arg[i])
+	if (!new_line)
 	{
-		ft_printf("%s", arg[i]);
-		i++;
-		if (arg[i])
-			ft_printf(" ");
+		while (!is_newline(arg[i]))
+			i++;
 	}
-	if (new_line)
-		ft_printf("\n");
+	cpy_echo_str(i, arg, new_line);
 	return (0);
 }
