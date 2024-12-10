@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/10 15:56:51 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/10 17:42:31 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@
 # define ERR_MALLOC	"~ Tikawahukwa: malloc error\n"
 # define ERR_PIPE	"~ Tikawahukwa: pipe error\n"
 # define ERR_FORK	"~ Tikawahukwa: fork error\n"
-
-# define MAX_LENGTH 256
 
 extern pid_t	g_signal_pid;
 

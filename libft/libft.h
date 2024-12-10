@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 23:58:05 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/05 16:14:27 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/10 17:20:12 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include "get_next_line.h"
 # include "ft_printf.h"
+# define MAX_LENGTH  1000
 
 typedef struct s_list
 {
