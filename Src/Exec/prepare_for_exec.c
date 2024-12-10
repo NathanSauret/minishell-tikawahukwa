@@ -6,19 +6,36 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:50:29 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/09 15:51:53 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/10 15:56:31 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	create_exec_struct(t_cmd *cmd, t_pipex *pipex)
+static void	create_exec_struct(t_data *data, t_pipex *pipex, t_cmd *cmd)
 {
+	t_exec	*new_exec;
+
 	pipex->exec = execnew(cmd, -2, -2);
+	if (!pipex->exec)
+	{
+		free_parent(pipex, data);
+		terminate(data, ERR_MALLOC, 1);
+	}
 	cmd = cmd->next;
 	while (cmd)
 	{
-		execadd_back(&pipex->exec, execnew(cmd, -2, -2));
+		new_exec = execnew(cmd, -2, -2);
+		if (!new_exec)
+		{
+			free_parent(pipex, data);
+			terminate(data, ERR_MALLOC, 1);
+		}
+		if (!execadd_back(&pipex->exec, new_exec))
+		{
+			free_parent(pipex, data);
+			terminate(data, ERR_MALLOC, 1);
+		}
 		cmd = cmd->next;
 	}
 }
@@ -63,13 +80,13 @@ static void	redirect_with_pipes(t_pipex *pipex)
 		pipex->exec->out = pipex->pipe[2 * pipex->idx + 1];
 }
 
-int	prepare_for_exec(t_data *data, t_pipex *pipex)
+void	prepare_for_exec(t_data *data, t_pipex *pipex)
 {
 	t_exec	*exec_head;
 	t_cmd	*cmd_head;
 
 	cmd_head = data->cmd;
-	create_exec_struct(data->cmd, pipex);
+	create_exec_struct(data, pipex, data->cmd);
 	exec_head = pipex->exec;
 	pipex->idx = 0;
 	while (pipex->exec)
@@ -87,5 +104,4 @@ int	prepare_for_exec(t_data *data, t_pipex *pipex)
 	}
 	pipex->exec = exec_head;
 	data->cmd = cmd_head;
-	return (1);
 }

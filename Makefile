@@ -25,7 +25,6 @@ SRC =	Src/main.c	\
 		Src/Exec/execute_commands.c	\
 		Src/Exec/exec_struct_utils.c	\
 		Src/Exec/exec.c	\
-		Src/Exec/exit_error_exec.c	\
 		Src/Exec/free_exec.c	\
 		Src/Exec/here_doc.c	\
 		Src/Exec/pipes_exec.c	\

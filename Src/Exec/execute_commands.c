@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/12/09 16:53:32 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/10 16:43:07 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ static void	child(t_data *data, t_pipex *pipex)
 	int		res;
 
 	g_signal_pid = fork();
+	if (g_signal_pid == -1)
+	{
+		ft_printerr(" fork failed\n");
+		return ;
+	}
 	res = -1;
 	if (!g_signal_pid)
 	{
@@ -80,7 +85,7 @@ static void	child(t_data *data, t_pipex *pipex)
 	}
 }
 
-int	execute_commands(t_data *data, t_pipex *pipex)
+void	execute_commands(t_data *data, t_pipex *pipex)
 {
 	while (pipex->exec)
 	{
@@ -104,5 +109,4 @@ int	execute_commands(t_data *data, t_pipex *pipex)
 		}
 		close_iofiles_and_free_prev_exec(pipex);
 	}
-	return (1);
 }

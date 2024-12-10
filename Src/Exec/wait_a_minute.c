@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:16:56 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/09 16:59:39 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/10 16:43:38 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	wait_a_minute(t_data *data)
 
 	pid = fork();
 	if (pid == -1)
-		terminate(data, ERR_FORK, 1);
+	{
+		ft_printerr(" fork failed\n");
+		return ;
+	}
 	if (pid == 0)
 	{
 		sleep_cmd[0] = "sleep";

@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/09 15:43:24 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/10 16:53:54 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,21 @@ static void	finish_exec(t_data *data, t_pipex *pipex)
 	}
 }
 
-static int	set_values(t_pipex *pipex, t_data *data)
+static void	set_values(t_pipex *pipex, t_data *data)
 {
 	pipex->cmd_nb = data->num_of_pipe + 1;
+	pipex->pipe = NULL;
 	if (data->num_of_pipe > 0)
 	{
 		pipex->pipe = (int *)malloc(sizeof(int) * (data->num_of_pipe * 2));
 		if (!pipex->pipe)
 		{
-			free_pipe(pipex);
-			return (exit_error_exec(pipex, 1, "Error: pipe"));
+			free_parent(pipex, data);
+			terminate(data, ERR_MALLOC, 1);
 		}
 	}
 	data->exit_status = 0;
 	data->pipex = pipex;
-	return (1);
 }
 
 int	exec(t_data *data)
@@ -60,19 +60,16 @@ int	exec(t_data *data)
 
 	if (!data->num_of_pipe && !ft_strncmp(data->token->str, "exit", MAX_LENGTH))
 		ft_exit(data, data->cmd->cmd);
-	if (!set_values(&pipex, data))
-		return (-1);
-	if (!create_pipes(&pipex, data))
-		return (-1);
-	if (!prepare_for_exec(data, &pipex))
-		return (finish_exec(data, &pipex), -1);
+	set_values(&pipex, data);
+	create_pipes(&pipex, data);
+	prepare_for_exec(data, &pipex);
 	if (g_signal_pid == SIGINT)
 	{
 		data->is_space = 1;
-		return (finish_exec(data, &pipex), 0);
+		finish_exec(data, &pipex);
+		return (0);
 	}
-	if (!execute_commands(data, &pipex))
-		return (finish_exec(data, &pipex), -1);
+	execute_commands(data, &pipex);
 	finish_exec(data, &pipex);
 	return (0);
 }

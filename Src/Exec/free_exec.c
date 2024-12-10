@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:14:06 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/08 23:11:27 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/10 15:55:44 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,4 @@ void	free_child(t_data *data, t_pipex *pipex)
 		}
 		free_parent(pipex, data);
 	}
-}
-
-int	free_pipe(t_pipex *pipex)
-{
-	free(pipex->pipe);
-	return (exit_error_exec(pipex, 0, "Environment"));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_struct_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:29:11 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/08 23:12:08 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/10 15:44:01 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ static t_exec	*execlast(t_exec *exec)
 	return (exec);
 }
 
-void	execadd_back(t_exec **exec, t_exec *new)
+int	execadd_back(t_exec **exec, t_exec *new)
 {
 	t_exec	*tmp;
 
 	if (!exec || !new)
-		return ;
+		return (0);
 	if (exec)
 	{
 		if (*exec == NULL)
@@ -69,6 +69,7 @@ void	execadd_back(t_exec **exec, t_exec *new)
 			tmp->next = new;
 		}
 	}
+	return (1);
 }
 
 void	ft_exec_lstclear(t_exec **lst)

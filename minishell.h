@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/09 16:32:16 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/10 15:56:51 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,29 +193,25 @@ void	print_cmd(t_cmd *cmd);
 
 /*     exec     */
 // execute_commands.c
-int		execute_lonely_command(t_data *data, t_pipex *pipex, char **env);
-int		execute_commands(t_data *data, t_pipex *pipex);
+void	execute_commands(t_data *data, t_pipex *pipex);
 // exec_struct_utils.c
 t_exec	*execnew(t_cmd *cmd, int in, int out);
-void	execadd_back(t_exec **exec, t_exec *new);
+int		execadd_back(t_exec **exec, t_exec *new);
 void	ft_exec_lstclear(t_exec **lst);
 void	close_iofiles_and_free_prev_exec(t_pipex *pipex);
 // exec.c
 int		exec(t_data *data);
 int		exec_builtin(t_data *data, t_pipex *pipex);
-// exit_error_exec.c
-int		exit_error_exec(t_pipex *pipex, int error_case, char *arg);
 // free_exec.c
 void	free_parent(t_pipex *pipex, t_data *data);
 void	free_child(t_data *data, t_pipex *pipex);
-int		free_pipe(t_pipex *pipex);
 // here_doc.c
 int		here_doc(t_data *data, char *argv);
 // pipes_exec.c
-int		create_pipes(t_pipex *pipex, t_data *data);
+void	create_pipes(t_pipex *pipex, t_data *data);
 void	close_pipes(t_pipex *pipex, t_data *data);
 // prepare_for_exec.c
-int		prepare_for_exec(t_data *data, t_pipex *pipex);
+void	prepare_for_exec(t_data *data, t_pipex *pipex);
 // redirections.c
 int		redirection_input(t_data *data, t_pipex *pipex, t_cmd *cmd);
 int		redirection_trunc(t_data *data, t_pipex *pipex, t_cmd *cmd);
