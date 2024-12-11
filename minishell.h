@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/10 17:47:05 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:37:47 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,6 @@ void	ft_exec_lstclear(t_exec **lst);
 void	close_iofiles_and_free_prev_exec(t_pipex *pipex);
 // exec.c
 int		exec(t_data *data);
-int		exec_builtin(t_data *data, t_pipex *pipex);
 // free_exec.c
 void	free_parent(t_pipex *pipex, t_data *data);
 void	free_child(t_data *data, t_pipex *pipex);
@@ -209,8 +208,6 @@ void	prepare_for_exec(t_data *data, t_pipex *pipex);
 int		redirection_input(t_data *data, t_pipex *pipex, t_cmd *cmd);
 int		redirection_trunc(t_data *data, t_pipex *pipex, t_cmd *cmd);
 int		redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd);
-// wait_a_minute.c
-void	wait_a_minute(t_data *data);
 
 /*builtins*/
 void	ft_exit(t_data *data, char **cmd);

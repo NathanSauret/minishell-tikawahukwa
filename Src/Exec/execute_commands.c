@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/12/10 17:43:36 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:37:03 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	exec_builtin(t_data *data, t_pipex *pipex)
+static int	exec_builtin(t_data *data, t_pipex *pipex)
 {
 	if (ft_strnstr((pipex->exec->cmd[0]), "cd", 2))
 		return (ft_cd(data->env, pipex->exec->cmd));
