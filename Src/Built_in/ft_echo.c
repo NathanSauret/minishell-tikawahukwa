@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:37:27 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/11 11:12:46 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:45:16 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	is_newline(char *arg)
 
 static void	cpy_echo_str(int i, char **arg, int new_line)
 {
-	int	cpy;
-	int	y;
+	int		cpy;
+	int		y;
 	char	res[MAX_LENGTH];
 
 	y = 0;
@@ -47,9 +47,7 @@ static void	cpy_echo_str(int i, char **arg, int new_line)
 		y = 0;
 		while (arg[i][y] && cpy < MAX_LENGTH - 1)
 		{
-			res[cpy] = arg[i][y];
-			cpy++;
-			y++;
+			res[cpy++] = arg[i][y++];
 		}
 		i++;
 		if (arg[i] && cpy < MAX_LENGTH - 1)
@@ -61,18 +59,13 @@ static void	cpy_echo_str(int i, char **arg, int new_line)
 	if (new_line)
 		res[cpy] = '\n';
 	write(1, &res, ft_strlen(res));
-
 }
 
 int	ft_echo(char **arg)
 {
 	int		new_line;
 	int		i;
-	int		y;
-	int		cpy;
 
-	cpy = 0;
-	y = 0;
 	i = 1;
 	if (!arg[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:13:31 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/11 11:23:25 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:45:09 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,16 @@ static void	ft_puthex(unsigned int n, int *count, char res[MAX_LENGTH])
 	(*count)++;
 }
 
-static void	ft_handle_str(const char **str, va_list args, int *count, char res[MAX_LENGTH])
+static void	ft_handle_str(const char **str,
+	va_list args, int *count, char res[MAX_LENGTH])
 {
 	if (**str == 's')
 		ft_putstr(va_arg(args, char *), count, res);
 	else if (**str == 'd')
 		ft_putnbr(va_arg(args, int), count, res);
 	else if (**str == 'x')
-		ft_puthex(va_arg(args, unsigned int), count,res);
-	else if (*count < MAX_LENGTH - 1)
+		ft_puthex(va_arg(args, unsigned int), count, res);
+	else
 	{
 		write(2, *str, 1);
 		(*count)++;
@@ -85,7 +86,7 @@ int	ft_printerr(const char *str, ...)
 
 	ft_bzero(res, MAX_LENGTH);
 	count = 0;
-	ft_putstr("\033[1;31m",&count, res);
+	ft_putstr("\033[1;31m", &count, res);
 	va_start(args, str);
 	while (*str && count < MAX_LENGTH - 1)
 	{
@@ -96,14 +97,12 @@ int	ft_printerr(const char *str, ...)
 		}
 		else
 		{
-			res[count] = *str;
-			count++;
+			res[count++] = *str;
 		}
 		str++;
 	}
 	va_end(args);
-	res[count] = '\0';
-	ft_putstr("\033[0m",&count, res);
+	ft_putstr("\033[0m", &count, res);
 	write(2, res, ft_strlen(res));
 	return (count);
 }
