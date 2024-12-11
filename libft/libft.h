@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 23:58:05 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/10 17:20:12 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:30:00 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <signal.h>
 # include "get_next_line.h"
 # include "ft_printf.h"
-# define MAX_LENGTH  1000
+# define MAX_LENGTH 4096
 
 typedef struct s_list
 {

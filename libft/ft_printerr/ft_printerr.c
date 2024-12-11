@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:13:31 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/10 17:34:05 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:23:25 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_putstr(const char *s, int *count, char res[MAX_LENGTH])
 {
 	if (!s)
 		s = "(null)";
-	while (*s)
+	while (*s && *count < MAX_LENGTH - 1)
 	{
 		res[*count] = *s;
 		(*count)++;
@@ -36,13 +36,13 @@ static void	ft_putnbr(int n, int *count, char res[MAX_LENGTH])
 		ft_putstr("-2147483648", count, res);
 		return ;
 	}
-	if (n < 0)
+	if (n < 0 && *count < MAX_LENGTH - 1)
 	{
 		res[*count] = '-';
 		(*count)++;
 		n = -n;
 	}
-	if (n > 9)
+	if (n > 9 && *count < MAX_LENGTH - 1)
 		ft_putnbr(n / 10, count, res);
 	c = (n % 10) + '0';
 	res[*count] = c;
@@ -54,8 +54,10 @@ static void	ft_puthex(unsigned int n, int *count, char res[MAX_LENGTH])
 	char	*hex;
 
 	hex = "0123456789abcdef";
-	if (n >= 16)
+	if (n >= 16 && *count < MAX_LENGTH - 1)
 		ft_puthex(n / 16, count, res);
+	else
+		return ;
 	res[*count] = hex[n % 16];
 	(*count)++;
 }
@@ -68,7 +70,7 @@ static void	ft_handle_str(const char **str, va_list args, int *count, char res[M
 		ft_putnbr(va_arg(args, int), count, res);
 	else if (**str == 'x')
 		ft_puthex(va_arg(args, unsigned int), count,res);
-	else
+	else if (*count < MAX_LENGTH - 1)
 	{
 		write(2, *str, 1);
 		(*count)++;
@@ -85,7 +87,7 @@ int	ft_printerr(const char *str, ...)
 	count = 0;
 	ft_putstr("\033[1;31m",&count, res);
 	va_start(args, str);
-	while (*str)
+	while (*str && count < MAX_LENGTH - 1)
 	{
 		if (*str == '%' && *(str + 1))
 		{

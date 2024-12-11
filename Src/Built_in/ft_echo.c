@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:37:27 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/10 17:28:08 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:12:46 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ static void	cpy_echo_str(int i, char **arg, int new_line)
 	y = 0;
 	cpy = 0;
 	ft_bzero(res, MAX_LENGTH);
-	while (arg[i])
+	while (arg[i] && cpy < MAX_LENGTH - 1)
 	{
 		y = 0;
-		while (arg[i][y] && cpy < MAX_LENGTH)
+		while (arg[i][y] && cpy < MAX_LENGTH - 1)
 		{
 			res[cpy] = arg[i][y];
 			cpy++;
 			y++;
 		}
 		i++;
-		if (arg[i] && cpy < MAX_LENGTH)
+		if (arg[i] && cpy < MAX_LENGTH - 1)
 		{
 			res[cpy] = ' ';
 			cpy++;

@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/10 17:47:05 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:01:36 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct t_data
 	char			*input;
 	int				num_of_pipe;
 	int				exit_status;
-	int				is_space;
+	int				is_nl;
 	int				env_len;
 	char			**env_array;
 	t_env			*env;
@@ -179,7 +179,7 @@ char	**free_var(char **str, int len);
 void	free_command_line(t_token *token);
 
 /*debug*/
-void	print_token(t_token *token, int show_args);
+void	print_token(t_token *token);
 void	print_tab(char **tab);
 int		exec_cmd(char *str, t_data *data);
 void	print_cmd(t_cmd *cmd);

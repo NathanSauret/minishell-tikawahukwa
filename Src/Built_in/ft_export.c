@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:59:22 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/08 15:39:17 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/11 11:08:34 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,16 @@ static int	export_without_args(t_env *lst, int env_len)
 	if (!env)
 		return (0);
 	sort_array(env, env_len);
-	printf("check\n");
 	while (env[i])
 	{
 		y = 0;
-		ft_printf("declare -x ");
+		printf("declare -x ");
 		while (env[i][y] && env[i][y] != '=')
-			ft_printf("%c", env[i][y++]);
+			printf("%c", env[i][y++]);
 		if (env[i][y] == '=')
-			ft_printf("=\"%s\"\n", &env[i][y + 1]);
+			printf("=\"%s\"\n", &env[i][y + 1]);
 		else
-			ft_printf("\n");
+			printf("\n");
 		i++;
 	}
 	free(env);

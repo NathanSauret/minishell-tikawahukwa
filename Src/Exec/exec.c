@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/10 16:53:54 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:19:37 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	finish_exec(t_data *data, t_pipex *pipex)
 			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 			{
 				data->exit_status = 128 + WTERMSIG(status);
-				data->is_space = 1;
+				data->is_nl = 1;
 			}
 			else if (pid == g_signal_pid && WIFEXITED(status)
 				&& !data->exit_status)
@@ -65,7 +65,7 @@ int	exec(t_data *data)
 	prepare_for_exec(data, &pipex);
 	if (g_signal_pid == SIGINT)
 	{
-		data->is_space = 1;
+		data->is_nl = 1;
 		finish_exec(data, &pipex);
 		return (0);
 	}
