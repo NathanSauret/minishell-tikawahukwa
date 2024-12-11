@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:09:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/11 11:09:32 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:52:20 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_pwd(void)
 
 	if (getcwd(cwd, MAX_LENGTH))
 	{
-		printf("%s\n", cwd);
+		ft_printf("%s\n", cwd);
 		return (0);
 	}
 	else

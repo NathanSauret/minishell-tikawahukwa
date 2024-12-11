@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+         #
+#    By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 13:45:19 by jmiccio           #+#    #+#              #
-#    Updated: 2024/11/25 18:18:55 by j_sk8            ###   ########.fr        #
+#    Updated: 2024/12/11 11:50:37 by jmiccio          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,13 +59,7 @@ SRC = ft_is/ft_isalnum.c \
       ft_lst/ft_lstmap.c \
       ft_get_next_line/ft_get_next_line.c \
       ft_get_next_line/ft_get_next_line_utils.c \
-      ft_printf/ft_print_char.c \
-      ft_printf/ft_print_hex.c \
-      ft_printf/ft_print_int.c \
       ft_printf/ft_printf.c   \
-      ft_printf/ft_print_pointer.c \
-      ft_printf/ft_print_str.c \
-      ft_printf/ft_print_unsigned.c \
       ft_printerr/ft_printerr.c
 
 OBJ = $(SRC:.c=.o)

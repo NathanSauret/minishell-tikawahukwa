@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:59:22 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/11 11:08:34 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 12:15:27 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static int	export_without_args(t_env *lst, int env_len)
 	while (env[i])
 	{
 		y = 0;
-		printf("declare -x ");
+		ft_printf("declare -x ");
 		while (env[i][y] && env[i][y] != '=')
-			printf("%c", env[i][y++]);
+			write(1, &env[i][y++], 1);
 		if (env[i][y] == '=')
-			printf("=\"%s\"\n", &env[i][y + 1]);
+			ft_printf("=\"%s\"\n", &env[i][y + 1]);
 		else
-			printf("\n");
+			ft_printf("\n");
 		i++;
 	}
 	free(env);

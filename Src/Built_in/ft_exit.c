@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 17:39:22 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/11 11:08:04 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:52:11 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_exit(t_data *data, char **cmd)
 	int	check_res;
 
 	check_res = data->exit_status;
-	printf("exit\n");
+	ft_printf("exit\n");
 	if (cmd[1])
 	{
 		if (cmd[2])

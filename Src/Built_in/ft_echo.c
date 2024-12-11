@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:37:27 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/11 11:45:16 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 12:16:03 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	cpy_echo_str(int i, char **arg, int new_line)
 	}
 	if (new_line)
 		res[cpy] = '\n';
-	write(1, &res, ft_strlen(res));
+	ft_printf("%s", res);
 }
 
 int	ft_echo(char **arg)
@@ -69,7 +69,7 @@ int	ft_echo(char **arg)
 	i = 1;
 	if (!arg[i])
 	{
-		printf("\n");
+		ft_printf("\n");
 		return (0);
 	}
 	new_line = is_newline(arg[i]);

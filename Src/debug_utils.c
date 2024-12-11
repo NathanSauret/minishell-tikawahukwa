@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 20:13:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/11 10:54:00 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 12:15:04 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ void	print_tab(char **tab)
 
 	if (!(tab))
 	{
-		printf("NULL");
+		ft_printf("NULL");
 		return ;
 	}
 	i = 0;
-	printf("[");
+	ft_printf("[");
 	while (tab[i])
 	{
-		printf("%s", tab[i]);
+		ft_printf("%s", tab[i]);
 		if (tab[i + 1])
-			printf(", ");
+			ft_printf(", ");
 		i++;
 	}
-	printf("]");
+	ft_printf("]");
 }
 
 void	print_cmd(t_cmd *cmd)
@@ -42,15 +42,15 @@ void	print_cmd(t_cmd *cmd)
 		return ;
 	while (tmp->next)
 	{
-		printf("token head [%s], cmd :", tmp->tokens->str);
+		ft_printf("token head [%s], cmd :", tmp->tokens->str);
 		print_tab(tmp->cmd);
-		printf("\n");
+		ft_printf("\n");
 		tmp = tmp->next;
 	}
-	printf(" ");
-	printf("token head [%s], cmd :", tmp->tokens->str);
+	ft_printf(" ");
+	ft_printf("token head [%s], cmd :", tmp->tokens->str);
 	print_tab(tmp->cmd);
-	printf("\n");
+	ft_printf("\n");
 }
 
 void	print_token(t_token *token)
@@ -62,10 +62,9 @@ void	print_token(t_token *token)
 	{
 		while (token->next)
 		{
-			printf("Type : %d, [%s]\n", token->type, token->str);
+			ft_printf("Type : %d, [%s]\n", token->type, token->str);
 			token = token->next;
 		}
-		printf("Type : %d, [%s]\n", token->type, token->str);
+		ft_printf("Type : %d, [%s]\n", token->type, token->str);
 	}
 }
-

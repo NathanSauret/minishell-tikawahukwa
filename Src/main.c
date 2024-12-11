@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/11 11:04:00 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 12:19:33 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int	main(int argc, char **argv, char **env)
 	if (!data.env_len)
 		terminate(&data, "env_error\n", data.exit_status);
 	loop(&data);
-	printf("exit\n");
+	ft_printf("exit\n");
 	terminate(&data, NULL, 0);
 }

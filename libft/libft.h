@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 23:58:05 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/11 11:30:00 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 12:20:05 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdio.h>
 # include <signal.h>
 # include "get_next_line.h"
-# include "ft_printf.h"
 # define MAX_LENGTH 4096
 
 typedef struct s_list
@@ -118,6 +117,8 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-int		ft_printerr(const char *format, ...);
+int		ft_printerr(const char *str, ...);
+
+int		ft_printf(const char *str, ...);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/11 10:55:47 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 12:16:20 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,5 @@ int	parsing(t_data *data)
 	data->env_array = lst_to_arr(data->env, data->env_len);
 	if (!data->env_array)
 		terminate(data, ERR_MALLOC, 1);
-	// print_token(data->token);
-	//print_cmd(data->cmd);
 	return (1);
 }

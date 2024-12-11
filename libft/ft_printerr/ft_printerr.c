@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:13:31 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/11 11:45:09 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:51:26 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	ft_handle_str(const char **str,
 		ft_puthex(va_arg(args, unsigned int), count, res);
 	else
 	{
-		write(2, *str, 1);
+		res[*count] = *(*str);
 		(*count)++;
 	}
 }

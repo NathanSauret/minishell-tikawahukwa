@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:19:11 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/11 11:07:40 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/11 11:59:29 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_env(t_env *env)
 	while (env != NULL)
 	{
 		if (ft_strchr(env->value, '='))
-			printf("%s\n", env->value);
+			ft_printf("%s\n", env->value);
 		env = env->next;
 	}
 	return (0);
