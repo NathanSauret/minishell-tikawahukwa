@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:40:17 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/11 11:03:46 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/12 15:12:47 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	data_init(t_data *data)
 	data->num_of_pipe = 0;
 	data->exit_status = 0;
 	data->is_nl = 0;
-	g_signal_pid = 0;
+	data->pid = 0;
+	g_signal = 0;
 	signals();
 }
 

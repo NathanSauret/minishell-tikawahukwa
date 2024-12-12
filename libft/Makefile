@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+         #
+#    By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 13:45:19 by jmiccio           #+#    #+#              #
-#    Updated: 2024/12/11 11:50:37 by jmiccio          ###   ########.fr        #
+#    Updated: 2024/12/12 17:46:26 by j_sk8            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC = ft_is/ft_isalnum.c \
       ft_put/ft_putstr_fd.c \
       ft_str/ft_strchr.c \
       ft_str/ft_strdup.c \
+       ft_str/ft_strndup.c \
       ft_str/ft_strjoin.c \
       ft_str/ft_strlcat.c \
       ft_str/ft_strlcpy.c \

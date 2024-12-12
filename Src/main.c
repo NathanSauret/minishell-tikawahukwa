@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/11 12:19:33 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/12 16:44:31 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-pid_t	g_signal_pid;
+int	g_signal;
 
 void	prompt(t_data *data)
 {
 	if (data->is_nl)
 		write(1, "\n", 1);
 	data->is_nl = 0;
-	g_signal_pid = 0;
+	g_signal = 0;
+	data->pid = 0;
 	data->input = readline(BOLD_GREEN"~ Tikawahukwa ☕ "BLUE"> "RESET);
 }
 
@@ -30,12 +31,12 @@ static void	loop(t_data *data)
 		prompt(data);
 		if (data->input == NULL)
 			return ;
-		add_history(data->input);
 		if (line_is_empty(data->input))
 		{
 			free(data->input);
 			continue ;
 		}
+		add_history(data->input);
 		if (!parsing(data))
 			continue ;
 		if ((exec(data)) == -1)

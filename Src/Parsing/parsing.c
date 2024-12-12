@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/11 12:16:20 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/12 18:00:04 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ static int	get_sorted_arg(t_data *data)
 
 int	parsing(t_data *data)
 {
-	if (g_signal_pid == SIGINT)
+	if (g_signal == SIGINT)
 	{
 		data->exit_status = 130;
-		g_signal_pid = 0;
+		g_signal = 0;
 	}
 	if (!(check_quote(data, data->input)))
 		return (is_error("quote error\n", data, 2));

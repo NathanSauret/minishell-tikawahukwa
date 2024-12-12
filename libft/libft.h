@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 23:58:05 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/11 12:20:05 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/12 17:49:18 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 
 char	*ft_strdup(const char *s);
+
+char	*ft_strndup(char *s, size_t len);
 
 void	ft_bzero(void *s, size_t n);
 
