@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/12 17:59:18 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/13 11:37:23 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ static void	finish_exec(t_data *data, t_pipex *pipex)
 		if (pid > 0)
 		{
 			if (WIFSIGNALED(status)
-				&& (data->exit_status == SIGINT
-					|| data->exit_status == SIGQUIT))
+				&& (WTERMSIG(status) == SIGINT
+					|| WTERMSIG(status) == SIGQUIT))
 			{
 				data->exit_status = 128 + WTERMSIG(status);
-				if (data->exit_status == SIGINT || data->exit_status == SIGQUIT)
-					data->is_nl = 1;
+				data->is_nl = 1;
 			}
 			else if (pid == data->pid && WIFEXITED(status)
 				&& !data->exit_status)
