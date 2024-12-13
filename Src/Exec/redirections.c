@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:03:55 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/08 22:07:42 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/13 18:33:54 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,21 @@ int	redirection_trunc(t_data *data, t_pipex *pipex, t_cmd *cmd)
 {
 	int	fd;
 
+	// if (pipex->exec->is_stdin_before && ft_strncmp(cmd->tokens->str, "/dev/stdin", MAX_LENGTH))
+	// 	return (-1);
+	// if (pipex->exec->is_stdout_before && ft_strncmp(cmd->tokens->str, "/dev/stdout", MAX_LENGTH))
+	// 	return (-1);
+
+	// if (ft_strncmp(cmd->tokens->str, "/dev/stdin", MAX_LENGTH))
+	// 	pipex->exec->is_stdin_before = 1;
+	// else
+	// 	pipex->exec->is_stdin_before = 0;
+	// if (ft_strncmp(cmd->tokens->str, "/dev/stdout", MAX_LENGTH))
+	// 	pipex->exec->is_stdout_before = 1;
+	// else
+	// 	pipex->exec->is_stdout_before = 0;
 	if (pipex->exec->out != -2)
 		close(pipex->exec->out);
-	if (!ft_strncmp(cmd->tokens->str, "/dev/stdin", MAX_LENGTH))
-		pipex->exec->is_stdin = 1;
-	else
-		pipex->exec->is_stdin = 0;
 	fd = open(cmd->tokens->str, O_CREAT | O_RDWR | O_TRUNC, 0000644);
 	if (fd < 0)
 	{
@@ -78,10 +87,6 @@ int	redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd)
 
 	if (pipex->exec->out != -2)
 		close(pipex->exec->out);
-	if (!ft_strncmp(cmd->tokens->str, "/dev/stdin", MAX_LENGTH))
-		pipex->exec->is_stdin = 1;
-	else
-		pipex->exec->is_stdin = 0;
 	fd = open(cmd->tokens->str, O_CREAT | O_RDWR | O_APPEND, 0000644);
 	if (fd < 0)
 	{
