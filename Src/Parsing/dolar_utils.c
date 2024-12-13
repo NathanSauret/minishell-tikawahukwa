@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:39:40 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/26 16:58:15 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/13 11:10:24 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 int	copy_str(char **res, char **str, int *i, int len)
 {
+	static int	is_on_quote = 0;
+
 	while (**str && *i < len)
 	{
-		if (**str == '$' && (*str)[1]
+		is_on_quote = get_quote_state(**str, is_on_quote);
+		if (is_on_quote != 2 && **str == '$' && (*str)[1]
 			&& (ft_isalnum((*str)[1]) || (*str)[1] == '_'
 				|| (*str)[1] == '?'))
 			break ;
@@ -55,6 +58,8 @@ char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100])
 	int		i;
 
 	i = 0;
+	if (!v_num)
+		return (NULL);
 	res = malloc(sizeof(char *) * (v_num + 1));
 	if (!res)
 		return (NULL);

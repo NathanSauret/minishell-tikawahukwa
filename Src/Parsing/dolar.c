@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:05:28 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/11/26 16:58:01 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/13 11:10:18 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,20 @@ static char	**get_var_name(char *str, int *v_num)
 	int		i;
 	int		v_len[100];
 	int		v_pos[100];
+	int		into_quote;
 
+	into_quote = 0;
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$' && str[i + 1]
+		into_quote = get_quote_state(str[i], into_quote);
+		if ((into_quote != 2 && str[i] == '$' && str[i + 1])
 			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'
 				|| str[i + 1] == '?'))
 		{
 			v_pos[*v_num] = i + 1;
 			i++;
-			v_len[*v_num] = var_len(&str[i], &i);
-			(*v_num)++;
+			v_len[(*v_num)++] = var_len(&str[i], &i);
 		}
 		else
 			i++;
@@ -88,32 +90,33 @@ static char	**replace_var_env(t_data *data, char **var, int v_num)
 	return (tmp);
 }
 
-static char	*replace_dolar(t_data *data, char *str, int *len, int quote)
+static char	*replace_dolar(t_data *data, char *str, int *len, int *var_num)
 {
 	char	**var;
-	int		var_num;
 	char	*res;
 
-	(void)quote;
-	var_num = 0;
-	var = get_var_name(str, &var_num);
+	var = get_var_name(str, var_num);
+	if (*var_num == 0)
+		return (ft_strdup(str));
 	if (!var)
 		return (NULL);
 	*len = full_len(data, str, var);
-	var = replace_var_env(data, var, var_num);
+	var = replace_var_env(data, var, *var_num);
 	if (!var)
 		return (NULL);
-	res = get_new_str(str, var, *len, var_num);
+	res = get_new_str(str, var, *len, *var_num);
 	if (!res)
 		return (NULL);
 	return (res);
 }
 
-char	*handle_dolar(t_data *data, char *str, int *len, char quote)
+char	*handle_dolar(t_data *data, char *str, int *len)
 {
 	char	*token;
+	int		var_num;
 
-	token = replace_dolar(data, str, len, quote);
+	var_num = 0;
+	token = replace_dolar(data, str, len, &var_num);
 	free(str);
 	if (!token)
 		return (NULL);

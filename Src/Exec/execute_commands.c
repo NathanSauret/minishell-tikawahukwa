@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/12/11 11:37:03 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/13 11:20:17 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	lonely_child(t_data *data, t_pipex *pipex)
 {
 	int		res;
 
-	g_signal_pid = 0;
 	res = exec_builtin(data, pipex);
 	data->exit_status = res;
 }
@@ -63,24 +62,25 @@ static void	child(t_data *data, t_pipex *pipex)
 	t_exec	*exec;
 	int		res;
 
-	g_signal_pid = fork();
-	if (g_signal_pid == -1)
+	signal(SIGINT, SIG_IGN);
+	data->pid = fork();
+	if (data->pid == -1)
 	{
 		ft_printerr(" fork failed\n");
 		return ;
 	}
 	res = -1;
-	if (!g_signal_pid)
+	if (!data->pid)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		exec = pipex->exec;
-		if (check_valid_cmd(data, exec))
-		{
-			pipe_handler(data, exec, pipex);
-			if (exec->is_builtin)
-				res = exec_builtin(data, pipex);
-			else
-				res = execve(exec->path, exec->cmd, data->env_array);
-		}
+		check_valid_cmd(data, exec);
+		pipe_handler(data, exec, pipex);
+		if (exec->is_builtin)
+			res = exec_builtin(data, pipex);
+		else
+			res = execve(exec->path, exec->cmd, data->env_array);
 		terminate(data, NULL, res);
 	}
 }

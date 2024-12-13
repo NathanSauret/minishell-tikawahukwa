@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:47:54 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/11 10:52:33 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/13 11:04:47 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,10 @@
 static int	add_cmd(t_data *data, char *str, int len, int type)
 {
 	char	*token;
-	char	quote;
 
-	quote = '$';
 	token = ft_substr(str, is_quote(*str), len);
 	if (!token)
 		return (0);
-	if (*str != '\'' && ft_strnstr(str, "$", len))
-	{
-		if (is_quote(*str))
-			quote = *str;
-		token = handle_dolar(data, token, &len, quote);
-		if (!token)
-			return (0);
-	}
 	if (line_is_empty(token) && !is_quote(*str))
 		return (1);
 	if (!(ft_token_lstadd_back(&(data->token), ft_token_lstnew(token, type))))
@@ -38,21 +28,12 @@ static int	add_cmd(t_data *data, char *str, int len, int type)
 
 static int	join_token(t_data *data, t_token *token, char *str, int len)
 {
-	char	quote;
 	char	*res;
 
-	quote = '$';
+	(void)data;
 	res = ft_substr(str, is_quote(*str), len);
 	if (!res)
 		return (0);
-	if (*str != '\'' && ft_strnstr(str, "$", len))
-	{
-		if (is_quote(*str))
-			quote = *str;
-		res = handle_dolar(data, res, &len, quote);
-		if (!res)
-			return (0);
-	}
 	token->str = ft_strjoin(token->str, res);
 	if (!token->str)
 		return (0);

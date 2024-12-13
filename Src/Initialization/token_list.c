@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 20:44:08 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/01 17:00:19 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/12 17:15:03 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,13 @@ void	ft_token_lstclear(t_token **lst)
 
 	if (!lst || !(*lst))
 		return ;
-	free_command_line((*lst));
+	if ((*lst)->command_line)
+		free_command_line((*lst));
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		free((*lst)->str);
+		if ((*lst)->str)
+			free((*lst)->str);
 		free(*lst);
 		*lst = tmp;
 	}

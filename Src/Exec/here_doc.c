@@ -6,7 +6,7 @@
 /*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:34:03 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/08 23:00:40 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/12 16:08:18 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ int	sigint_handler(t_data *data, int fd[2], char *buffer, char *here_doc)
 
 static void	loop(char **buffer, char **here_doc, char *argv)
 {
-	while (g_signal_pid != 130)
+	while (1)
 	{
 		*buffer = NULL;
 		*buffer = readline("> ");
-		if (g_signal_pid == SIGINT || !*buffer)
+		if (g_signal == SIGINT || !*buffer)
 			break ;
 		if (!ft_strncmp(argv, *buffer, ft_strlen(argv))
 			&& ft_strlen(argv) == ft_strlen(*buffer))
@@ -61,7 +61,7 @@ int	here_doc(t_data *data, char *argv)
 	signal(SIGINT, here_doc_handler);
 	loop(&buffer, &here_doc, argv);
 	signals();
-	if (g_signal_pid == SIGINT)
+	if (g_signal == SIGINT)
 		return (sigint_handler(data, fd, buffer, here_doc));
 	if (!buffer)
 		ft_printerr("minishell: here_doc: unexpected EOF\n");

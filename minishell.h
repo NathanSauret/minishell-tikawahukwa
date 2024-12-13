@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/11 11:42:53 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/13 11:11:35 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define ERR_PIPE	"~ Tikawahukwa: pipe error\n"
 # define ERR_FORK	"~ Tikawahukwa: fork error\n"
 
-extern pid_t	g_signal_pid;
+extern int	g_signal;
 
 typedef struct s_exec
 {
@@ -101,6 +101,7 @@ typedef struct t_data
 	int				exit_status;
 	int				is_nl;
 	int				env_len;
+	pid_t			pid;
 	char			**env_array;
 	t_env			*env;
 	t_cmd			*cmd;
@@ -155,6 +156,7 @@ int		is_cmd(t_token *token);
 int		is_operator(char *str);
 int		is_operator2(int type, int pipe);
 char	*convert_str(t_data *data, char *str, int len);
+int		get_quote_state(char c, int quote);
 
 /*token*/
 int		add_token(t_data *data);
@@ -163,7 +165,7 @@ int		get_type(t_token *token, char *str, int *type, int len);
 int		token_parsing(t_data *data);
 
 /*dolar utils*/
-char	*handle_dolar(t_data *data, char *str, int *len, char quote);
+char	*handle_dolar(t_data *data, char *str, int *len);
 int		copy_str(char **res, char **str, int *i, int len);
 int		copy_var(char **res, char *var, int *i, int len);
 char	**fill_var_name(char *str, int v_num, int v_pos[100], int v_len[100]);

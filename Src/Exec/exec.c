@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/11 11:19:37 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/13 11:37:23 by j_sk8            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,19 @@ static void	finish_exec(t_data *data, t_pipex *pipex)
 		pid = waitpid(-1, &status, 0);
 		if (pid > 0)
 		{
-			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			if (WIFSIGNALED(status)
+				&& (WTERMSIG(status) == SIGINT
+					|| WTERMSIG(status) == SIGQUIT))
 			{
 				data->exit_status = 128 + WTERMSIG(status);
 				data->is_nl = 1;
 			}
-			else if (pid == g_signal_pid && WIFEXITED(status)
+			else if (pid == data->pid && WIFEXITED(status)
 				&& !data->exit_status)
 				data->exit_status = WEXITSTATUS(status);
 		}
 	}
+	signal(SIGINT, handle_sigint);
 }
 
 static void	set_values(t_pipex *pipex, t_data *data)
@@ -63,7 +66,7 @@ int	exec(t_data *data)
 	set_values(&pipex, data);
 	create_pipes(&pipex, data);
 	prepare_for_exec(data, &pipex);
-	if (g_signal_pid == SIGINT)
+	if (g_signal == SIGINT)
 	{
 		data->is_nl = 1;
 		finish_exec(data, &pipex);
