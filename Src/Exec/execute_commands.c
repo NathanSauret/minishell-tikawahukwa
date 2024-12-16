@@ -15,7 +15,7 @@
 static int	exec_builtin(t_data *data, t_pipex *pipex)
 {
 	if (ft_strnstr((pipex->exec->cmd[0]), "cd", 2))
-		return (ft_cd(data->env, pipex->exec->cmd));
+		return (ft_cd(data, data->env, pipex->exec->cmd));
 	if (ft_strnstr((pipex->exec->cmd[0]), "echo", 4))
 		return (ft_echo(pipex->exec->cmd));
 	if (ft_strnstr((pipex->exec->cmd[0]), "env", 3))

@@ -212,7 +212,7 @@ int		redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd);
 
 /*builtins*/
 void	ft_exit(t_data *data, char **cmd);
-int		ft_cd(t_env *env, char **args);
+int		ft_cd(t_data *data,t_env *env, char **args);
 int		ft_echo(char **arg);
 int		ft_pwd(void);
 int		ft_echo(char **arg);
