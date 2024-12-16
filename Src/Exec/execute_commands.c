@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/12/16 11:24:41 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/16 12:08:12 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	lonely_child(t_data *data, t_pipex *pipex)
 
 static void	pipe_handler(t_data *data, t_exec *exec, t_pipex *pipex)
 {
-
 	dup2(exec->out, STDOUT_FILENO);
 	dup2(exec->in, STDIN_FILENO);
 	if (exec->is_infile)
