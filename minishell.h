@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/13 11:11:35 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/16 11:24:19 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ typedef struct s_exec
 	int				out;
 	int				is_infile;
 	int				is_outfile;
+	int				is_stdin_before;
+	int				is_stdout_before;
 	int				is_builtin;
-	int				is_stdin;
 	char			**cmd;
 	char			*path;
 	struct s_exec	*next;

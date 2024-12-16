@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo PATA > /dev/stdin
+echo PATA > /dev/stdout
+
+echo PATA > /dev/stdin | cat
+echo PATA > /dev/stdout | cat
+
+echo PATA > /dev/stdin | echo PON > /dev/stdin
+echo PATA > /dev/stdout | echo PON > /dev/stdout
+echo PATA > /dev/stdin | echo PON > /dev/stdout
+echo PATA > /dev/stdout | echo PON > /dev/stdin
+
+echo PATA > /dev/stdin | echo PON
+echo PATA > /dev/stdout | echo PON
+
+echo PATA | echo PON > /dev/stdin
+echo PATA | echo PON > /dev/stdout
