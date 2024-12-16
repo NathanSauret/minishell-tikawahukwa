@@ -6,24 +6,26 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:03:55 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/16 12:01:48 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/16 13:35:05 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int	redirect_std(t_pipex *pipex, t_cmd *cmd)
+static int	redirect_std(t_pipex *pipex, t_cmd *cmd, int is_input)
 {
 	if (!ft_strncmp(cmd->tokens->str, "/dev/stdin", MAX_LENGTH))
 	{
 		if (pipex->idx == 0)
 			return (dup(0));
-		return (dup(pipex->pipe[2 * pipex->idx - 1]));
+		return (dup(pipex->pipe[2 * pipex->idx - 2]));
 	}
 	if (!ft_strncmp(cmd->tokens->str, "/dev/stdout", MAX_LENGTH))
 	{
 		if (!pipex->exec->next)
 			return (dup(1));
+		if (is_input && pipex->idx == 0)
+			return (dup(0));
 		return (dup(pipex->pipe[2 * pipex->idx + 1]));
 	}
 	return (-2);
@@ -55,6 +57,9 @@ int	redirection_input(t_data *data, t_pipex *pipex, t_cmd *cmd)
 {
 	int	fd;
 
+	fd = redirect_std(pipex, cmd, 1);
+	if (fd != -2)
+		return (fd);
 	fd = open(cmd->tokens->str, O_RDONLY);
 	if (fd < 0)
 	{
@@ -73,7 +78,7 @@ int	redirection_trunc(t_data *data, t_pipex *pipex, t_cmd *cmd)
 
 	if (pipex->exec->out != -2)
 		close(pipex->exec->out);
-	fd = redirect_std(pipex, cmd);
+	fd = redirect_std(pipex, cmd, 0);
 	if (fd != -2)
 		return (fd);
 	fd = open(cmd->tokens->str, O_CREAT | O_RDWR | O_TRUNC, 0000644);
@@ -94,7 +99,7 @@ int	redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd)
 
 	if (pipex->exec->out != -2)
 		close(pipex->exec->out);
-	fd = redirect_std(pipex, cmd);
+	fd = redirect_std(pipex, cmd, 0);
 	if (fd != -2)
 		return (fd);
 	fd = open(cmd->tokens->str, O_CREAT | O_RDWR | O_APPEND, 0000644);

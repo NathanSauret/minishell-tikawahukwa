@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/16 11:24:19 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/16 13:25:32 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ typedef struct s_exec
 	int				out;
 	int				is_infile;
 	int				is_outfile;
-	int				is_stdin_before;
-	int				is_stdout_before;
 	int				is_builtin;
 	char			**cmd;
 	char			*path;

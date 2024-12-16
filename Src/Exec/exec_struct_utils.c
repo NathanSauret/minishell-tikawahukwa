@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:29:11 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/13 18:29:46 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/16 13:22:47 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ t_exec	*execnew(t_cmd *cmd, int in, int out)
 	t_newnode->out = out;
 	t_newnode->is_infile = 0;
 	t_newnode->is_outfile = 0;
-	t_newnode->is_stdin_before = 0;
-	t_newnode->is_stdout_before = 0;
 	t_newnode->is_builtin = 0;
 	t_newnode->next = NULL;
 	return (t_newnode);
