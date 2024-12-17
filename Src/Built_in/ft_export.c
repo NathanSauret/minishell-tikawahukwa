@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:59:22 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/11 12:15:27 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/17 10:11:09 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int	export_with_args(t_data *data, char *str)
 		return (0);
 	new->value = ft_strdup(str);
 	if (!new->value)
-		return (0);
+		return (free(new), 0);
 	tmp->next = new;
 	new->next = NULL;
 	new->prev = tmp;
@@ -124,7 +124,7 @@ int	ft_export(char **str, t_data *data)
 	if (!str || !str[1])
 	{
 		if (!export_without_args(data->env, data->env_len))
-			return (ft_printerr(ERR_MALLOC), 0);
+			terminate(data, ERR_MALLOC, 0);
 		return (exit_status);
 	}
 	else
@@ -134,7 +134,7 @@ int	ft_export(char **str, t_data *data)
 			if (!syntax_parsing(str[i]))
 				exit_status = 1;
 			else if (!export_with_args(data, str[i]))
-				return (ft_printerr(ERR_MALLOC), 0);
+				terminate(data, ERR_MALLOC, 0);
 			i++;
 		}
 	}

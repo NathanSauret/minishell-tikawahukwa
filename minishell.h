@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/17 02:12:04 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/17 10:40:10 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,9 @@
 # include "libft/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
-# include <string.h>
 # include <fcntl.h>
-# include <dirent.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
-# include <limits.h>
-# include <errno.h>
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -100,8 +95,8 @@ typedef struct t_data
 	int				exit_status;
 	int				is_nl;
 	int				env_len;
-	pid_t			pid;
 	char			**env_array;
+	pid_t			pid;
 	t_env			*env;
 	t_cmd			*cmd;
 	t_token			*token;
@@ -131,12 +126,10 @@ int		shlvl_handler(t_data *data);
 /*utils*/
 int		is_error(char *str, t_data *data, int exit_status);
 void	signals(void);
-void	sig_child(int sig);
 void	handle_sigint(int sig);
 void	here_doc_handler(int sig);
 void	sort_array(char **arr, int len);
 char	**lst_to_arr(t_env *env, int len);
-void	print_error(char *str, char *arg);
 int		ft_intlen(int n);
 char	*ft_getenv(t_env *env, char *str);
 
@@ -154,7 +147,6 @@ int		line_is_empty(char *str);
 int		is_cmd(t_token *token);
 int		is_operator(char *str);
 int		is_operator2(int type, int pipe);
-char	*convert_str(t_data *data, char *str, int len);
 int		get_quote_state(char c, int quote);
 
 /*token*/
@@ -182,7 +174,6 @@ void	free_command_line(t_token *token);
 /*debug*/
 void	print_token(t_token *token);
 void	print_tab(char **tab);
-int		exec_cmd(char *str, t_data *data);
 void	print_cmd(t_cmd *cmd);
 
 /*     exec     */

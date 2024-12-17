@@ -6,103 +6,94 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:43 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/17 02:11:45 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/17 10:07:50 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	*supp_last_dir(char *str)
+static int	exist(t_env *env, char *str)
 {
 	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	while (env)
+	{
+		if (!ft_strncmp(env->value, str, i)
+			&& (env->value[i] == '=' || env->value[i] == '\0'))
+			break ;
+		env = env->next;
+	}
+	if (!env)
+		return (0);
+	if (!ft_strnstr(str, "=", ft_strlen(str)))
+		return (1);
+	free(env->value);
+	env->value = ft_strdup(str);
+	if (!env->value)
+		return (-1);
+	return (1);
+}
+
+static int	export(t_data *data, char *str)
+{
+	t_env	*tmp;
+	t_env	*new;
+	int		res;
+
+	res = exist(data->env, str);
+	if (res == -1)
+		return (0);
+	else if (res)
+		return (1);
+	tmp = data->env;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return (0);
+	new->value = ft_strdup(str);
+	if (!new->value)
+		return (free(new), 0);
+	tmp->next = new;
+	new->next = NULL;
+	new->prev = tmp;
+	data->env_len += 1;
+	return (1);
+}
+
+void	refresh_oldpwd_var(t_data *data, t_env *env)
+{
+	char	*cpy;
+
+	cpy = ft_strjoin(ft_strdup("OLDPWD="), ft_strdup(ft_getenv(env, "PWD")));
+	if (!cpy)
+		terminate(data, ERR_MALLOC, 1);
+	if (!export(data, cpy))
+	{
+		free(cpy);
+		terminate(data, ERR_MALLOC, 1);
+	}
+	free(cpy);
+}
+
+void	refresh_pwds(t_data *data, t_env *env)
+{
 	char	*res;
 
-	i = ft_strlen(str);
-	while (1)
-	{
-		if (str[i] == '/')
-			break ;
-		i--;
-	}
-	res = ft_strndup(str, i);
-	free(str);
+	if (ft_strlen(ft_getenv(env, "PWD")) > 3)
+		refresh_oldpwd_var(data, env);
+	res = ft_strjoin(ft_strdup("PWD="), getcwd(NULL, 0));
 	if (!res)
-		return (NULL);
-	return (res);
-}
-
-void	refresh_oldpwd_var(t_data *data, t_env *env, char *arg)
-{
-	char	**cpy;
-
-	(void) arg;
-	cpy = malloc(sizeof(char *) * 3);
-	if (!cpy)
-		terminate(data, ERR_MALLOC, 1);
-	cpy[0] = ft_strdup("export");
-	if (!cpy[0])
-		terminate(data, ERR_MALLOC, 1);
-	cpy[1] = ft_strjoin(ft_strdup("OLDPWD="), ft_strdup(ft_getenv(env, "PWD")));
-	if (!cpy[1])
-		terminate(data, ERR_MALLOC, 1);
-	cpy[2] = NULL;
-	ft_export(cpy, data);
-	free_array(cpy);
-}
-
-void	refresh_pwd_var(t_data *data, t_env *env, char *arg)
-{
-	char	**cpy;
-	char	*tmp;
-
-	cpy = malloc(sizeof(char *) * 3);
-	if (!cpy)
-		terminate(data, ERR_MALLOC, 1);
-	cpy[0] = ft_strdup("export");
-	if (!cpy[0])
-		terminate(data, ERR_MALLOC, 1);
-	cpy[1] = ft_strjoin(ft_strdup("PWD="), ft_strdup(ft_getenv(env, "PWD")));
-	if (!cpy[1])
-		terminate(data, ERR_MALLOC, 1);
-	if (ft_strstr(arg, ".."))
-		cpy[1] = supp_last_dir(cpy[1]);
-	else
+		terminate (data, ERR_MALLOC, 1);
+	if (!export(data, res))
 	{
-		tmp = ft_strjoin(ft_strdup("/"), ft_strdup(arg));
-		cpy[1] = ft_strjoin(cpy[1], tmp);
+		free(res);
+		terminate (data, ERR_MALLOC, 1);
 	}
-	if (!cpy[1])
-		terminate(data, ERR_MALLOC, 1);
-	cpy[2] = NULL;
-	ft_export(cpy, data);
-	free_array(cpy);
-}
-
-void	refresh_pwds(t_data *data, t_env *env, char *arg)
-{
-	char	*str;
-	int		i;
-	char	**args;
-
-	i = 0;
-	str = arg;
-	if (ft_strlen(ft_getenv(env, "PWD")) > 1)
-		refresh_oldpwd_var(data, env, str);
-	args = ft_split(arg, '/');
-	i = 0;
-	if (ft_strlen(ft_getenv(env, "PWD")) > 1)
-	{
-		while (args[i])
-		{
-			if (args[i][0] == '.' && args[i][1] != '.')
-			{
-				i++;
-				continue ;
-			}
-			refresh_pwd_var(data, env, args[i]);
-			i++;
-		}
-	}
+	free(res);
 }
 
 int	ft_cd(t_data *data, t_env *env, char **args)
@@ -128,6 +119,6 @@ int	ft_cd(t_data *data, t_env *env, char **args)
 		perror("~ Tikawahukwa: cd");
 		return (1);
 	}
-	refresh_pwds(data, env, args[1]);
+	refresh_pwds(data, env);
 	return (0);
 }
