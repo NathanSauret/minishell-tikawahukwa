@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/16 13:25:32 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/17 02:12:04 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,11 +212,12 @@ int		redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd);
 
 /*builtins*/
 void	ft_exit(t_data *data, char **cmd);
-int		ft_cd(t_data *data,t_env *env, char **args);
+int		ft_cd(t_data *data, t_env *env, char **args);
 int		ft_echo(char **arg);
 int		ft_pwd(void);
 int		ft_echo(char **arg);
 int		ft_env(t_env *env);
 int		ft_export(char **str, t_data *data);
 int		ft_unset(char **arg, t_data *data);
+
 #endif
