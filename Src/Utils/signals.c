@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:36:26 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/13 11:12:46 by j_sk8            ###   ########.fr       */
+/*   Updated: 2024/12/19 09:38:51 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	handle_sigsegv(int code)
 {
 	(void)code;
 	write(2, "Segmentation fault\n", 19);
-	exit(11);
+	exit(139);
 }
 
 static void	handle_sigabrt(int code)

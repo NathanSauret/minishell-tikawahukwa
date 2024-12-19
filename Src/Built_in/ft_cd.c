@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:43 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/17 10:07:50 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/19 09:37:50 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,12 @@ int	ft_cd(t_data *data, t_env *env, char **args)
 			return (1);
 		}
 	}
-	if (args[2])
+	else if (args[2])
 	{
 		ft_printerr("~ Tikawahukwa: cd : too many arguments\n");
 		return (1);
 	}
-	if (chdir(args[1]) != 0)
+	else if (chdir(args[1]) != 0)
 	{
 		perror("~ Tikawahukwa: cd");
 		return (1);
