@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/12/16 12:08:12 by nsauret          ###   ########.fr       */
+/*   Updated: 2024/12/24 15:36:30 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static void	child(t_data *data, t_pipex *pipex)
 	t_exec	*exec;
 	int		res;
 
-	signal(SIGINT, SIG_IGN);
 	data->pid = fork();
 	if (data->pid == -1)
 	{
@@ -80,6 +79,7 @@ static void	child(t_data *data, t_pipex *pipex)
 
 void	execute_commands(t_data *data, t_pipex *pipex)
 {
+	signal(SIGINT, SIG_IGN);
 	while (pipex->exec)
 	{
 		if (!pipex->exec->cmd[0])

@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/17 10:31:03 by jmiccio          ###   ########.fr       */
+/*   Updated: 2024/12/24 15:50:56 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **env)
 	data_init(&data);
 	data.env_len = env_init(&data, env);
 	if (!data.env_len)
-		terminate(&data, "env_error\n", data.exit_status);
+		terminate(&data, "env error\n", data.exit_status);
 	loop(&data);
 	ft_printf("exit\n");
 	terminate(&data, NULL, 0);
