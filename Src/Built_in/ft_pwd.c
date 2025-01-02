@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:09:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/11 11:52:20 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/02 15:02:36 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int	ft_pwd(void)
 {
-	char	cwd[MAX_LENGTH];
+	char	*cwd;
 
-	if (getcwd(cwd, MAX_LENGTH))
+	cwd = getcwd(NULL, 0);
+	if (cwd)
 	{
 		ft_printf("%s\n", cwd);
+		free(cwd);
 		return (0);
 	}
 	else

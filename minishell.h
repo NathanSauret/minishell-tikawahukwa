@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/17 10:40:10 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/02 16:16:23 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # define RESET        "\033[0m"
 # define BLUE         "\033[34m"
+# define BOLD_BLUE     "\033[1;34m"
 # define BOLD_GREEN   "\033[1;32m"
 # define BOLD_RED     "\033[1;31m"
 

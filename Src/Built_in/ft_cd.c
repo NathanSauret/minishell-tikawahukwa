@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:43 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/24 15:29:57 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/02 15:47:58 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ static int	export(t_data *data, char *str)
 	return (1);
 }
 
-void	refresh_oldpwd_var(t_data *data, t_env *env)
+void	refresh_oldpwd_var(t_data *data, char *oldpwd)
 {
 	char	*cpy;
 
-	cpy = ft_strjoin(ft_strdup("OLDPWD="), ft_strdup(ft_getenv(env, "PWD")));
+	cpy = ft_strjoin(ft_strdup("OLDPWD="), oldpwd);
 	if (!cpy)
 		terminate(data, ERR_MALLOC, 1);
 	if (!export(data, cpy))
@@ -79,12 +79,11 @@ void	refresh_oldpwd_var(t_data *data, t_env *env)
 	free(cpy);
 }
 
-void	refresh_pwds(t_data *data, t_env *env)
+void	refresh_pwds(t_data *data, char *oldpwd)
 {
 	char	*res;
 
-	if (ft_strlen(ft_getenv(env, "PWD")) > 3)
-		refresh_oldpwd_var(data, env);
+	refresh_oldpwd_var(data, oldpwd);
 	res = ft_strjoin(ft_strdup("PWD="), getcwd(NULL, 0));
 	if (!res)
 		terminate (data, ERR_MALLOC, 1);
@@ -98,27 +97,27 @@ void	refresh_pwds(t_data *data, t_env *env)
 
 int	ft_cd(t_data *data, t_env *env, char **args)
 {
-	char	*home;
+	char	*curr_pwd;
 
-	home = ft_getenv(env, "HOME");
+	curr_pwd = getcwd(NULL, 0);
 	if (args[1] == NULL)
 	{
-		if (home == NULL || chdir(home) != 0)
+		if (!ft_getenv(env, "HOME") || chdir(ft_getenv(env, "HOME")) != 0)
 		{
 			perror("cd");
-			return (1);
+			return (free(curr_pwd), 1);
 		}
 	}
 	else if (args[2])
 	{
 		ft_printerr("~ Tikawahukwa: cd : too many arguments\n");
-		return (1);
+		return (free(curr_pwd), 1);
 	}
 	else if (chdir(args[1]) != 0)
 	{
 		perror("~ Tikawahukwa: cd");
-		return (1);
+		return (free(curr_pwd), 1);
 	}
-	refresh_pwds(data, env);
+	refresh_pwds(data, curr_pwd);
 	return (0);
 }

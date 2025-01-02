@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:03:55 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/16 13:35:05 by nsauret          ###   ########.fr       */
+/*   Updated: 2025/01/02 19:55:11 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ static int	redirect_std(t_pipex *pipex, t_cmd *cmd, int is_input)
 {
 	if (!ft_strncmp(cmd->tokens->str, "/dev/stdin", MAX_LENGTH))
 	{
+		if (pipex->exec->in > -1)
+			return (dup(pipex->exec->in));
 		if (pipex->idx == 0)
 			return (dup(0));
 		return (dup(pipex->pipe[2 * pipex->idx - 2]));
 	}
 	if (!ft_strncmp(cmd->tokens->str, "/dev/stdout", MAX_LENGTH))
 	{
+		if (pipex->exec->out > -1)
+			return (dup(pipex->exec->out));
 		if (!pipex->exec->next)
 			return (dup(1));
 		if (is_input && pipex->idx == 0)
@@ -76,11 +80,9 @@ int	redirection_trunc(t_data *data, t_pipex *pipex, t_cmd *cmd)
 {
 	int	fd;
 
-	if (pipex->exec->out != -2)
-		close(pipex->exec->out);
 	fd = redirect_std(pipex, cmd, 0);
 	if (fd != -2)
-		return (fd);
+		return (close(pipex->exec->out), fd);
 	fd = open(cmd->tokens->str, O_CREAT | O_RDWR | O_TRUNC, 0000644);
 	if (fd < 0)
 	{
@@ -88,20 +90,18 @@ int	redirection_trunc(t_data *data, t_pipex *pipex, t_cmd *cmd)
 			perror(cmd->tokens->str);
 		if (!pipex->exec->next)
 			data->exit_status = 1;
-		return (-1);
+		return (close(pipex->exec->out), -1);
 	}
-	return (fd);
+	return (close(pipex->exec->out), fd);
 }
 
 int	redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd)
 {
 	int	fd;
 
-	if (pipex->exec->out != -2)
-		close(pipex->exec->out);
 	fd = redirect_std(pipex, cmd, 0);
 	if (fd != -2)
-		return (fd);
+		return (close(pipex->exec->out), fd);
 	fd = open(cmd->tokens->str, O_CREAT | O_RDWR | O_APPEND, 0000644);
 	if (fd < 0)
 	{
@@ -109,7 +109,7 @@ int	redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd)
 			perror(cmd->tokens->str);
 		if (!pipex->exec->next)
 			data->exit_status = 1;
-		return (-1);
+		return (close(pipex->exec->out), -1);
 	}
-	return (fd);
+	return (close(pipex->exec->out), fd);
 }
