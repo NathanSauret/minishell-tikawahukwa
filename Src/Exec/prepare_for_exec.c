@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:50:29 by nsauret           #+#    #+#             */
-/*   Updated: 2025/01/02 18:12:12 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/05 23:15:11 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,25 @@ static void	check_redirections(t_data *data, t_cmd *cmd, t_pipex *pipex)
 	{
 		cmd->tokens = cmd->tokens->next;
 		pipex->exec->in = redirection_input(data, pipex, cmd);
-		pipex->exec->is_infile = 1;
 	}
 	else if (cmd->tokens->type == HEREDOC)
 	{
 		cmd->tokens = cmd->tokens->next;
 		pipex->exec->in = here_doc(data, cmd->tokens->str);
-		pipex->exec->is_infile = 1;
 	}
 	else if (cmd->tokens->type == TRUNC)
 	{
 		cmd->tokens = cmd->tokens->next;
 		pipex->exec->out = redirection_trunc(data, pipex, cmd);
-		pipex->exec->is_outfile = 1;
+		if (pipex->exec->out > -1)
+			pipex->exec->is_outfile = 1;
 	}
 	else if (cmd->tokens->type == APPEND)
 	{
 		cmd->tokens = cmd->tokens->next;
 		pipex->exec->out = redirection_append(data, pipex, cmd);
-		pipex->exec->is_outfile = 1;
+		if (pipex->exec->out > -1)
+			pipex->exec->is_outfile = 1;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2025/01/02 16:16:23 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/05 23:31:07 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int		env_init(t_data *data, char **env_array);
 int		shlvl_handler(t_data *data);
 
 /*utils*/
+void	prompt(t_data *data);
 int		is_error(char *str, t_data *data, int exit_status);
 void	signals(void);
 void	handle_sigint(int sig);

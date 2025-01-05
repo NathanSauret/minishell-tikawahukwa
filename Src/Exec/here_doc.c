@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: j_sk8 <j_sk8@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:34:03 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/12 16:08:18 by j_sk8            ###   ########.fr       */
+/*   Updated: 2025/01/05 23:09:02 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,18 @@ int	sigint_handler(t_data *data, int fd[2], char *buffer, char *here_doc)
 	return (-1);
 }
 
-static void	loop(char **buffer, char **here_doc, char *argv)
+static void	err_malloc(t_data *data, char *buff, char *here_doc, int fd[2])
+{
+	if (buff)
+		free(buff);
+	if (here_doc)
+		free(here_doc);
+	close(fd[1]);
+	close(fd[0]);
+	terminate(data, ERR_MALLOC, 1);
+}
+
+static int	loop(char **buffer, char **here_doc, char *argv)
 {
 	while (1)
 	{
@@ -38,6 +49,8 @@ static void	loop(char **buffer, char **here_doc, char *argv)
 			&& ft_strlen(argv) == ft_strlen(*buffer))
 			break ;
 		*buffer = ft_strjoin(*buffer, ft_strdup("\n"));
+		if (!*buffer)
+			return (0);
 		if (!*here_doc)
 		{
 			*here_doc = ft_strdup(*buffer);
@@ -45,7 +58,10 @@ static void	loop(char **buffer, char **here_doc, char *argv)
 		}
 		else
 			*here_doc = ft_strjoin(*here_doc, *buffer);
+		if (!*here_doc)
+			return (0);
 	}
+	return (1);
 }
 
 int	here_doc(t_data *data, char *argv)
@@ -55,11 +71,15 @@ int	here_doc(t_data *data, char *argv)
 	char	*here_doc;
 
 	if (pipe(fd) == -1)
+	{
+		ft_printerr("pipe error\n");
 		return (-1);
+	}
 	here_doc = NULL;
 	buffer = NULL;
 	signal(SIGINT, here_doc_handler);
-	loop(&buffer, &here_doc, argv);
+	if (!loop(&buffer, &here_doc, argv))
+		err_malloc(data, buffer, here_doc, fd);
 	signals();
 	if (g_signal == SIGINT)
 		return (sigint_handler(data, fd, buffer, here_doc));
@@ -68,5 +88,6 @@ int	here_doc(t_data *data, char *argv)
 	write(fd[1], here_doc, ft_strlen(here_doc));
 	free(here_doc);
 	close(fd[1]);
+	data->pipex->exec->is_infile = 1;
 	return (fd[0]);
 }

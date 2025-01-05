@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:03:55 by nsauret           #+#    #+#             */
-/*   Updated: 2025/01/02 19:55:11 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/05 23:19:38 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,44 @@ int	redirection_input(t_data *data, t_pipex *pipex, t_cmd *cmd)
 	int	fd;
 
 	fd = redirect_std(pipex, cmd, 1);
-	if (fd != -2)
-		return (fd);
+	if (fd == -1)
+	{
+		ft_printerr("dup error\n");
+		if (!pipex->exec->next)
+			data->exit_status = 1;
+		return (-1);
+	}
+	else if (fd != -2)
+		return (pipex->exec->is_infile = 1, fd);
 	fd = open(cmd->tokens->str, O_RDONLY);
+	if (fd < 0)
+	{
+		if (!is_file_already_in_cmd(*cmd, cmd->tokens->str))
+			perror(cmd->tokens->str);
+		if (!pipex->exec->next)
+			data->exit_status = 1;
+		return (-1);
+	}
+	return (pipex->exec->is_infile = 1, fd);
+}
+
+int	redirection_trunc(t_data *data, t_pipex *pipex, t_cmd *cmd)
+{
+	int	fd;
+
+	fd = redirect_std(pipex, cmd, 0);
+	if (pipex->exec->out > -1)
+		close(pipex->exec->out);
+	if (fd == -1)
+	{
+		ft_printerr("dup error\n");
+		if (!pipex->exec->next)
+			data->exit_status = 1;
+		return (-1);
+	}
+	else if (fd != -2)
+		return (fd);
+	fd = open(cmd->tokens->str, O_CREAT | O_RDWR | O_TRUNC, 0000644);
 	if (fd < 0)
 	{
 		if (!is_file_already_in_cmd(*cmd, cmd->tokens->str))
@@ -76,32 +111,22 @@ int	redirection_input(t_data *data, t_pipex *pipex, t_cmd *cmd)
 	return (fd);
 }
 
-int	redirection_trunc(t_data *data, t_pipex *pipex, t_cmd *cmd)
-{
-	int	fd;
-
-	fd = redirect_std(pipex, cmd, 0);
-	if (fd != -2)
-		return (close(pipex->exec->out), fd);
-	fd = open(cmd->tokens->str, O_CREAT | O_RDWR | O_TRUNC, 0000644);
-	if (fd < 0)
-	{
-		if (!is_file_already_in_cmd(*cmd, cmd->tokens->str))
-			perror(cmd->tokens->str);
-		if (!pipex->exec->next)
-			data->exit_status = 1;
-		return (close(pipex->exec->out), -1);
-	}
-	return (close(pipex->exec->out), fd);
-}
-
 int	redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd)
 {
 	int	fd;
 
 	fd = redirect_std(pipex, cmd, 0);
-	if (fd != -2)
-		return (close(pipex->exec->out), fd);
+	if (pipex->exec->out > -1)
+		close(pipex->exec->out);
+	if (fd == -1)
+	{
+		ft_printerr("dup error\n");
+		if (!pipex->exec->next)
+			data->exit_status = 1;
+		return (-1);
+	}
+	else if (fd != -2)
+		return (fd);
 	fd = open(cmd->tokens->str, O_CREAT | O_RDWR | O_APPEND, 0000644);
 	if (fd < 0)
 	{
@@ -109,7 +134,7 @@ int	redirection_append(t_data *data, t_pipex *pipex, t_cmd *cmd)
 			perror(cmd->tokens->str);
 		if (!pipex->exec->next)
 			data->exit_status = 1;
-		return (close(pipex->exec->out), -1);
+		return (-1);
 	}
-	return (close(pipex->exec->out), fd);
+	return (fd);
 }

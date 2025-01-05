@@ -15,6 +15,7 @@ SRC =	Src/main.c	\
 		Src/Utils/signals.c \
 		Src/Utils/array_utils.c \
 		Src/Utils/utils.c \
+		Src/Utils/prompt.c \
 		Src/Parsing/parsing.c \
 		Src/Parsing/token.c \
 		Src/Parsing/parsing_utils.c \

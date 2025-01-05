@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:11:51 by nathan            #+#    #+#             */
-/*   Updated: 2024/12/24 15:36:30 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/03 20:32:33 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ static void	lonely_child(t_data *data, t_pipex *pipex)
 
 static void	pipe_handler(t_data *data, t_exec *exec, t_pipex *pipex)
 {
-	dup2(exec->out, STDOUT_FILENO);
-	dup2(exec->in, STDIN_FILENO);
+	if (dup2(exec->out, STDOUT_FILENO) == -1)
+		terminate(data, "dup2 error\n", 1);
+	if (dup2(exec->in, STDIN_FILENO) == -1)
+		terminate(data, "dup2 error\n", 1);
 	if (exec->is_infile)
 		close(exec->in);
 	if (exec->is_outfile)
@@ -59,6 +61,7 @@ static void	child(t_data *data, t_pipex *pipex)
 	if (data->pid == -1)
 	{
 		ft_printerr(" fork failed\n");
+		data->exit_status = 1;
 		return ;
 	}
 	res = -1;

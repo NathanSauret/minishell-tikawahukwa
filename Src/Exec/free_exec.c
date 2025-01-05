@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:14:06 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/10 15:55:44 by nsauret          ###   ########.fr       */
+/*   Updated: 2025/01/05 23:12:13 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ void	free_child(t_data *data, t_pipex *pipex)
 			pipex->exec = pipex->exec->next;
 			if (prev_exec->path)
 				free(prev_exec->path);
-			close(prev_exec->in);
-			close(prev_exec->out);
+			if (prev_exec->in > -1)
+				close(prev_exec->in);
+			if (prev_exec->out > -1)
+				close(prev_exec->out);
 			free(prev_exec);
 		}
 		free_parent(pipex, data);
