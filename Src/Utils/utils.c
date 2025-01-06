@@ -26,10 +26,14 @@ char	*ft_getenv(t_env *env, char *str)
 	ptr = NULL;
 	while (env)
 	{
-		if (!ft_strncmp(env->value, str, size)
-			&& (env->value[size] == '=' || env->value[size] == '\0'))
+		if ((!ft_strncmp(env->value, str, size)
+				&& (env->value[size] == '=' || env->value[size] == '\0')))
 		{
-			ptr = &env->value[size + 1];
+			if ((env->value[size] == '=' && env->value[size + 1] == '\0')
+				|| env->value[size] == '\0')
+				return ("");
+			else
+				ptr = &env->value[size + 1];
 			return (ptr);
 		}
 		env = env->next;

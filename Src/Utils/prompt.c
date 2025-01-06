@@ -18,7 +18,7 @@ static char	*replace_home_by_tilde(char *cwd, t_data *data)
 	char	*new_cwd;
 
 	home = ft_getenv(data->env, "HOME");
-	if (home && ft_strncmp(cwd, home, ft_strlen(home)) == 0)
+	if (home && ft_strlen(home) > 0 && ft_strncmp(cwd, home, ft_strlen(home)) == 0)
 	{
 		new_cwd = malloc(strlen(cwd) - ft_strlen(home) + 2);
 		if (!new_cwd)
