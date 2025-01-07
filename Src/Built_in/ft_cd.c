@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:37:43 by j_sk8             #+#    #+#             */
-/*   Updated: 2025/01/02 15:47:58 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/07 10:01:46 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ static int	exist(t_env *env, char *str)
 
 static int	export(t_data *data, char *str)
 {
-	t_env	*tmp;
-	t_env	*new;
 	int		res;
 
 	res = exist(data->env, str);
@@ -48,18 +46,9 @@ static int	export(t_data *data, char *str)
 		return (0);
 	else if (res)
 		return (1);
-	tmp = data->env;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	new = malloc(sizeof(t_env));
-	if (!new)
+	if (!ft_env_lstadd_back(&data->env,
+			ft_env_lstnew(ft_strdup(str))))
 		return (0);
-	new->value = ft_strdup(str);
-	if (!new->value)
-		return (free(new), 0);
-	tmp->next = new;
-	new->next = NULL;
-	new->prev = tmp;
 	data->env_len += 1;
 	return (1);
 }

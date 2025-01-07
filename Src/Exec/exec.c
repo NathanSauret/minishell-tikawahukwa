@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2024/12/24 15:49:46 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/07 00:02:08 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	set_values(t_pipex *pipex, t_data *data)
 	data->pipex = pipex;
 }
 
-int	exec(t_data *data)
+void	exec(t_data *data)
 {
 	t_pipex	pipex;
 
@@ -70,9 +70,9 @@ int	exec(t_data *data)
 	{
 		data->is_nl = 1;
 		finish_exec(data, &pipex);
-		return (0);
+		return ;
 	}
 	execute_commands(data, &pipex);
 	finish_exec(data, &pipex);
-	return (0);
+	return ;
 }

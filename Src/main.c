@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:10:52 by jmiccio           #+#    #+#             */
-/*   Updated: 2025/01/05 23:31:26 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/07 08:45:28 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static void	loop(t_data *data)
 		add_history(data->input);
 		if (!parsing(data))
 			continue ;
-		if ((exec(data)) == -1)
-			break ;
+		exec(data);
 		free_token(data);
 	}
 }

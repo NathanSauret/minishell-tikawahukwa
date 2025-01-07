@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:02:03 by j_sk8             #+#    #+#             */
-/*   Updated: 2025/01/05 23:31:07 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/07 00:04:28 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	signals(void);
 void	handle_sigint(int sig);
 void	here_doc_handler(int sig);
 void	sort_array(char **arr, int len);
-char	**lst_to_arr(t_env *env, int len);
+char	**lst_to_arr(t_data *data, t_env *env, int len);
 int		ft_intlen(int n);
 char	*ft_getenv(t_env *env, char *str);
 
@@ -187,7 +187,7 @@ int		execadd_back(t_exec **exec, t_exec *new);
 void	ft_exec_lstclear(t_exec **lst);
 void	close_iofiles_and_free_prev_exec(t_pipex *pipex);
 // exec.c
-int		exec(t_data *data);
+void	exec(t_data *data);
 // free_exec.c
 void	free_parent(t_pipex *pipex, t_data *data);
 void	free_child(t_data *data, t_pipex *pipex);

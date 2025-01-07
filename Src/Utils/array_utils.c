@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   array_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiccio <jmiccio <marvin@42.fr>            +#+  +:+       +#+        */
+/*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:38:49 by reldnah           #+#    #+#             */
-/*   Updated: 2024/12/06 15:05:00 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/06 23:28:56 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	**lst_to_arr(t_env *env, int len)
+char	**lst_to_arr(t_data *data, t_env *env, int len)
 {
 	t_env	*lst;
 	char	**dest;
@@ -23,7 +23,7 @@ char	**lst_to_arr(t_env *env, int len)
 	lst = env;
 	dest = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!dest)
-		return (NULL);
+		terminate(data, ERR_MALLOC, 1);
 	dest[i] = (lst->value);
 	lst = lst->next;
 	i++;

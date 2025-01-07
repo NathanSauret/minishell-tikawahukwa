@@ -6,22 +6,20 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:59:22 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/17 10:11:09 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/07 10:02:15 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int	export_without_args(t_env *lst, int env_len)
+static int	export_without_args(t_data *data, t_env *lst, int env_len)
 {
 	char	**env;
 	int		i;
 	int		y;
 
 	i = 0;
-	env = lst_to_arr(lst, env_len);
-	if (!env)
-		return (0);
+	env = lst_to_arr(data, lst, env_len);
 	sort_array(env, env_len);
 	while (env[i])
 	{
@@ -66,8 +64,6 @@ static int	exist(t_env *env, char *str)
 
 static int	export_with_args(t_data *data, char *str)
 {
-	t_env	*tmp;
-	t_env	*new;
 	int		res;
 
 	res = exist(data->env, str);
@@ -75,18 +71,9 @@ static int	export_with_args(t_data *data, char *str)
 		return (0);
 	else if (res)
 		return (1);
-	tmp = data->env;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	new = malloc(sizeof(t_env));
-	if (!new)
+	if (!ft_env_lstadd_back(&data->env,
+			ft_env_lstnew(ft_strdup(str))))
 		return (0);
-	new->value = ft_strdup(str);
-	if (!new->value)
-		return (free(new), 0);
-	tmp->next = new;
-	new->next = NULL;
-	new->prev = tmp;
 	data->env_len += 1;
 	return (1);
 }
@@ -98,7 +85,7 @@ static int	syntax_parsing(char *str)
 	i = 0;
 	if (str[i] && (!ft_isalpha(str[i]) && str[i] != '_'))
 	{
-		ft_printerr("Minishell: export: not a valid identifier\n");
+		ft_printerr("Tikawahukwa ☕: export: not a valid identifier\n");
 		return (0);
 	}
 	i++;
@@ -106,7 +93,7 @@ static int	syntax_parsing(char *str)
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
-			ft_printerr("Minishell: export: not a valid identifier\n");
+			ft_printerr("Tikawahukwa ☕: export: not a valid identifier\n");
 			return (0);
 		}
 		i++;
@@ -121,10 +108,9 @@ int	ft_export(char **str, t_data *data)
 
 	exit_status = 0;
 	i = 1;
-	if (!str || !str[1])
+	if ((!str || !str[1]) && data->env_len > 0)
 	{
-		if (!export_without_args(data->env, data->env_len))
-			terminate(data, ERR_MALLOC, 0);
+		export_without_args(data, data->env, data->env_len);
 		return (exit_status);
 	}
 	else

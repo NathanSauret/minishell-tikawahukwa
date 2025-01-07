@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:40:34 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/24 15:46:42 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/06 23:52:07 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int	parsing(t_data *data)
 	if (!(check_quote(data, data->input)))
 		return (is_error("quote error\n", data, 2));
 	data->input = handle_dolar(data, data->input, &len);
+	if (!data->input)
+		terminate(data, ERR_MALLOC, 1);
 	if (!(add_token(data)))
 		terminate(data, ERR_MALLOC, 1);
 	if (!(token_parsing(data)))
@@ -92,8 +94,7 @@ int	parsing(t_data *data)
 		terminate(data, ERR_MALLOC, 1);
 	if (!(fill_cmd_struct(data)))
 		terminate(data, ERR_MALLOC, 1);
-	data->env_array = lst_to_arr(data->env, data->env_len);
-	if (!data->env_array)
-		terminate(data, ERR_MALLOC, 1);
+	if (data->env_len > 0)
+		data->env_array = lst_to_arr(data, data->env, data->env_len);
 	return (1);
 }

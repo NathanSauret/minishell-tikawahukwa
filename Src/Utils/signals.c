@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:36:26 by jmiccio           #+#    #+#             */
-/*   Updated: 2024/12/24 15:09:36 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/07 09:58:45 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void	handle_sigabrt(int code)
 
 void	signals(void)
 {
-	signal(SIGABRT, &handle_sigabrt);
-	signal(SIGSEGV, &handle_sigsegv);
+	signal(SIGABRT, handle_sigabrt);
+	signal(SIGSEGV, handle_sigsegv);
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
 }

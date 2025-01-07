@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:34:03 by nsauret           #+#    #+#             */
-/*   Updated: 2025/01/05 23:09:02 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/07 10:01:20 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	here_doc(t_data *data, char *argv)
 	if (g_signal == SIGINT)
 		return (sigint_handler(data, fd, buffer, here_doc));
 	if (!buffer)
-		ft_printerr("minishell: here_doc: unexpected EOF\n");
+		ft_printerr("Tikawahukwa ☕: here_doc: unexpected EOF\n");
 	write(fd[1], here_doc, ft_strlen(here_doc));
 	free(here_doc);
 	close(fd[1]);

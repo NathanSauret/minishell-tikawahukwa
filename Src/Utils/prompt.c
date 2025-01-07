@@ -6,7 +6,7 @@
 /*   By: jmiccio <jmiccio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 23:29:47 by jmiccio           #+#    #+#             */
-/*   Updated: 2025/01/05 23:39:18 by jmiccio          ###   ########.fr       */
+/*   Updated: 2025/01/07 00:06:10 by jmiccio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static char	*replace_home_by_tilde(char *cwd, t_data *data)
 	char	*new_cwd;
 
 	home = ft_getenv(data->env, "HOME");
-	if (home && ft_strlen(home) > 0 && ft_strncmp(cwd, home, ft_strlen(home)) == 0)
+	if (home && ft_strlen(home) > 0
+		&& ft_strncmp(cwd, home, ft_strlen(home)) == 0)
 	{
 		new_cwd = malloc(strlen(cwd) - ft_strlen(home) + 2);
 		if (!new_cwd)
