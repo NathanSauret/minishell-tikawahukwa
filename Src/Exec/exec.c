@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2025/01/09 11:08:25 by nsauret          ###   ########.fr       */
+/*   Updated: 2025/01/09 11:12:50 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	exec(t_data *data)
 	if (!data->num_of_pipe && !ft_strncmp(data->token->str, "exit", MAX_LENGTH))
 	{
 		ft_exit(data, data->cmd->cmd);
-		return (0);
+		return ;
 	}
 	set_values(&pipex, data);
 	create_pipes(&pipex, data);
