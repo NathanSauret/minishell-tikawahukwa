@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:20:10 by nsauret           #+#    #+#             */
-/*   Updated: 2025/01/09 11:27:07 by nsauret          ###   ########.fr       */
+/*   Updated: 2025/01/09 12:44:03 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ static void	set_values(t_pipex *pipex, t_data *data)
 {
 	pipex->cmd_nb = data->num_of_pipe + 1;
 	pipex->pipe = NULL;
+	pipex->exec = NULL;
 	if (data->num_of_pipe > 0)
 	{
-		pipex->pipe = (int *)malloc(sizeof(int) * (data->num_of_pipe * 2));
+		pipex->pipe = (int *)calloc((data->num_of_pipe * 2), sizeof(int));
 		if (!pipex->pipe)
 		{
 			free_parent(pipex, data);
