@@ -6,7 +6,7 @@
 /*   By: nsauret <nsauret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 17:39:22 by j_sk8             #+#    #+#             */
-/*   Updated: 2024/12/13 16:14:39 by nsauret          ###   ########.fr       */
+/*   Updated: 2025/01/07 15:20:21 by nsauret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,15 @@ void	ft_exit(t_data *data, char **cmd)
 	ft_printf("exit\n");
 	if (cmd[1])
 	{
-		if (cmd[2])
-		{
-			terminate(data, " too many arguments\n", 1);
-		}
 		check_res = ft_is_exit_arg_a_number(cmd[1]);
 		if (check_res == 2)
 			terminate(data, " numeric argument required\n", 2);
+		if (cmd[2])
+		{
+			ft_printerr(" too many arguments\n");
+			data->exit_status = 1;
+			return ;
+		}
 		else
 		{
 			terminate(data, NULL, ft_atoi(cmd[1]));
