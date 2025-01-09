@@ -1,6 +1,6 @@
 NAME 	= minishell
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra -g3
+CFLAGS	= -Wall -Werror -Wextra
 LIBFT_DIR = libft
 LIBFT = -L $(LIBFT_DIR) -lft
 
